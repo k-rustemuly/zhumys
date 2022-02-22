@@ -1,0 +1,3 @@
+[2022-02-21T20:52:39.298838+06:00] 5f75b245-fec1-458e-a04a-f60fe6f6a51b.ERROR: Error: [0] Array, Method: POST, Path: /job/v1/ru/center/sign-in/ecp  
+[2022-02-21T20:54:20.267191+06:00] 8bd36cad-6900-4a88-a62e-b9eceb658cf6.ERROR: Error: [0] Array, Method: POST, Path: /job/v1/ru/center/sign-in/ecp  
+[2022-02-21T20:56:49.106168+06:00] 8d05c0ae-e882-4354-9007-256a95345c69.ERROR: Error: [0] Array, Method: POST, Path: /job/v1/ru/center/sign-in/ecp  
