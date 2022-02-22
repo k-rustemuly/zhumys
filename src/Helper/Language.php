@@ -9,8 +9,8 @@ class Language{
         return $this;
     }
 
-    public function get(string $key = "", string $default = "<Error>The word is not isset<Error>"){
-        return isset($this->string[$key]) ? $this->string[$key] : $default;
+    public function get(string $key = ""){
+        return isset($this->string[$key]) ? $this->string[$key] : $key;
     }
 }
 ?>
