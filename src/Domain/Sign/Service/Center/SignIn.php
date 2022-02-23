@@ -109,9 +109,7 @@ final class SignIn{
         $this->redis->setex($refreshToken, $_ENV['REFRESH_TOKEN_LIVE_SEC'], json_encode($refreshData, JSON_UNESCAPED_UNICODE));
 
         return [
-            'surname' => $data['surname'] ?? null,
-            'name' => $data['name'] ?? null,
-            'lastname' => $data['lastname'] ?? null,
+            'full_name' => $data['surname']." ".$data['name']." ".$data['lastname'],
             'token' => $token,
             'refresh_token' => $refreshToken
         ];
