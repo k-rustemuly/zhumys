@@ -27,10 +27,20 @@ return function (App $app) {
                 $app->group('/sign-in', function (RouteCollectorProxy $app) {
 
                     $app->post('/ecp', \App\Action\Sign\Center\SignInEcpAction::class);
-    
+
                 });
-    
+
+                $app->group('', function (RouteCollectorProxy $app) {
+
+                    $app->group('/company', function (RouteCollectorProxy $app) {
+
+                        $app->post('/add', \App\Action\Center\Company\CompanyAddAction::class);
+
+                    });
+
+                })->add(\App\Middleware\CenterAdminMiddleware::class);
+
             });
-        }
-    );
+
+        });
 };

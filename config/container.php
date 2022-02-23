@@ -23,6 +23,7 @@ use App\Helper\File;
 use App\Helper\Authorization;
 use Slim\Views\Twig;
 use App\Helper\Pki;
+use App\Helper\StatGov;
 
 return [
     'settings' => function () {
@@ -53,6 +54,11 @@ return [
     Pki::class => function (ContainerInterface $container) {
         $settings = $container->get('settings');
         return new Pki($settings["pki_domain"], $_ENV["API_IS_DEBUG"], $_ENV["API_IS_DEBUG"]);
+    },
+
+    StatGov::class => function (ContainerInterface $container) {
+        $stat = $container->get('settings')["stat_gov"];
+        return new StatGov($stat["domain"], $stat["languages"]);
     },
 
     Language::class => function () {

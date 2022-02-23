@@ -44,6 +44,13 @@
         "Only individual usage digital signature accessed": "Выберите сертификат физического лица!",
         "Center admin not found on database": "У вас нет права для входа!",
         "Center admin is inactive": "У вас нет права для входа. Вы отключены из системы!",
-        "a":"a"
+        "Bin is not presented": "Введите БИН или ИИН компании!",
+        "Name of company on kazakh not presented": "Введите наименование компании на казахском!",
+        "Name of company on russia not presented": "Введите наименование компании на русском!",
+        "Company is already presented": "Компания с таким БИН ом уже существует в системе!",
+        "Error to parse from stat gov api": "БИН или ИИН неправильный! В базе stat.gov.kz не найдена!"
+    },
+    "success":{
+        "Company success added": "Компания успешно добавлено в систему!"
     }
 }

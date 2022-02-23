@@ -83,4 +83,12 @@ $settings['redis'] = [
 ];
 
 $settings['pki_domain'] = 'http://pki.edus.kz:14141';
+
+$settings['stat_gov'] = [
+    "domain" => 'https://stat.gov.kz/api/juridical/counter/api/',
+    "languages" => [
+        "kk",
+        "ru"
+    ]
+];
 return $settings;
