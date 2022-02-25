@@ -13,7 +13,7 @@ return function (App $app) {
         $response = $handler->handle($request);
         return $response
                 ->withHeader('Access-Control-Allow-Origin', $_ENV['API_IS_DEBUG'] == "true" ? '*':$_ENV['URL'])
-                ->withHeader('Access-Control-Allow-Headers', 'X-Authorization, Content-Type, Accept, Origin')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Auth, Content-Type, Accept, Origin')
                 ->withHeader('Access-Control-Expose-Headers', '*')
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     });
