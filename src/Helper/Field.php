@@ -1,22 +1,20 @@
 <?php 
 declare(strict_types=1);
 
-namespace App\Helper\Type;
+namespace App\Helper;
+use DomainException;
 
-class Image{
+class Field{
 
     /**
      * @var array<mixed>
      */
     public $array = array(
-        "type" => "base64",
+        "type" => "string",
         "required" => false,
         "can_change" => false,
-        "accept" => "image/jpeg,image/png,image/jpg",
-        "max_allowed_size" => "10",
         "name" => null,
-        "hint" => null,
-        "value" => null
+        "hint" => null
     );
 
     public static $_instance = null;
@@ -28,6 +26,11 @@ class Image{
         }
 
         return self::$_instance;
+    }
+
+    public function init(object $object) :self {
+        $this->array = array_merge($this->array, $object->array);
+        return $this;
     }
 
 	public function __call($method, $args) :self{

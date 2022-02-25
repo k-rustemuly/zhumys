@@ -4,7 +4,8 @@ namespace App\Domain\Center\Company\Service;
 
 use App\Domain\Company\Repository\CompanyReadRepository;
 use DomainException;
-use App\Helper\Type\Image;
+use App\Helper\Fields\Image;
+use App\Helper\Field;
 
 /**
  * Service.
@@ -33,6 +34,6 @@ final class Read{
      * @throws DomainException
      */
     public function info(int $id) :array{
-        return Image::getInstance()->execute();
+        return Field::getInstance()->init(new Image())->name("asd")->value($id)->execute();
     }
 }
