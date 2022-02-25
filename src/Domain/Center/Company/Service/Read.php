@@ -51,12 +51,13 @@ final class Read{
                                 "name_ru" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(3)->execute(),
                                 "full_name_kk" => Field::getInstance()->init(new Text())->execute(),
                                 "full_name_ru" => Field::getInstance()->init(new Text())->execute(),
-                                "oked_code" => Field::getInstance()->init(new Number())->execute(),
-                                "krp_code" => Field::getInstance()->init(new Number())->execute(),
-                                "kato_code" => Field::getInstance()->init(new Number())->execute(),
-                                "full_address_kk" => Field::getInstance()->init(new Text())->execute(),
-                                "full_address_ru" => Field::getInstance()->init(new Text())->execute(),
-                                "is_ip" => Field::getInstance()->init(new Boolean())->execute(),
+                                //"oked_code" => Field::getInstance()->init(new Number())->execute(),
+                                //"krp_code" => Field::getInstance()->init(new Number())->execute(),
+                                //"kato_code" => Field::getInstance()->init(new Number())->execute(),
+                                //"full_address_kk" => Field::getInstance()->init(new Text())->execute(),
+                                //"full_address_ru" => Field::getInstance()->init(new Text())->execute(),
+                                //"is_ip" => Field::getInstance()->init(new Boolean())->execute(),
+                                "director_fullname" => Field::getInstance()->init(new Text())->execute(),
                             )
         );
         $companies = $this->readRepository->getAll();

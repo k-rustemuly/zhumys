@@ -22,8 +22,10 @@
         "oked_code": "ОКЭД",
         "krp_code": "КРП",
         "kato_code": "КАТО",
-        "full_address_kk": "",
-        "full_address_ru": ""
+        "full_address_kk": "Юридический адрес на казахском",
+        "full_address_ru": "Юридический адрес на русском",
+        "is_ip": "ИП",
+        "director_fullname": "Директор"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -43,7 +45,9 @@
         "krp_code": "",
         "kato_code": "",
         "full_address_kk": "",
-        "full_address_ru": ""
+        "full_address_ru": "",
+        "is_ip": "",
+        "director_fullname": ""
     },
     "email": {
         "email_confirmation_subject": "Подтвердите электронный адрес",
