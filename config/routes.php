@@ -36,6 +36,18 @@ return function (App $app) {
 
                         $app->post('/add', \App\Action\Center\Company\CompanyAddAction::class);
 
+                        $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
+
+                            $app->get('', \App\Action\Center\Company\CompanyReadAction::class);
+
+                            $app->group('/admin', function (RouteCollectorProxy $app) {
+
+                                $app->post('/add', \App\Action\Center\Company\Admin\AddAction::class);
+
+                            });
+
+                        });
+
                     });
 
                 })->add(\App\Middleware\CenterAdminMiddleware::class);
