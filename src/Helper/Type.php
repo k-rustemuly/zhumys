@@ -7,8 +7,6 @@ use DomainException;
 
 class Type{
 
-    public $array;
-
     public static $_instance = null;
 
     public static function getInstance ()
@@ -27,8 +25,4 @@ class Type{
         $this->array[$method] = $args[0];
 		return $this;
 	}
-
-    public function execute() :array {
-        return $this->array;
-    }
 }

@@ -19,4 +19,8 @@ class Image extends Type{
         "hint" => null,
         "value" => null
     );
+
+    public function execute() :array {
+        return $this->array;
+    }
 }
