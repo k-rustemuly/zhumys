@@ -5,6 +5,8 @@ namespace App\Domain\Center\Company\Service;
 use App\Domain\Company\Repository\CompanyReadRepository;
 use DomainException;
 use App\Helper\Field;
+use App\Helper\Render;
+use App\Helper\Fields\Number;
 
 /**
  * Service.
@@ -17,12 +19,18 @@ final class Read{
     private $readRepository;
 
     /**
+     * @var Render
+     */
+    private $render;
+
+    /**
      * The constructor.
      * @param CompanyReadRepository $readRepository
      *
      */
     public function __construct(CompanyReadRepository $readRepository){
         $this->readRepository = $readRepository;
+        $this->render = new Render();
     }
 
     /**
@@ -32,9 +40,16 @@ final class Read{
      *
      * @throws DomainException
      */
-    public function list() :array{
+    public function list(string $lang) :array{
+        $render = $this->render;
+        $render->setLang($lang);
+        $render->setHeaders(array(
+                                "id" => Field::getInstance()->init(new Number())->execute(),
+                                "bin" => Field::getInstance()->init(new Number())->can_change(true)->required(true)->min_length(12)->max_length(12)->execute(),
+                            )
+        );
         $companies = $this->readRepository->getAll();
-        return $companies;
-        return Field::getInstance()->init(new Image())->name("asd")->value($id)->execute();
+        $render->setDatas($companies);
+        return $render->build();
     }
 }

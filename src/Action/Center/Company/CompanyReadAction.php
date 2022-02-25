@@ -6,7 +6,6 @@ use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Center\Company\Service\Read;
-use App\Helper\Language;
 
 /**
  * Action.
@@ -24,21 +23,15 @@ final class CompanyReadAction
     private $responder;
 
     /**
-     * @var Language
-     */
-    private $language;
-
-    /**
      * The constructor.
      *
      * @param Read $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder, Language $language)
+    public function __construct(Read $service, Responder $responder)
     {
         $this->service = $service;
         $this->responder = $responder;
-        $this->language = $language;
     }
 
     /**
@@ -52,10 +45,9 @@ final class CompanyReadAction
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
-        $this->language->locale($args['lang']);
 
-        $data = $this->service->list();
+        $data = $this->service->list($args['lang']);
 
-        return $this->responder->success($response, $data);
+        return $this->responder->success($response, null, $data);
     }
 }

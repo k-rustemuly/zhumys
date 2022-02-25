@@ -66,6 +66,6 @@ final class CompanyReadRepository
     {
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetchAll('assoc') ?: [];
     }
 }
