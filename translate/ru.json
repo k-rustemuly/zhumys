@@ -48,7 +48,8 @@
         "Name of company on kazakh not presented": "Введите наименование компании на казахском!",
         "Name of company on russia not presented": "Введите наименование компании на русском!",
         "Company is already presented": "Компания с таким БИН ом уже существует в системе!",
-        "Error to parse from stat gov api": "БИН или ИИН неправильный! В базе stat.gov.kz не найдена!"
+        "Error to parse from stat gov api": "БИН или ИИН неправильный! В базе stat.gov.kz не найдена!",
+        "Company not found": "Компания не найдено!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!"

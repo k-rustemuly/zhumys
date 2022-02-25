@@ -42,4 +42,30 @@ final class CompanyReadRepository
         $query->select(["*"])->where(["bin" => $bin]);
         return $query->execute()->fetch('assoc') ?: [];
     }
+
+    /**
+     * Get data from db by id
+     *
+     * @param string $id The id
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getById(int $id): array
+    {
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(["id" => $id]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
+
+    /**
+     * Get All data from db
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getAll(): array
+    {
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
 }

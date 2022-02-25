@@ -6,7 +6,6 @@ use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Center\Company\Service\Read;
-use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
@@ -55,7 +54,7 @@ final class CompanyReadAction
     {
         $this->language->locale($args['lang']);
 
-        $data = $this->service->info((int)$args['id']);
+        $data = $this->service->list();
 
         return $this->responder->success($response, $data);
     }
