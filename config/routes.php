@@ -40,7 +40,9 @@ return function (App $app) {
 
                         $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
 
-                            
+                            $app->patch('', \App\Action\Center\Company\CompanyUpdateAction::class);
+
+                            $app->delete('', \App\Action\Center\Company\CompanyDeleteAction::class);
 
                             $app->group('/admin', function (RouteCollectorProxy $app) {
 

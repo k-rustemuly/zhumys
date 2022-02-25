@@ -5,15 +5,16 @@ namespace App\Action\Center\Company;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\Company\Service\Read;
+use App\Domain\Center\Company\Service\Update;
+use App\Helper\Language;
 
 /**
  * Action.
  */
-final class CompanyReadAction
+final class CompanyUpdateAction
 {
     /**
-     * @var Read
+     * @var Update
      */
     private $service;
 
@@ -23,15 +24,21 @@ final class CompanyReadAction
     private $responder;
 
     /**
+     * @var Language
+     */
+    private $language;
+
+    /**
      * The constructor.
      *
-     * @param Read $service The service
+     * @param Update $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder)
+    public function __construct(Update $service, Responder $responder, Language $language)
     {
         $this->service = $service;
         $this->responder = $responder;
+        $this->language = $language;
     }
 
     /**
@@ -45,6 +52,10 @@ final class CompanyReadAction
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
-        return $this->responder->success($response, null, $this->service->list($args['lang']));
+        $this->language->locale($args['lang']);
+
+        $patch = (array)$request->getParsedBody();
+        //$data = $this->service->update($patch);
+        return $this->responder->success($response, $this->language->get("success")["Company info updated"]);
     }
 }

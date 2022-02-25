@@ -76,6 +76,8 @@
         "Company not found": "Компания не найдено!"
     },
     "success":{
-        "Company success added": "Компания успешно добавлено в систему!"
+        "Company success added": "Компания успешно добавлено в систему!",
+        "Company info updated": "Данные успешно обновлены!",
+        "Company deleted": "Компания успешно удалена!"
     }
 }

@@ -21,19 +21,19 @@ class Render{
      * @param string       $lang
      *
      */
-    public function setLang(string $lang) :self{
+    public function lang(string $lang) :self{
         $this->language = new Language();
         $this->language = $this->language->locale($lang);
         $this->lang = $lang;
         return $this;
     }
 
-    public function setHeaders(array $array) :self{
+    public function header(array $array) :self{
         $this->array["header"] = $array;
         return $this;
     }
 
-    public function setDatas(array $array) :self{
+    public function data(array $array) :self{
         $this->array["data"] = $array;
         return $this;
     }
