@@ -42,6 +42,8 @@ return function (App $app) {
 
                             $app->patch('', \App\Action\Center\Company\CompanyUpdateAction::class);
 
+                            $app->get('', \App\Action\Center\Company\CompanyInfoReadAction::class);
+
                             $app->group('/admin', function (RouteCollectorProxy $app) {
 
                                 $app->post('/add', \App\Action\Center\Company\Admin\AddAction::class);
