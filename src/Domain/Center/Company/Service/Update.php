@@ -2,8 +2,9 @@
 
 namespace App\Domain\Center\Company\Service;
 
-use App\Domain\Company\Repository\CompanyReadRepository;
+use App\Domain\Company\Repository\CompanyUpdaterRepository;
 use DomainException;
+use App\Helper\Validator;
 
 /**
  * Service.
@@ -11,32 +12,37 @@ use DomainException;
 final class Update{
 
     /**
-     * @var CompanyReadRepository
+     * @var CompanyUpdaterRepository
      */
-    private $readRepository;
+    private $updateRepository;
 
     /**
-     * @var Render
+     * @var Validator
      */
-    private $render;
+    private $validator;
 
     /**
      * The constructor.
      * @param CompanyReadRepository $readRepository
      *
      */
-    public function __construct(CompanyReadRepository $readRepository){
-        $this->readRepository = $readRepository;
+    public function __construct(CompanyUpdaterRepository $updateRepository){
+        $this->updateRepository = $updateRepository;
+        $this->validator = new Validator();
     }
 
     /**
-     * Get company info
+     * Update company info
      *
+     * @param int $id Company id
      * @param array<mixed> $post fileds The post fields
      *
      * @throws DomainException
+     * 
+     * @return boolean updated successfuly?
      */
-    public function update(array $data) :array{
-        return Read::getHeader();
+    public function update(int $id, array $data) :bool{
+        $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);
+        return $this->updateRepository->updateById($id, $data) > 0;
     }
 }

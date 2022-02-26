@@ -55,7 +55,7 @@ final class CompanyUpdateAction
         $this->language->locale($args['lang']);
 
         $patch = (array)$request->getParsedBody();
-        //$data = $this->service->update($patch);
+        $is_updated = $this->service->update((int)$args["id"], $patch);
         return $this->responder->success($response, $this->language->get("success")["Company info updated"]);
     }
 }

@@ -9,13 +9,18 @@ class Field{
     /**
      * @var array<mixed>
      */
-    public $array = array(
+    private $original = array(
         "type" => "string",
         "required" => false,
         "can_change" => false,
         "name" => null,
         "hint" => null
     );
+
+    /**
+     * @var array<mixed>
+     */
+    public $array = array();
 
     public static $_instance = null;
 
@@ -24,12 +29,11 @@ class Field{
         if (self::$_instance === null) {
             self::$_instance = new self;
         }
-
         return self::$_instance;
     }
 
     public function init(object $object) :self {
-        $this->array = array_merge($this->array, $object->array);
+        $this->array = array_merge($this->original, $object->array);
         return $this;
     }
 
