@@ -43,7 +43,7 @@ final class InfoRead{
     /**
      * Get company info
      * 
-     * @param int $id The company id
+     * @param string $bin The company bin
      * @param string $lang The interface language code
      * 
      * @throws DomainException
@@ -51,8 +51,8 @@ final class InfoRead{
      * @return array<mixed> $post fileds The post fields
      * 
      */
-    public function info(int $id, string $lang) :array{
-        $companyInfo = $this->readRepository->getById($id);
+    public function info(string $bin, string $lang) :array{
+        $companyInfo = $this->readRepository->getByBin($bin);
         if(empty($companyInfo)) throw new DomainException("Company not found");
         $this->companyInfo = $companyInfo;
         return $this->render

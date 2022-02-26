@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Action\Center\Company;
+namespace App\Action\Center\Company\Admin;
 
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\Company\Service\Update;
+use App\Domain\Admin\Company\Service\Add;
+use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class CompanyUpdateAction
+final class AddAction
 {
     /**
-     * @var Update
+     * @var Add
      */
     private $service;
 
@@ -31,10 +32,10 @@ final class CompanyUpdateAction
     /**
      * The constructor.
      *
-     * @param Update $service The service
+     * @param Add $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Update $service, Responder $responder, Language $language)
+    public function __construct(Add $service, Responder $responder, Language $language)
     {
         $this->service = $service;
         $this->responder = $responder;
@@ -54,8 +55,10 @@ final class CompanyUpdateAction
     {
         $this->language->locale($args['lang']);
 
-        $patch = (array)$request->getParsedBody();
-        $is_updated = $this->service->update($args["bin"], $patch);
-        return $this->responder->success($response, $this->language->get("success")["Company info updated"]);
+        $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
+        $post = (array)$request->getParsedBody();
+        $this->service->add($args["bin"], $post);
+
+        return $this->responder->success($response, $this->language->get("success")["Company admin success added"]);
     }
 }

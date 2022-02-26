@@ -34,15 +34,15 @@ final class Update{
     /**
      * Update company info
      *
-     * @param int $id Company id
+     * @param string $bin Company bin
      * @param array<mixed> $post fileds The post fields
      *
      * @throws DomainException
      * 
      * @return boolean updated successfuly?
      */
-    public function update(int $id, array $data) :bool{
+    public function update(string $bin, array $data) :bool{
         $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);
-        return $this->updateRepository->updateById($id, $data) > 0;
+        return $this->updateRepository->updateByBin($bin, $data) > 0;
     }
 }

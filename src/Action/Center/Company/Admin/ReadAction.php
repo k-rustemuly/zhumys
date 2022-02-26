@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Action\Center\Company;
+namespace App\Action\Center\Company\Admin;
 
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\Company\Service\Update;
-use App\Helper\Language;
+use App\Domain\Admin\Company\Service\Read;
 
 /**
  * Action.
  */
-final class CompanyUpdateAction
+final class ReadAction
 {
     /**
-     * @var Update
+     * @var Read
      */
     private $service;
 
@@ -24,21 +23,15 @@ final class CompanyUpdateAction
     private $responder;
 
     /**
-     * @var Language
-     */
-    private $language;
-
-    /**
      * The constructor.
      *
-     * @param Update $service The service
+     * @param Read $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Update $service, Responder $responder, Language $language)
+    public function __construct(Read $service, Responder $responder)
     {
         $this->service = $service;
         $this->responder = $responder;
-        $this->language = $language;
     }
 
     /**
@@ -52,10 +45,6 @@ final class CompanyUpdateAction
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
-        $this->language->locale($args['lang']);
-
-        $patch = (array)$request->getParsedBody();
-        $is_updated = $this->service->update($args["bin"], $patch);
-        return $this->responder->success($response, $this->language->get("success")["Company info updated"]);
+        return $this->responder->success($response, null, $this->service->list($args["bin"], $args['lang']));
     }
 }

@@ -45,6 +45,6 @@ final class CompanyInfoReadAction
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
-        return $this->responder->success($response, null, $this->service->info((int) $args['id'], (string)$args['lang']));
+        return $this->responder->success($response, null, $this->service->info($args['bin'], (string)$args['lang']));
     }
 }

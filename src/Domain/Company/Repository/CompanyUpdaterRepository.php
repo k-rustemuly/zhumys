@@ -39,11 +39,11 @@ final class CompanyUpdaterRepository
      *
      * @return void
      */
-    public function updateById(int $id, array $data): int
+    public function updateByBin(string $bin, array $data): int
     {
         try
         {
-            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("id" => $id))->execute()->rowCount();
+            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("bin" => $bin))->execute()->rowCount();
         }catch(PDOException $e){
             throw new DomainException("Error on update row");
         }

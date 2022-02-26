@@ -38,13 +38,15 @@ return function (App $app) {
 
                         $app->get('', \App\Action\Center\Company\CompanyReadAction::class);
 
-                        $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
+                        $app->group('/{bin:[0-9]+}', function (RouteCollectorProxy $app) {
 
                             $app->patch('', \App\Action\Center\Company\CompanyUpdateAction::class);
 
                             $app->get('', \App\Action\Center\Company\CompanyInfoReadAction::class);
 
                             $app->group('/admin', function (RouteCollectorProxy $app) {
+
+                                $app->get('', \App\Action\Center\Company\Admin\ReadAction::class);
 
                                 $app->post('/add', \App\Action\Center\Company\Admin\AddAction::class);
 

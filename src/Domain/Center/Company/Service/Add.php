@@ -62,6 +62,6 @@ final class Add extends Admin{
         if(empty($companyInfo)) throw new DomainException("Error to parse from stat gov api"); 
         $companyInfo["name_kk"] = $post["name_kk"];
         $companyInfo["name_ru"] = $post["name_ru"];
-        if($this->createRepository->insert($companyInfo) == 0) throw new DomainException(json_encode($companyInfo, JSON_UNESCAPED_UNICODE)); 
+        if($this->createRepository->insert($companyInfo) == 0) throw new DomainException("Company not added"); 
     }
 }
