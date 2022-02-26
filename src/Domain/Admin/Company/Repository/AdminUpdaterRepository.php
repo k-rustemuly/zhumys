@@ -8,8 +8,7 @@ use PDOException;
 /**
  * Repository.
  */
-final class AdminUpdaterRepository
-{
+final class AdminUpdaterRepository{
     /**
      * @var string
      */
@@ -25,8 +24,7 @@ final class AdminUpdaterRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
@@ -38,8 +36,7 @@ final class AdminUpdaterRepository
      *
      * @return void
      */
-    public function updateById(int $id, array $new_data): int
-    {
+    public function updateById(int $id, array $new_data): int{
         try
         {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['id' => $id])->execute()->rowCount();

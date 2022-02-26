@@ -8,8 +8,7 @@ use PDOException;
 /**
  * Repository.
  */
-final class AdminCreaterRepository
-{
+final class AdminCreaterRepository{
     /**
      * @var string
      */
@@ -25,20 +24,18 @@ final class AdminCreaterRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
     /**
-     * Insert user row.
+     * Insert row.
      *
-     * @param array<mixed> $row The user data
+     * @param array<mixed> $row The data
      *
      * @return int The new ID
      */
-    public function insert(array $row): int
-    {
+    public function insert(array $row): int{
         try
         {
             return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();

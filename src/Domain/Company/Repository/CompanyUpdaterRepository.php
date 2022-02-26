@@ -9,8 +9,7 @@ use DomainException;
 /**
  * Repository.
  */
-final class CompanyUpdaterRepository
-{
+final class CompanyUpdaterRepository{
     /**
      * @var string
      */
@@ -26,8 +25,7 @@ final class CompanyUpdaterRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
@@ -39,8 +37,7 @@ final class CompanyUpdaterRepository
      *
      * @return void
      */
-    public function updateByBin(string $bin, array $data): int
-    {
+    public function updateByBin(string $bin, array $data): int{
         try
         {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("bin" => $bin))->execute()->rowCount();

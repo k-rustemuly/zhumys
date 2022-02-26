@@ -12,8 +12,7 @@ use App\Helper\Language;
 /**
  * Action.
  */
-final class AddAction
-{
+final class AddAction{
     /**
      * @var Add
      */
@@ -35,8 +34,7 @@ final class AddAction
      * @param Add $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Add $service, Responder $responder, Language $language)
-    {
+    public function __construct(Add $service, Responder $responder, Language $language){
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;
@@ -51,8 +49,7 @@ final class AddAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->language->locale($args['lang']);
 
         $this->service->init($request->getAttribute(CenterAdminMiddleware::class));

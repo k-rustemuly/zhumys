@@ -7,8 +7,7 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class AdminReadRepository
-{
+final class AdminReadRepository{
     /**
      * @var string
      */
@@ -24,8 +23,7 @@ final class AdminReadRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
@@ -36,8 +34,7 @@ final class AdminReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getByBin(string $bin): array
-    {
+    public function getByBin(string $bin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["org_bin" => $bin]);
         return $query->execute()->fetchAll('assoc') ?: [];

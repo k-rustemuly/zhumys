@@ -8,8 +8,7 @@ use PDOException;
 /**
  * Repository.
  */
-final class ApplicantCreatorRepository
-{
+final class ApplicantCreatorRepository{
     /**
      * @var string
      */
@@ -25,8 +24,7 @@ final class ApplicantCreatorRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
@@ -35,8 +33,7 @@ final class ApplicantCreatorRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAll(): array
-    {
+    public function getAll(): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"]);
         return $query->execute()->fetchAll('assoc') ?: [];
@@ -49,8 +46,7 @@ final class ApplicantCreatorRepository
      *
      * @return int The inserted ID
      */
-    public function insert(array $row): int
-    {
+    public function insert(array $row): int{
         try
         {
             return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();

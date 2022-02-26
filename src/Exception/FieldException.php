@@ -4,8 +4,7 @@ namespace App\Exception;
 use DomainException;
 use Throwable;
 
-class FieldException extends DomainException
-{
+class FieldException extends DomainException{
     /**
      * @var array<mixed>
      */
@@ -20,11 +19,11 @@ class FieldException extends DomainException
         parent::__construct($message, $code, $previous);
     }
 
-    public function __toString() {
+    public function __toString() :string{
         return __CLASS__ . ": [{$this->code}]: {$this->message}\n";
     }
 
-    public function getErrors() {
+    public function getErrors() :array{
         return $this->errors;
     }
 }

@@ -11,8 +11,7 @@ use App\Helper\Language;
 /**
  * Action.
  */
-final class CompanyUpdateAction
-{
+final class CompanyUpdateAction{
     /**
      * @var Update
      */
@@ -34,8 +33,7 @@ final class CompanyUpdateAction
      * @param Update $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Update $service, Responder $responder, Language $language)
-    {
+    public function __construct(Update $service, Responder $responder, Language $language){
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;
@@ -50,8 +48,7 @@ final class CompanyUpdateAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->language->locale($args['lang']);
 
         $patch = (array)$request->getParsedBody();

@@ -7,8 +7,7 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class CenterAdminsReadRepository
-{
+final class CenterAdminsReadRepository{
     /**
      * @var string
      */
@@ -24,8 +23,7 @@ final class CenterAdminsReadRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
@@ -36,8 +34,7 @@ final class CenterAdminsReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getByIin(string $iin): array
-    {
+    public function getByIin(string $iin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["iin" => $iin]);
         return $query->execute()->fetch('assoc') ?: [];

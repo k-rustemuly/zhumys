@@ -10,8 +10,7 @@ use App\Domain\Sign\Service\Center\SignIn;
 /**
  * Action.
  */
-final class SignInEcpAction
-{
+final class SignInEcpAction{
     /**
      * @var SignIn
      */
@@ -28,8 +27,7 @@ final class SignInEcpAction
      * @param SignIn $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(SignIn $service,Responder $responder)
-    {
+    public function __construct(SignIn $service,Responder $responder){
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -43,8 +41,7 @@ final class SignInEcpAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $post = (array)$request->getParsedBody();
         $params = $request->getServerParams();
         $post["lang"] = $args['lang'];

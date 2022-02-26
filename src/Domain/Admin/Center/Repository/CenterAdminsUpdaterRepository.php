@@ -7,8 +7,7 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class CenterAdminsUpdaterRepository
-{
+final class CenterAdminsUpdaterRepository{
     /**
      * @var string
      */
@@ -24,13 +23,12 @@ final class CenterAdminsUpdaterRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
     /**
-     * Update user row for change confirmatioin email
+     * Update row
      *
      * @param string $iin The iin
      * @param array<mixed> $new_data The new data

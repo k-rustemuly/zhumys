@@ -96,8 +96,7 @@ final class SignIn{
      *
      * @return array<mixed> The row
      */
-    private function mapToUserRow(array $data): array
-    {
+    private function mapToUserRow(array $data): array{
         $payload = $this->mapToUserPayload($data);
         $token = JWT::encode($payload, $_ENV['JWT_KEY']);
         $refreshToken = $this->generateRefreshToken();
@@ -122,8 +121,7 @@ final class SignIn{
      *
      * @return array<mixed> The row
      */
-    private function mapToUserPayload(array $data): array
-    {
+    private function mapToUserPayload(array $data): array{
         return [
             'iss' => $_ENV['API_URL'],
             'aud' => $_ENV['URL'],
@@ -162,7 +160,7 @@ final class SignIn{
      *
      * @return string The refresh token
      */
-    private function generateRefreshToken(int $length = 36, int $attempt = 1) {
+    private function generateRefreshToken(int $length = 36, int $attempt = 1) :string{
         $randomStr = $this->base64url_encode(substr(hash('sha512', mt_rand()), 0, $length));
         if($this->redis->exists($randomStr))
         {
@@ -178,11 +176,11 @@ final class SignIn{
 
     /**
      *
-     * @param array<mixed> $data The data
+     * @param string $data The data
      *
      * @return string The cleaned string
      */
-    public function base64url_encode(string $data) { 
+    public function base64url_encode(string $data) :string{ 
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
     }
 }

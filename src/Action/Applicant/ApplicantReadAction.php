@@ -10,8 +10,7 @@ use App\Domain\Applicant\Service\Read;
 /**
  * Action.
  */
-final class ApplicantReadAction
-{
+final class ApplicantReadAction{
     /**
      * @var Read
      */
@@ -28,8 +27,7 @@ final class ApplicantReadAction
      * @param Read $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder)
-    {
+    public function __construct(Read $service, Responder $responder){
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -43,8 +41,7 @@ final class ApplicantReadAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         return $this->responder->success($response, null, $this->service->list((string)$args['lang']));
     }
 }

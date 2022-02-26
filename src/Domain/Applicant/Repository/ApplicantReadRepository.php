@@ -7,8 +7,7 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class ApplicantReadRepository
-{
+final class ApplicantReadRepository{
     /**
      * @var string
      */
@@ -24,8 +23,7 @@ final class ApplicantReadRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory){
         $this->queryFactory = $queryFactory;
     }
 
@@ -34,8 +32,7 @@ final class ApplicantReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAll(): array
-    {
+    public function getAll(): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"]);
         return $query->execute()->fetchAll('assoc') ?: [];
