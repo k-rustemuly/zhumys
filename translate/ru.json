@@ -88,6 +88,7 @@
         "Company success added": "Компания успешно добавлено в систему!",
         "Company info updated": "Данные успешно обновлены!",
         "Company deleted": "Компания успешно удалена!",
-        "Company admin success added": "Админстратор компании успешно добавлено!"
+        "Company admin success added": "Админстратор компании успешно добавлено!",
+        "Company admin info success updated": "Данные успешно обновлены!"
     }
 }

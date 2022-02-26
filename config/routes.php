@@ -48,7 +48,9 @@ return function (App $app) {
 
                                 $app->get('', \App\Action\Center\Company\Admin\ReadAction::class);
 
-                                $app->post('/add', \App\Action\Center\Company\Admin\AddAction::class);
+                                $app->post('', \App\Action\Center\Company\Admin\AddAction::class);
+
+                                $app->patch('/{id:[0-9]+}', \App\Action\Center\Company\Admin\UpdateAction::class);
 
                             });
 
