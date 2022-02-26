@@ -26,7 +26,15 @@
         "full_address_ru": "Юридический адрес на русском",
         "is_ip": "ИП",
         "director_fullname": "Директор",
-        "is_active": "Доступ к системе"
+        "is_active": "Доступ к системе",
+        "raiting_number": "Рейтинг",
+        "full_name": "ФИО",
+        "phone_number": "Номер телефона",
+        "address": "Адрес",
+        "second_phone_number": "Доп. номера телефона",
+        "is_have_whatsapp": "Есть Whats App?",
+        "is_have_telegram": "Есть Telegram?",
+        "comment": "Комментарии"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -49,7 +57,15 @@
         "full_address_ru": "",
         "is_ip": "",
         "director_fullname": "",
-        "is_active": ""
+        "is_active": "",
+        "raiting_number": "",
+        "full_name": "",
+        "phone_number": "",
+        "address": "",
+        "second_phone_number": "",
+        "is_have_whatsapp": "",
+        "is_have_telegram": "",
+        "comment": ""
     },
     "block": {
         "company_info": "О компании",

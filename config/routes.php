@@ -58,6 +58,12 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/applicant', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Applicant\ApplicantReadAction::class);
+
+                    });
+
                 })->add(\App\Middleware\CenterAdminMiddleware::class);
 
             });
