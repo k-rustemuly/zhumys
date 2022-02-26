@@ -12,7 +12,7 @@ use App\Helper\Validator;
 final class Add{
 
     /**
-     * @var ApplicantCreaterRepository
+     * @var ApplicantCreatorRepository
      */
     private $createRepository;
 
@@ -23,7 +23,7 @@ final class Add{
 
     /**
      * The constructor.
-     * @param ApplicantCreaterRepository $createRepository
+     * @param ApplicantCreatorRepository $createRepository
      *
      */
     public function __construct(ApplicantCreatorRepository $createRepository){

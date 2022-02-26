@@ -105,6 +105,7 @@
         "Company info updated": "Данные успешно обновлены!",
         "Company deleted": "Компания успешно удалена!",
         "Company admin success added": "Админстратор компании успешно добавлено!",
-        "Company admin info success updated": "Данные успешно обновлены!"
+        "Company admin info success updated": "Данные успешно обновлены!",
+        "Applicant success added": "Соискатель успешно добавлено!"
     }
 }
