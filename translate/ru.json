@@ -52,7 +52,8 @@
         "is_active": ""
     },
     "block": {
-        "company_info": "О компании"
+        "company_info": "О компании",
+        "company_admins": "Админстраторы компании"
     },
     "email": {
         "email_confirmation_subject": "Подтвердите электронный адрес",

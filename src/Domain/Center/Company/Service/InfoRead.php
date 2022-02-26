@@ -58,6 +58,7 @@ final class InfoRead{
         return $this->render
                 ->lang($lang)
                 ->block("company_info", $this->getCompanyInfoBlockValues())
+                ->block("company_admins", array())
                 ->build();
     }
 
