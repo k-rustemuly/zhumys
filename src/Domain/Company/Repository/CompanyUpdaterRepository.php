@@ -32,8 +32,8 @@ final class CompanyUpdaterRepository{
     /**
      * Update row.
      *
-     * @param array<mixed> $data The user data to update
-     * @param array<mixed> $where The where
+     * @param string $bin 
+     * @param array<mixed> $data The data
      *
      * @return void
      */

@@ -64,6 +64,8 @@ return function (App $app) {
 
                         $app->post('', \App\Action\Applicant\ApplicantAddAction::class);
 
+                        $app->patch('/{iin:[0-9]+}', \App\Action\Applicant\ApplicantUpdateAction::class);
+
                     });
 
                 })->add(\App\Middleware\CenterAdminMiddleware::class);

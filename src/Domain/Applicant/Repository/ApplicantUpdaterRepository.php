@@ -4,11 +4,12 @@ namespace App\Domain\Applicant\Repository;
 
 use App\Factory\QueryFactory;
 use PDOException;
+use DomainException;
 
 /**
  * Repository.
  */
-final class ApplicantCreatorRepository{
+final class ApplicantUpdaterRepository{
     /**
      * @var string
      */
@@ -29,16 +30,17 @@ final class ApplicantCreatorRepository{
     }
 
     /**
-     * Insert row.
+     * Update row.
      *
-     * @param array<mixed> $row The data
+     * @param string $iin The iin
+     * @param array<mixed> $where The where
      *
-     * @return int The inserted ID
+     * @return void
      */
-    public function insert(array $row): int{
+    public function updateByIin(string $iin, array $data): int{
         try
         {
-            return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();
+            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("iin" => $iin))->execute()->rowCount();
         }catch(PDOException $e){
             return 0;
         }
