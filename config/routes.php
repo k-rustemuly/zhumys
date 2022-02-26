@@ -62,6 +62,8 @@ return function (App $app) {
 
                         $app->get('', \App\Action\Applicant\ApplicantReadAction::class);
 
+                        $app->post('', \App\Action\Applicant\ApplicantAddAction::class);
+
                     });
 
                 })->add(\App\Middleware\CenterAdminMiddleware::class);

@@ -37,7 +37,7 @@ final class Read{
     }
 
     /**
-     * Get company info
+     * Get applicant list
      * 
      * @param string $lang The interface language code
      *
@@ -63,7 +63,7 @@ final class Read{
     public static function getHeader() :array{
         return array(
             "raiting_number" => Field::getInstance()->init(new Number())->execute(),
-            "iin" => Field::getInstance()->init(new Number())->required(true)->execute(),
+            "iin" => Field::getInstance()->init(new Number())->required(true)->min_length(12)->max_length(12)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(3)->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->min_date("1900-01-01")->max_date(date("Y-m-d"))->execute(),
             "email" => Field::getInstance()->init(new Text())->can_change(true)->execute(),
