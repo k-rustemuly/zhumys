@@ -82,7 +82,11 @@ return function (App $app) {
 
                 $app->group('', function (RouteCollectorProxy $app) {
 
-                    
+                    $app->group('/free-place', function (RouteCollectorProxy $app) {
+
+                        //$app->get('', \App\Action\Applicant\ApplicantReadAction::class);
+
+                    });
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 
             });

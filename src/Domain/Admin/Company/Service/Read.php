@@ -9,6 +9,7 @@ use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Boolean;
 use App\Helper\Fields\Date;
+use App\Helper\Fields\Email;
 
 /**
  * Service.
@@ -65,7 +66,7 @@ final class Read{
             "iin" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(2)->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->execute(),
-            "email" => Field::getInstance()->init(new Text())->can_create(true)->execute(),
+            "email" => Field::getInstance()->init(new Email())->can_create(true)->execute(),
             "is_active" => Field::getInstance()->init(new Boolean())->can_update(true)->execute(),
         );
     }
