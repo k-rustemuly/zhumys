@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Domain\Sign\Service\Center;
+namespace App\Domain\Sign\Company\Service;
 
 use DomainException;
 use Predis\ClientInterface;
 use App\Helper\Pki;
-use App\Domain\Admin\Center\Repository\CenterAdminsReadRepository;
-use App\Domain\Admin\Center\Repository\CenterAdminsUpdaterRepository;
+use App\Domain\Admin\Company\Repository\AdminReadRepository;
+use App\Domain\Admin\Company\Repository\AdminUpdaterRepository;
 use Firebase\JWT\JWT;
 
 /**
@@ -15,12 +15,12 @@ use Firebase\JWT\JWT;
 final class SignIn{
 
     /**
-     * @var CenterAdminsReadRepository
+     * @var AdminReadRepository
      */
     private $readRepository;
 
     /**
-     * @var CenterAdminsUpdaterRepository
+     * @var AdminUpdaterRepository
      */
     private $updateRepository;
 
@@ -37,15 +37,15 @@ final class SignIn{
     /**
      * The constructor.
      *
-     * @param CenterAdminsReadRepository $readRepository The read repository 
-     * @param CenterAdminsUpdaterRepository $updateRepository The update repository 
+     * @param AdminReadRepository $readRepository The read repository 
+     * @param AdminUpdaterRepository $updateRepository The update repository 
      * @param ClientInterface   $redis The redis client
      * @param Pki               $pki The pki client
      */
     public function __construct(
-        CenterAdminsReadRepository $readRepository,
-        CenterAdminsUpdaterRepository $updateRepository,
-        ClientInterface $redis, Pki $pki){
+        AdminReadRepository $readRepository,
+        AdminUpdaterRepository $updateRepository,
+        ClientInterface $redis, Pki $pki) {
         $this->redis = $redis;
         $this->pki = $pki;
         $this->readRepository = $readRepository;
@@ -63,18 +63,20 @@ final class SignIn{
      */
     public function pkcs(array $post): array{
         $certInfo = $this->pki->getCertificateInfo($post["base64"], $post["password"], true);
-        if(!$certInfo["is_individual"]){
+        if(!$certInfo["is_individual"]) {
             throw new DomainException("Only individual usage digital signature accessed");
         }
         $iin = (string)$certInfo["iin"];
 
-        $adminInfo = $this->readRepository->getByIin($iin);
-        if(empty($adminInfo)) throw new DomainException("Center admin not found on database");
-        if(!$adminInfo["is_active"]) throw new DomainException("Center admin is inactive");
+        $adminInfo = $this->readRepository->findByIin($iin);
+        if(empty($adminInfo)) throw new DomainException("Company admin not found on database");
+        if(!$adminInfo["is_active"]) throw new DomainException("Company admin is inactive");
 
-        if(!$adminInfo["updated_at"]){
+        if(!$adminInfo["updated_at"]) {
             $update = array();
-            $update["full_name"] = mb_convert_case($certInfo["surname"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["name"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, 'UTF-8');
+            $update["surname"] = mb_convert_case($certInfo["surname"], MB_CASE_TITLE, 'UTF-8');
+            $update["name"] = mb_convert_case($certInfo["name"], MB_CASE_TITLE, 'UTF-8');
+            $update["lastname"] = mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, 'UTF-8');
             if(strlen($certInfo["email"])>2)
                 $update["email"] = strtolower($certInfo["email"]);
             $birthdate = $certInfo["birthdate"];
@@ -106,7 +108,7 @@ final class SignIn{
         $this->redis->setex($refreshToken, $_ENV['REFRESH_TOKEN_LIVE_SEC'], json_encode($refreshData, JSON_UNESCAPED_UNICODE));
 
         return [
-            'full_name' => $data['full_name'],
+            'full_name' => $data['surname']." ".$data['name']." ".$data['lastname'],
             'token' => $token,
             'refresh_token' => $refreshToken
         ];
@@ -138,8 +140,8 @@ final class SignIn{
      *
      * @return string The jti
      */
-    private function generateJti($length = 32){
-        if(!isset($length) || intval($length) <= 8 ){
+    private function generateJti($length = 32) {
+        if(!isset($length) || intval($length) <= 8 ) {
             $length = 32;
         }
         if (function_exists('random_bytes')) {

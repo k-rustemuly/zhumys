@@ -39,4 +39,17 @@ final class AdminReadRepository{
         $query->select(["*"])->where(["org_bin" => $bin]);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
+
+    /**
+     * Get data from db by iin
+     *
+     * @param string $iin The iin
+     *
+     * @return array<mixed> The list view data
+     */
+    public function findByIin(string $iin): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(["iin" => $iin]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
 }
