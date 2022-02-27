@@ -62,16 +62,16 @@ final class DefaultErrorHandler
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, Throwable $exception, bool $displayErrorDetails, bool $logErrors): ResponseInterface {
-        $lang = explode("/", $request->getUri()->getPath())[1] ?? "ru";
+        $lang = explode("/", $request->getUri()->getPath())[2] ?? "ru";
         $this->language->locale($lang);
 
         // Log error
         if ($logErrors) {
             $this->logger->error(
                 sprintf(
-                    $lang.' Error: [%s] %s, Method: %s, Path: %s',
+                    'Error: [%s] %s, Method: %s, Path: %s',
                     $exception->getCode(),
-                    $this->getExceptionText($exception),
+                    implode(" ",$this->getExceptionText($exception)),
                     $request->getMethod(),
                     $request->getUri()->getPath()
                 )
