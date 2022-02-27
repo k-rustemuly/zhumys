@@ -10,6 +10,8 @@ use App\Helper\Fields\Text;
 use App\Helper\Fields\Date;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Boolean;
+use App\Helper\Fields\Textarea;
+use App\Helper\Fields\Email;
 
 /**
  * Service.
@@ -65,14 +67,14 @@ final class Read{
             "raiting_number" => Field::getInstance()->init(new Number())->execute(),
             "iin" => Field::getInstance()->init(new Number())->required(true)->min_length(12)->max_length(12)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(3)->execute(),
-            "birthdate" => Field::getInstance()->init(new Date())->min_date("1900-01-01")->max_date(date("Y-m-d"))->execute(),
-            "email" => Field::getInstance()->init(new Text())->can_change(true)->execute(),
+            "birthdate" => Field::getInstance()->init(new Date())->required(true)->min_date("1900-01-01")->max_date(date("Y-m-d"))->execute(),
+            "email" => Field::getInstance()->init(new Email())->can_change(true)->execute(),
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->required(true)->can_change(true)->execute(),
-            "address" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->execute(),
-            "second_phone_number" => Field::getInstance()->init(new Text())->can_change(true)->execute(),
+            "address" => Field::getInstance()->init(new Textarea())->can_change(true)->required(true)->execute(),
+            "second_phone_number" => Field::getInstance()->init(new Textarea())->can_change(true)->execute(),
             "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
             "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
-            "comment" => Field::getInstance()->init(new Text())->can_change(true)->execute(),
+            "comment" => Field::getInstance()->init(new Textarea())->can_change(true)->execute(),
         );
     }
 }

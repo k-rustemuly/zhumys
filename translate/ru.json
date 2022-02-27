@@ -34,7 +34,8 @@
         "second_phone_number": "Доп. номера телефона",
         "is_have_whatsapp": "Есть Whats App?",
         "is_have_telegram": "Есть Telegram?",
-        "comment": "Комментарии"
+        "comment": "Комментарии",
+        "lastname": "Отчество"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -65,7 +66,8 @@
         "second_phone_number": "",
         "is_have_whatsapp": "",
         "is_have_telegram": "",
-        "comment": ""
+        "comment": "",
+        "lastname": ""
     },
     "block": {
         "company_info": "О компании",
