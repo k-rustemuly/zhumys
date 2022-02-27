@@ -104,9 +104,9 @@ final class SignIn{
             list($y,$m,$d) = explode("-", $birthdate);
             if(checkdate((int)$m, (int)$d, (int)$y))
                 $update["birthdate"] = $certInfo["birthdate"];
-            
+
             $update["last_visit"] = date("Y-m-d H:i:s");
-            $this->updateRepository->updateByIin($iin, $update);
+            $this->updateRepository->updateByBinAndIin($bin, $iin, $update);
         }
 
         return $this->mapToUserRow($adminInfo);

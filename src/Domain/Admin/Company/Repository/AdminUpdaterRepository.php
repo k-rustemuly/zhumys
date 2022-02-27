@@ -48,13 +48,14 @@ final class AdminUpdaterRepository{
     /**
      * Update row
      *
+     * @param string $bin The bin
      * @param string $iin The iin
      * @param array<mixed> $new_data The new data
      *
      * @return void
      */
-    public function updateByIin(string $iin, array $new_data): int
+    public function updateByBinAndIin(string $bin, string $iin, array $new_data): int
     {
-        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['iin' => $iin])->execute()->rowCount();
+        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['iin' => $iin, 'org_bin' => $bin])->execute()->rowCount();
     }
 }
