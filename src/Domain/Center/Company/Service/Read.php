@@ -61,8 +61,8 @@ final class Read{
     public static function getHeader() :array{
         return array(
             "bin" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
-            "name_kk" => Field::getInstance()->init(new Text())->can_create(true)->can_change(true)->is_required(true)->min_length(3)->execute(),
-            "name_ru" => Field::getInstance()->init(new Text())->can_create(true)->can_change(true)->is_required(true)->min_length(3)->execute(),
+            "name_kk" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(3)->execute(),
+            "name_ru" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(3)->execute(),
             "full_name_kk" => Field::getInstance()->init(new Text())->execute(),
             "full_name_ru" => Field::getInstance()->init(new Text())->execute(),
             //"oked_code" => Field::getInstance()->init(new Number())->execute(),
@@ -72,7 +72,7 @@ final class Read{
             //"full_address_ru" => Field::getInstance()->init(new Text())->execute(),
             //"is_ip" => Field::getInstance()->init(new Boolean())->execute(),
             "director_fullname" => Field::getInstance()->init(new Text())->execute(),
-            "is_active" => Field::getInstance()->init(new Boolean())->can_change(true)->execute(),
+            "is_active" => Field::getInstance()->init(new Boolean())->can_update(true)->execute(),
         );
     }
 }
