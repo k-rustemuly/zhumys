@@ -62,13 +62,11 @@ final class Read{
      */
     public static function getHeader() :array{
         return array(
-            "iin" => Field::getInstance()->init(new Number())->required(true)->min_length(12)->max_length(12)->execute(),
-            "surname" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(2)->execute(),
-            "name" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(2)->execute(),
-            "lastname" => Field::getInstance()->init(new Text())->can_change(true)->execute(),
+            "iin" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
+            "full_name" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(2)->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->execute(),
-            "email" => Field::getInstance()->init(new Text())->execute(),
-            "is_active" => Field::getInstance()->init(new Boolean())->can_change(true)->execute(),
+            "email" => Field::getInstance()->init(new Text())->can_create(true)->execute(),
+            "is_active" => Field::getInstance()->init(new Boolean())->can_update(true)->execute(),
         );
     }
 }

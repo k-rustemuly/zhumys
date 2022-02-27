@@ -11,8 +11,10 @@ class Field{
      */
     private $original = array(
         "type" => "string",
-        "required" => false,
-        "can_change" => false,
+        "is_required" => false,
+        "can_update" => false,
+        "can_create" => false,
+        "is_visible" => true,
         "name" => null,
         "hint" => null
     );

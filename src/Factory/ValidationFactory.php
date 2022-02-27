@@ -10,8 +10,7 @@ use App\Exception\FieldException;
 /**
  * Validation factory.
  */
-final class ValidationFactory
-{
+final class ValidationFactory{
 
     /**
      * @var array
@@ -24,116 +23,141 @@ final class ValidationFactory
      *
      * @return Validator The validator
      */
-    public function createValidator(array $config): Validator
-    {
+    public function createValidator(array $config): Validator{
         $this->config = $config;
         $validator = new Validator();
-        foreach($config as $field => $properties)
-        {
+        foreach($config as $field => $properties) {
             $type = $properties["type"];
-            $is_required = $properties["required"];
-            $is_can_change = $properties["can_change"];
-            if($type == "text")
-            {
-                $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
-                if($is_required)
-                {
-                    $validator->requirePresence($field, Validator::WHEN_CREATE, 'Field is required');
-
+            $is_required = $properties["is_required"];
+            $can_update = $properties["can_update"];
+            $can_create = $properties["can_create"];
+            if($type == "text") {
+                if($can_create) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'Field is required');
+                    }
                 }
-                if($is_can_change)
+                if($can_update) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Field is required');
+                    }
+                }
+            }
+            else if($type == "date") {
+                if($can_create) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select the date');
+                        $validator->date($field, ['ymd'], 'Select the date', Validator::WHEN_CREATE);
+                    }
+                }
+                if($can_update) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Select the date');
+                        $validator->date($field, ['ymd'], 'Select the date', Validator::WHEN_UPDATE);
+                    }
+                }
+            }
+            else if($type == "reference") {
+                if($can_create) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select one from list');
+                    }
+                }
+                if($can_update) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Select one from list');
+                    }
+                }
+            }
+            else if($type == "tag") {   
+                if($can_create) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select at least one');
+                    }
+                }
+                if($can_update)
                 {
                     $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Select at least one');
+                    }
                 }
             }
-            else if($type == "date")
-            {
-                if($is_required)
-                {
-                    $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select the date');
-                    $validator->date($field, ['ymd'], 'Select the date', Validator::WHEN_CREATE);
+            else if($type == "base64") {
+                if($can_create) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select file');
+                    }
                 }
-                if($is_can_change)
-                {
+                if($can_update) {
                     $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Select file');
+                    }
                 }
             }
-            else if($type == "reference")
-            {
-                if($is_required)
-                {
-                    $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select one from list');
-                }
-            }
-            else if($type == "tag")
-            {   
-                $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
-                if($is_required)
-                {
-                    $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select at least one');
-                }
-                if($is_can_change)
-                {
-                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
-                }
-            }
-            else if($type == "base64")
-            {
-                $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
-                if($is_required)
-                {
-                    $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select file');
-                }
-                if($is_can_change)
-                {
-                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
-                }
-            }
-            else if($type == "number")
-            {
+            else if($type == "number") {
                 $min_length = (int) $properties["min_length"];
                 $max_length = (int) $properties["max_length"];
-                if($min_length > 0){
+                if($min_length > 0) {
                     $when = null;
-                    if($is_required)
+                    if($can_create) {
                         $when = Validator::WHEN_CREATE;
-                    else if ($is_can_change)
+                    }
+                    else if ($can_update) {
                         $when = Validator::WHEN_UPDATE;
-                    if($when != null)
+                    }
+                    if($when != null) {
                         $validator->minLength($field, $min_length, 'The length of is not accepted', $when);
+                    }
                 }
-                if($max_length > 0){
+                if($max_length > 0) {
                     $when = null;
-                    if($is_required)
+                    if($can_create) {
                         $when = Validator::WHEN_CREATE;
-                    else if ($is_can_change)
+                    }
+                    else if ($can_update) {
                         $when = Validator::WHEN_UPDATE;
-                    if($when != null)
+                    }
+                    if($when != null) {
                         $validator->maxLength($field, $max_length, 'The length of is not accepted', $when);
+                    }
                 }
-
-                $validator->naturalNumber($field, 'The number is not natural', Validator::WHEN_CREATE);
-                if($is_required)
-                {
-                    $validator->requirePresence($field, Validator::WHEN_CREATE, 'The number is required');
+                if($can_create) {
+                    $validator->naturalNumber($field, 'The number is not natural', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'The number is required');
+                    }
                 }
-                if($is_can_change)
-                {
+                if($can_update) {
                     $validator->naturalNumber($field, 'The number is not natural', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'The number is required');
+                    }
                 }
             }
-            else if($type == "boolean")
-            {
-                if($is_required)
-                {
+            else if($type == "boolean") {
+                if($can_create) {
                     $validator->boolean($field, true, 'Is not boolean', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_CREATE, 'The boolean is required');
+                    }
                 }
-                if($is_can_change)
-                {
+                if($can_update) {
                     $validator->boolean($field, true, 'Is not boolean', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->requirePresence($field, Validator::WHEN_UPDATE, 'The boolean is required');
+                    }
                 }
             }
-            
         }
         return $validator;
     }
@@ -175,9 +199,9 @@ final class ValidationFactory
             }
             throw new FieldException($message);
         }
-        foreach($data as $key => $value){
+        foreach($data as $key => $value) {
             if($newRecord && !isset($this->config[$key])) unset($data[$key]);
-            if(!$newRecord && (!isset($this->config[$key]) || !$this->config[$key]["can_change"])) unset($data[$key]);
+            if(!$newRecord && (!isset($this->config[$key]) || !$this->config[$key]["can_update"])) unset($data[$key]);
         }
         return $data;
     }

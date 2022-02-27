@@ -72,5 +72,15 @@ return function (App $app) {
 
             });
 
+            $app->group('/company', function (RouteCollectorProxy $app) {
+
+                $app->group('/sign-in', function (RouteCollectorProxy $app) {
+
+                    $app->post('/ecp', \App\Action\Sign\Company\SignInEcpAction::class);
+
+                });
+
+            });
+
         });
 };

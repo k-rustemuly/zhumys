@@ -60,9 +60,9 @@ final class Read{
      */
     public static function getHeader() :array{
         return array(
-            "bin" => Field::getInstance()->init(new Number())->required(true)->min_length(12)->max_length(12)->execute(),
-            "name_kk" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(3)->execute(),
-            "name_ru" => Field::getInstance()->init(new Text())->can_change(true)->required(true)->min_length(3)->execute(),
+            "bin" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
+            "name_kk" => Field::getInstance()->init(new Text())->can_create(true)->can_change(true)->is_required(true)->min_length(3)->execute(),
+            "name_ru" => Field::getInstance()->init(new Text())->can_create(true)->can_change(true)->is_required(true)->min_length(3)->execute(),
             "full_name_kk" => Field::getInstance()->init(new Text())->execute(),
             "full_name_ru" => Field::getInstance()->init(new Text())->execute(),
             //"oked_code" => Field::getInstance()->init(new Number())->execute(),
