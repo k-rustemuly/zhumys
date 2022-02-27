@@ -3,17 +3,15 @@ declare(strict_types=1);
 
 namespace App\Helper\Fields;
 
-class Number{
+class File{
 
     /**
      * @var array<mixed>
      */
     public $array = array(
-        "type" => "number",
-        "min_length" => 0,
-        "max_length" => 0,
-        "min" => 0,
-        "max" => 0,
+        "type" => "base64",
+        "accept" => "p12",
+        "max_allowed_size" => "10",
         "value" => null
     );
 }

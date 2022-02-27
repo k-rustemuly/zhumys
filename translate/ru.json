@@ -35,7 +35,13 @@
         "is_have_whatsapp": "Есть Whats App?",
         "is_have_telegram": "Есть Telegram?",
         "comment": "Комментарии",
-        "lastname": "Отчество"
+        "lastname": "Отчество",
+        "position_id": "Позиция",
+        "count": "Количество",
+        "status_id": "Статус",
+        "created_at": "Создано",
+        "sign_p12": "ЭЦП",
+        "password": ""
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -67,7 +73,13 @@
         "is_have_whatsapp": "",
         "is_have_telegram": "",
         "comment": "",
-        "lastname": ""
+        "lastname": "",
+        "position_id": "",
+        "count": "",
+        "status_id": "",
+        "created_at": "",
+        "sign_p12": "Выберите файл p12 для подписи действия",
+        "password": "Пароль"
     },
     "block": {
         "company_info": "О компании",
@@ -103,7 +115,14 @@
         "Company admin not added": "Админстратор компании не добавлен! Возможно уже есть такая запись в системе!",
         "Company admin not found on database": "Вас не найдено в базе как админстратор компании!",
         "Company admin is inactive": "У Вас нет права доступа!",
-        "Company is inactive": "Компания отключена из системы!"
+        "Company is inactive": "Компания отключена из системы!",
+        "The key is not intended for sign": "Этот ключ не предназначен для подписи!",
+        "The certificate has expired": "Срок действия сертификата истек!",
+        "The certificate is not legal": "Сертификат не действителен!",
+        "The key is not intended for authentication": "Этот ключ не предназначен для входа!",
+        "No certificate holder information found": "Нет информации о носителя",
+        "Wrong password or corrupted file": "Неправильный пароль или файл!",
+        "The parameter by which you can determine the holder of the certificate (key) is a legal entity. face or not, it is not": "Параметр, по которому можно определить держателя сертификата (ключа) — юридическое лицо. лицо или нет не указан"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -112,6 +131,7 @@
         "Company admin success added": "Админстратор компании успешно добавлено!",
         "Company admin info success updated": "Данные успешно обновлены!",
         "Applicant success added": "Соискатель успешно добавлено!",
-        "Applicant success updated": "Данные соискателя успешно обновлены!"
+        "Applicant success updated": "Данные соискателя успешно обновлены!",
+        "Free place success added": "Запись успешно добавлено!"
     }
 }

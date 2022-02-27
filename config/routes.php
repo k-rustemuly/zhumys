@@ -86,6 +86,8 @@ return function (App $app) {
 
                         $app->get('', \App\Action\Company\FreePlace\ReadAction::class);
 
+                        $app->post('', \App\Action\Company\FreePlace\AddAction::class);
+
                     });
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 

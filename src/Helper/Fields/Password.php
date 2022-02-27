@@ -3,17 +3,14 @@ declare(strict_types=1);
 
 namespace App\Helper\Fields;
 
-class Number{
+class Password{
 
     /**
      * @var array<mixed>
      */
     public $array = array(
-        "type" => "number",
+        "type" => "password",
         "min_length" => 0,
-        "max_length" => 0,
-        "min" => 0,
-        "max" => 0,
-        "value" => null
+        "max_length" => 0
     );
 }

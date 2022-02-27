@@ -6,6 +6,7 @@ use Malikzh\PhpNCANode\ApiErrorException;
 use Malikzh\PhpNCANode\CurlException;
 use Malikzh\PhpNCANode\InvalidResponseException;
 use Malikzh\PhpNCANode\NCANodeException;
+use Malikzh\PhpNCANode\NCANodeClient;
 use DomainException;
 
 class Pki{
@@ -36,7 +37,7 @@ class Pki{
 
     public function __construct(string $domain, bool $isVerifyOcsp = false, bool $isVerifyCrl = false)
     {
-        $this->nca = new \Malikzh\PhpNCANode\NCANodeClient($domain);
+        $this->nca = new NCANodeClient($domain);
         $this->bVerifyOcsp = $isVerifyOcsp;
         $this->bVerifyCrl = $isVerifyCrl;
     }
@@ -87,7 +88,7 @@ class Pki{
             $this->cert["is_hr"] = in_array("HR", $keyUser);
             $this->cert["is_employee"] = in_array("EMPLOYEE",$keyUser);
         }catch(ApiErrorException $e){
-            throw new DomainException($e->getMessage());
+            throw new DomainException("Wrong password or corrupted file");
         }catch(CurlException $e){
             throw new DomainException($e->getMessage());
         }catch(InvalidResponseException $e){
