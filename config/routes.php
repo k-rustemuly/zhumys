@@ -34,7 +34,7 @@ return function (App $app) {
 
                     $app->group('/company', function (RouteCollectorProxy $app) {
 
-                        $app->post('/add', \App\Action\Center\Company\CompanyAddAction::class);
+                        $app->post('', \App\Action\Center\Company\CompanyAddAction::class);
 
                         $app->get('', \App\Action\Center\Company\CompanyReadAction::class);
 
