@@ -80,6 +80,11 @@ return function (App $app) {
 
                 });
 
+                $app->group('', function (RouteCollectorProxy $app) {
+
+                    
+                })->add(\App\Middleware\CompanyAdminMiddleware::class);
+
             });
 
         });

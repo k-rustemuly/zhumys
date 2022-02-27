@@ -12,6 +12,7 @@ class Date{
         "type" => "date",
         "min_date" => null,
         "max_date" => null,
+        "is_picker" => false,
         "value" => null
     );
 }

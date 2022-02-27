@@ -15,7 +15,7 @@ class Authorization
 	 *
 	 * @param  ServerRequestInterface  $request PSR-7 request
 	 *
-	 * @return Response
+	 * @return array 
 	 */
 	public function init(ServerRequestInterface $request): array
 	{
