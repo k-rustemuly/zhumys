@@ -69,7 +69,7 @@ final class DefaultErrorHandler
         if ($logErrors) {
             $this->logger->error(
                 sprintf(
-                    'Error: [%s] %s, Method: %s, Path: %s',
+                    $lang.' Error: [%s] %s, Method: %s, Path: %s',
                     $exception->getCode(),
                     $this->getExceptionText($exception),
                     $request->getMethod(),
