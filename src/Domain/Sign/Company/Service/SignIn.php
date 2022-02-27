@@ -8,6 +8,7 @@ use App\Helper\Pki;
 use App\Domain\Admin\Company\Repository\AdminReadRepository;
 use App\Domain\Admin\Company\Repository\AdminUpdaterRepository;
 use Firebase\JWT\JWT;
+use App\Domain\Company\Repository\CompanyReadRepository;
 
 /**
  * Service.
@@ -23,6 +24,10 @@ final class SignIn{
      * @var AdminUpdaterRepository
      */
     private $updateRepository;
+    /**
+     * @var CompanyReadRepository
+     */
+    private $companyReadRepository;
 
     /**
      * @var ClientInterface
@@ -39,17 +44,20 @@ final class SignIn{
      *
      * @param AdminReadRepository $readRepository The read repository 
      * @param AdminUpdaterRepository $updateRepository The update repository 
+     * @param CompanyReadRepository $companyReadRepository The company read repository 
      * @param ClientInterface   $redis The redis client
      * @param Pki               $pki The pki client
      */
     public function __construct(
         AdminReadRepository $readRepository,
         AdminUpdaterRepository $updateRepository,
+        CompanyReadRepository $companyReadRepository,
         ClientInterface $redis, Pki $pki) {
         $this->redis = $redis;
         $this->pki = $pki;
         $this->readRepository = $readRepository;
         $this->updateRepository = $updateRepository;
+        $this->companyReadRepository = $companyReadRepository;
     }
 
     /**
@@ -62,6 +70,7 @@ final class SignIn{
      * @return array<mixed> The result
      */
     public function pkcs(array $post): array{
+        $lang = $post["lang"];
         $certInfo = $this->pki->getCertificateInfo($post["base64"], $post["password"], true);
         if(!$certInfo["is_individual"]) {
             throw new DomainException("Only individual usage digital signature accessed");
@@ -69,14 +78,26 @@ final class SignIn{
         $iin = (string)$certInfo["iin"];
 
         $adminInfo = $this->readRepository->findByIin($iin);
-        if(empty($adminInfo)) throw new DomainException("Company admin not found on database");
-        if(!$adminInfo["is_active"]) throw new DomainException("Company admin is inactive");
+        if(empty($adminInfo)) {
+            throw new DomainException("Company admin not found on database");
+        } 
+        if(!$adminInfo["is_active"]) {
+            throw new DomainException("Company admin is inactive");
+        } 
 
-        if(!$adminInfo["updated_at"]) {
+        $bin = $adminInfo["org_bin"];
+        $companyInfo = $this->companyReadRepository->getByBin($bin);
+        if(!$companyInfo) {
+            throw new DomainException("Company not found");
+        } 
+        if(!$companyInfo["is_active"]) {
+            throw new DomainException("Company is inactive");
+        }
+        $adminInfo["org_name"] = $companyInfo["full_name_".$lang];
+
+        if(!$adminInfo["last_visit"]) {
             $update = array();
-            $update["surname"] = mb_convert_case($certInfo["surname"], MB_CASE_TITLE, 'UTF-8');
-            $update["name"] = mb_convert_case($certInfo["name"], MB_CASE_TITLE, 'UTF-8');
-            $update["lastname"] = mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, 'UTF-8');
+            $update["full_name"] = mb_convert_case($certInfo["surname"], MB_CASE_TITLE, "UTF-8")." ".mb_convert_case($certInfo["name"], MB_CASE_TITLE, "UTF-8")." ".mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, "UTF-8");
             if(strlen($certInfo["email"])>2)
                 $update["email"] = strtolower($certInfo["email"]);
             $birthdate = $certInfo["birthdate"];
@@ -98,19 +119,20 @@ final class SignIn{
      */
     private function mapToUserRow(array $data): array{
         $payload = $this->mapToUserPayload($data);
-        $token = JWT::encode($payload, $_ENV['JWT_KEY']);
+        $token = JWT::encode($payload, $_ENV["JWT_KEY"]);
         $refreshToken = $this->generateRefreshToken();
         $refreshData = array("token" => $token,
-        "id" => $data['id'],
+        "id" => $data["id"],
         "type" => "admin",
-        'org_type' => 'center',
-        'org_bin' => $data['org_bin']);
-        $this->redis->setex($refreshToken, $_ENV['REFRESH_TOKEN_LIVE_SEC'], json_encode($refreshData, JSON_UNESCAPED_UNICODE));
+        "org_type" => "company",
+        "org_bin" => $data["org_bin"]);
+        $this->redis->setex($refreshToken, $_ENV["REFRESH_TOKEN_LIVE_SEC"], json_encode($refreshData, JSON_UNESCAPED_UNICODE));
 
         return [
-            'full_name' => $data['surname']." ".$data['name']." ".$data['lastname'],
-            'token' => $token,
-            'refresh_token' => $refreshToken
+            "full_name" => $data["full_name"],
+            "org_name" => $data["org_name"],
+            "token" => $token,
+            "refresh_token" => $refreshToken
         ];
     }
 
@@ -123,15 +145,15 @@ final class SignIn{
      */
     private function mapToUserPayload(array $data): array{
         return [
-            'iss' => $_ENV['API_URL'],
-            'aud' => $_ENV['URL'],
-            'jti' => $this->generateJti(32),
+            "iss" => $_ENV["API_URL"],
+            "aud" => $_ENV["URL"],
+            "jti" => $this->generateJti(32),
             "iat" => time(),
-            "exp" => time() + intval($_ENV['JWT_LIVE_SEC']),
-            'id' => (int) $data['id'],
-            'type' => 'admin',
-            'org_type' => 'center',
-            'org_bin' => $data['org_bin']
+            "exp" => time() + intval($_ENV["JWT_LIVE_SEC"]),
+            "id" => (int) $data["id"],
+            "type" => "admin",
+            "org_type" => "company",
+            "org_bin" => $data["org_bin"]
         ];
     }
 
@@ -144,13 +166,13 @@ final class SignIn{
         if(!isset($length) || intval($length) <= 8 ) {
             $length = 32;
         }
-        if (function_exists('random_bytes')) {
+        if (function_exists("random_bytes")) {
             return bin2hex(random_bytes($length));
         }
-        if (function_exists('mcrypt_create_iv')) {
+        if (function_exists("mcrypt_create_iv")) {
             return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
         }
-        if (function_exists('openssl_random_pseudo_bytes')) {
+        if (function_exists("openssl_random_pseudo_bytes")) {
             return bin2hex(openssl_random_pseudo_bytes($length));
         }
     }
@@ -161,7 +183,7 @@ final class SignIn{
      * @return string The refresh token
      */
     private function generateRefreshToken(int $length = 36, int $attempt = 1) :string{
-        $randomStr = $this->base64url_encode(substr(hash('sha512', mt_rand()), 0, $length));
+        $randomStr = $this->base64url_encode(substr(hash("sha512", mt_rand()), 0, $length));
         if($this->redis->exists($randomStr))
         {
             if($attempt > 10)
@@ -181,6 +203,6 @@ final class SignIn{
      * @return string The cleaned string
      */
     public function base64url_encode(string $data) :string{ 
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
+        return rtrim(strtr(base64_encode($data), "+/", "-_"), "="); 
     }
 }

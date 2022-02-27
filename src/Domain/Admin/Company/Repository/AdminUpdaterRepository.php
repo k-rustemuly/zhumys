@@ -44,4 +44,17 @@ final class AdminUpdaterRepository{
             return 0;
         }
     }
+
+    /**
+     * Update row
+     *
+     * @param string $iin The iin
+     * @param array<mixed> $new_data The new data
+     *
+     * @return void
+     */
+    public function updateByIin(string $iin, array $new_data): int
+    {
+        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['iin' => $iin])->execute()->rowCount();
+    }
 }

@@ -102,7 +102,8 @@
         "Company not added": "Компания не добавлено!",
         "Company admin not added": "Админстратор компании не добавлен! Возможно уже есть такая запись в системе!",
         "Company admin not found on database": "Вас не найдено в базе как админстратор компании!",
-        "Company admin is inactive": "У Вас нет права доступа!"
+        "Company admin is inactive": "У Вас нет права доступа!",
+        "Company is inactive": "Компания отключена из системы!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
