@@ -107,6 +107,7 @@ final class SignIn{
 
         return [
             'full_name' => $data['full_name'],
+            "org_name" => "123",
             'token' => $token,
             'refresh_token' => $refreshToken
         ];

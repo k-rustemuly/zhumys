@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Center;
+namespace App\Domain\Company;
 
 /**
  * Service.
@@ -30,7 +30,7 @@ class Admin{
         return $this->id;
     }
 
-    public function getOrgBin() :string{
+    public function getBin() :string{
         return $this->bin;
     }
 }

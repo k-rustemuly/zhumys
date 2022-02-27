@@ -84,7 +84,7 @@ return function (App $app) {
 
                     $app->group('/free-place', function (RouteCollectorProxy $app) {
 
-                        //$app->get('', \App\Action\Applicant\ApplicantReadAction::class);
+                        $app->get('', \App\Action\Company\FreePlace\ReadAction::class);
 
                     });
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
