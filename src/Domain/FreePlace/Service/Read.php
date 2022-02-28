@@ -12,7 +12,7 @@ use App\Helper\Fields\DateTime;
 use App\Helper\Fields\File;
 use App\Helper\Fields\Password;
 use App\Domain\Company\Admin;
-
+use App\Domain\Position\Repository\PositionFinderRepository;
 /**
  * Service.
  */
@@ -24,6 +24,11 @@ final class Read extends Admin{
     private $readRepository;
 
     /**
+     * @var PositionFinderRepository
+     */
+    private $positionFinderRepository;
+
+    /**
      * @var Render
      */
     private $render;
@@ -33,8 +38,9 @@ final class Read extends Admin{
      * @param FreePlaceReadRepository $readRepository
      *
      */
-    public function __construct(FreePlaceReadRepository $readRepository){
+    public function __construct(FreePlaceReadRepository $readRepository, PositionFinderRepository $positionFinderRepository) {
         $this->readRepository = $readRepository;
+        $this->positionFinderRepository = $positionFinderRepository;
         $this->render = new Render();
     }
 
@@ -48,12 +54,12 @@ final class Read extends Admin{
      * 
      */
     public function list(string $lang, array $params) :array{
-        $data = $this->readRepository->getAllByBin($this->getBin());
+        $data = $this->readRepository->getAllByBinAndLang($this->getBin(), $lang);
 
         return $this->render
                 ->lang($lang)
                 ->header(self::getHeader())
-                ->data($data)
+                ->data($this->parseData($data))
                 ->build();
     }
 
@@ -73,5 +79,31 @@ final class Read extends Admin{
             "sign_p12" => Field::getInstance()->init(new File())->is_visible(false)->can_create(true)->is_required(true)->execute(),
             "password" => Field::getInstance()->init(new Password())->is_visible(false)->can_create(true)->is_required(true)->execute(),
         );
+    }
+
+    /**
+     * Parse data from db
+     *
+     * @param string $lang
+     * @param array<mixed> $data
+     * 
+     * @return array<mixed> parsed data
+     */
+    private function parseData(array $data):array {
+        foreach($data as $i => $v) {
+            foreach($v as $key => $val) {
+                switch($key) {
+                    case 'position_id':
+                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["position_name"]);
+                        unset($data[$i]["position_name"]);
+                    break;
+                    case 'status_id':
+                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"]);
+                        unset($data[$i]["status_name"]);
+                    break;
+                }
+            }
+        }
+        return $data;
     }
 }
