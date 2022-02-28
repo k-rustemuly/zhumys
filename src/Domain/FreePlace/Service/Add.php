@@ -19,7 +19,7 @@ final class Add extends Admin{
     /**
      * @var int
      */
-    private $admin_type_id = 1;
+    private $admin_type_id = 2;
 
     /**
      * @var FreePlaceCreaterRepository
@@ -131,7 +131,7 @@ final class Add extends Admin{
                     "free_place_id" => $id,
                     "admin_id" => $this->admin_type_id,
                     "admin_iin" => $iin,
-                    "admin_full_name" => $certInfo["surname"]." ".$certInfo["name"]." ".$certInfo["lastname"],
+                    "admin_full_name" => mb_convert_case($certInfo["surname"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["name"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, 'UTF-8'),
                     "status_id" => $freePlaceInfo["status_id"],
                     "field" => $signed_result["raw"],
                     "sign" => $signed_result["xml"]
