@@ -54,8 +54,8 @@ final class AddAction{
 
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
         $post = (array)$request->getParsedBody();
-        $this->service->add($post);
-
+        $data = $this->service->add($post);
+        return $this->responder->success($response, null, $data);
         return $this->responder->success($response, $this->language->get("success")["Free place success added"]);
     }
 }

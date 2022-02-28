@@ -67,7 +67,7 @@ final class Read extends Admin{
         return array(
             "position_id" => Field::getInstance()->init(new Reference())->can_create(true)->reference_name("position")->reference_id("id")->is_required(true)->execute(),
             "count" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min(1)->execute(),
-            "comment" => Field::getInstance()->init(new Text())->can_create(true)->is_required(true)->min_length(3)->is_visible(false)->execute(),
+            "comment" => Field::getInstance()->init(new Text())->can_create(true)->is_visible(false)->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->execute(),
             "sign_p12" => Field::getInstance()->init(new File())->is_visible(false)->can_create(true)->is_required(true)->execute(),

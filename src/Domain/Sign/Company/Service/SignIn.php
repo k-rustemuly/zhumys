@@ -155,6 +155,7 @@ final class SignIn{
             "id" => (int) $data["id"],
             "type" => "admin",
             "org_type" => "company",
+            "iin" => $data["iin"],
             "org_bin" => $data["org_bin"]
         ];
     }
