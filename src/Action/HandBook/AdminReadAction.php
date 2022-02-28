@@ -46,6 +46,6 @@ final class AdminReadAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
         $data = $this->service->get($args["lang"]);
-        return $this->responder->withJson($response, $data);
+        return $this->responder->success($response, null, $data);
     }
 }
