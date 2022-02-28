@@ -49,6 +49,8 @@ class Pki{
      * @param string        $sPassword  Пароль к файлу
      * @param bool          $is_auth    Тип эцп Auth?
      * 
+     * @throws DomainException
+     * 
      * @return mixed $result
      *
      */
@@ -90,11 +92,11 @@ class Pki{
         }catch(ApiErrorException $e){
             throw new DomainException("Wrong password or corrupted file");
         }catch(CurlException $e){
-            throw new DomainException($e->getMessage());
+            throw new DomainException("Server pki error");
         }catch(InvalidResponseException $e){
-            throw new DomainException($e->getMessage());
+            throw new DomainException("Server pki error");
         }catch(NCANodeException $e){
-            throw new DomainException($e->getMessage());
+            throw new DomainException("Server pki error");
         } 
         return $this->cert;
     }
@@ -113,6 +115,31 @@ class Pki{
         $newKey = $newKey?:$key;
         $this->cert[$newKey] = array_key_exists($key, $arr) ? $arr[$key] : $default;
         return $this;
+    }
+    
+
+    /**
+     * Подписывает XML
+     *
+     * @param string $xml XML данные, которые надо подписать
+     * @param string $p12Base64 Закодированный в Base64, файл P12
+     * @param string$sPassword Пароль к файлу p12
+     * @return mixed Результат подписания
+     * @throws DomainException Произошла ошибка со стороны API. Неверный сертификат, неверный пароль и т.д.
+     */
+    public function sign($sXml, $p12Base64, $sPassword)
+    {
+        try{
+            return $this->nca->xmlSign($sXml, $p12Base64, $sPassword);
+        }catch(ApiErrorException $e){
+            throw new DomainException("Wrong password or corrupted file");
+        }catch(CurlException $e){
+            throw new DomainException("Server pki error");
+        }catch(InvalidResponseException $e){
+            throw new DomainException("Server pki error");
+        }catch(NCANodeException $e){
+            throw new DomainException("Server pki error");
+        }
     }
 }
 

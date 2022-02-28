@@ -123,7 +123,9 @@
         "No certificate holder information found": "Нет информации о носителя",
         "Wrong password or corrupted file": "Неправильный пароль или файл!",
         "The parameter by which you can determine the holder of the certificate (key) is a legal entity. face or not, it is not": "Параметр, по которому можно определить держателя сертификата (ключа) — юридическое лицо. лицо или нет не указан",
-        "The owner not does not match the certificate auth": "Держатель ЭЦП при входе не соответствует!"
+        "The owner not does not match the certificate auth": "Держатель ЭЦП при входе не соответствует!",
+        "Server pki error": "Ошибка на сервере подписа!",
+        "Error to add free place": "Ошибка при добавлении записи!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",

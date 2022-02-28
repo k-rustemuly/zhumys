@@ -39,4 +39,18 @@ final class FreePlaceReadRepository{
         $query->select(["*"])->where(["bin" => $bin]);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
+
+    /**
+     * Find datas by id
+     *
+     * @param int $id The id
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function findById(int $id): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(["id" => $id]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
+
 }
