@@ -93,5 +93,15 @@ return function (App $app) {
 
             });
 
+            $app->group('/reference', function (RouteCollectorProxy $app) {
+
+                $app->get('/admin', \App\Action\HandBook\AdminReadAction::class);
+
+                $app->get('/place-status', \App\Action\HandBook\PlaceStatusReadAction::class);
+
+                $app->get('/position', \App\Action\HandBook\PositionReadAction::class);
+
+            });
+
         });
 };
