@@ -94,7 +94,7 @@ return function (App $app) {
 
                             $app->delete('', \App\Action\Company\FreePlace\DeleteAction::class);
 
-                            $app->post('', \App\Action\Company\FreePlace\SendAction::class);
+                            $app->post('/send', \App\Action\Company\FreePlace\SendAction::class);
 
                             $app->get('', \App\Action\Company\FreePlace\AboutAction::class);
 

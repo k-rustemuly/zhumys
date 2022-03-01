@@ -45,6 +45,7 @@ final class Read extends Admin{
      * 
      */
     public function list(string $lang, array $params) :array{
+        $search = $this->parseParams($params);
         $data = $this->readRepository->getAllByBinAndLang($this->getBin(), $lang);
 
         return $this->render
@@ -52,6 +53,21 @@ final class Read extends Admin{
                 ->header(self::getHeader())
                 ->data($this->parseData($data))
                 ->build();
+    }
+
+    /**
+     * Get applicant list
+     * 
+     * @param array<mixed> $params The get params
+     *
+     * @return array<mixed> 
+     * 
+     */
+    private function parseParams(array $params) :array{
+        if(isset($params[""])){
+            
+        }
+        return array();
     }
 
     /**
