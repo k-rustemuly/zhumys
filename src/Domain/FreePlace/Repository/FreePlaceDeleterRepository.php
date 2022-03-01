@@ -32,16 +32,16 @@ final class FreePlaceDeleterRepository{
     /**
      * Delete row.
      *
-     * @param array<mixed> $data The user data to update
-     * @param array<mixed> $where The where
+     * @param string $bin The company bin
+     * @param int $id The id
      *
-     * @return void
+     * @return int
      */
-    public function deleteById(int $id): int
+    public function deleteByBinAndId(string $bin, int $id): int
     {
         try
         {
-            $statement = $this->queryFactory->newDelete(self::$tableName)->where(array("id" => $id))->execute();
+            $statement = $this->queryFactory->newDelete(self::$tableName)->where(array("id" => $id, "bin" => $bin, "status_id" => 1))->execute();
             return $statement->count();
         }catch(PDOException $e){
             return 0;

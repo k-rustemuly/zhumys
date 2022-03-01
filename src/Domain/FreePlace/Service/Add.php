@@ -137,7 +137,7 @@ final class Add extends Admin{
                     "sign" => $signed_result["xml"]
                 );
                 if($this->logCreateRepository->insert($log) == 0) {
-                    $this->deleteRepository->deleteById($id);
+                    //$this->deleteRepository->deleteById($id);
                     throw new DomainException("Error to add free place");
                 }
             } else {

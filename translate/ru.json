@@ -126,7 +126,8 @@
         "The owner not does not match the certificate auth": "Держатель ЭЦП при входе не соответствует!",
         "Server pki error": "Ошибка на сервере подписа!",
         "Error to add free place": "Ошибка при добавлении записи!",
-        "Error to update free place": "Ошибка при обновление записи, данные не сохранены!"
+        "Error to update free place": "Ошибка при обновление записи, данные не сохранены!",
+        "Error to delete free place": "Ошибка при удалении записи! Запись может быть удалена если статус \"Создано\"."
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -137,6 +138,7 @@
         "Applicant success added": "Соискатель успешно добавлено!",
         "Applicant success updated": "Данные соискателя успешно обновлены!",
         "Free place success added": "Запись успешно добавлено!",
-        "Free place success edited": "Данные успешно обновлены!"
+        "Free place success edited": "Данные успешно обновлены!",
+        "Free place success deleted": "Запись успешно удалена!"
     }
 }

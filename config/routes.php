@@ -92,6 +92,8 @@ return function (App $app) {
 
                             $app->patch('', \App\Action\Company\FreePlace\EditAction::class);
 
+                            $app->delete('', \App\Action\Company\FreePlace\DeleteAction::class);
+
                         });
 
                     });
