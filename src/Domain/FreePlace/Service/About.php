@@ -97,8 +97,8 @@ final class About extends Admin{
         $array = array();
         foreach ($data as $i => $v){
             $array[$i] = array(
-                "admin_type_id" => Field::getInstance()->init(new Reference())->reference_name("admin")->reference_id("id")->value($v["admin_type_name"])->execute(),
-                "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value($v["status_name"])->execute(),
+                "admin_type_id" => Field::getInstance()->init(new Reference())->reference_name("admin")->reference_id("id")->value(array("id" => $v["admin_type_id"], "value" => $v["admin_type_name"]))->execute(),
+                "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"]))->execute(),
                 "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
                 "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
                 "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
