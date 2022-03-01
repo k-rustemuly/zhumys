@@ -82,68 +82,9 @@ final class Add extends Admin{
      */
     public function add(array $post) {
         $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
-        $sign_p12 = $post["sign_p12"];
-        $password = $post["password"];
-        $certInfo = $this->pki->getCertificateInfo($sign_p12, $password, false);
-        if(!$certInfo["is_individual"]) {
-            throw new DomainException("Only individual usage digital signature accessed");
-        }
-        $iin = (string)$certInfo["iin"];
-        if($iin != $this->getIin()) {
-            throw new DomainException("The owner not does not match the certificate auth");
-        }
-        unset($data["sign_p12"]);
-        unset($data["password"]);
         $data["bin"] = $this->getBin();
         $id = $this->createRepository->insert($data);
-        if($id > 0) {
-            $freePlaceInfo = $this->readRepository->findById($id);
-            $sign_arr = array(
-                "Id" => [
-                    "integer" => (int)$freePlaceInfo["id"]
-                ],
-                "Company bin" => [
-                    "integer" => $freePlaceInfo["bin"]
-                ],
-                "Author iin" => [
-                    "integer" => $this->getIin()
-                ],
-                "Count" => [
-                    "integer" => $freePlaceInfo["count"]
-                ],
-                "Comment" => [
-                    "text" => $freePlaceInfo["comment"]
-                ],
-                "Status id" => [
-                    "integer" => $freePlaceInfo["status_id"]
-                ],
-                "Reason" => [
-                    "text" => $freePlaceInfo["reason"]
-                ],
-                "Created date" => [
-                    "datetime" => $freePlaceInfo["created_at"]
-                ]
-            );
-            $xml = ArrayToXml::convert($sign_arr);
-            $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-            if(!empty($signed_result)){
-                $log = array(
-                    "free_place_id" => $id,
-                    "admin_id" => $this->admin_type_id,
-                    "admin_iin" => $iin,
-                    "admin_full_name" => mb_convert_case($certInfo["surname"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["name"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, 'UTF-8'),
-                    "status_id" => $freePlaceInfo["status_id"],
-                    "field" => $signed_result["raw"],
-                    "sign" => $signed_result["xml"]
-                );
-                if($this->logCreateRepository->insert($log) == 0) {
-                    //$this->deleteRepository->deleteById($id);
-                    throw new DomainException("Error to add free place");
-                }
-            } else {
-                throw new DomainException("Error to add free place");
-            }
-        }else {
+        if($id == 0) {
             throw new DomainException("Error to add free place");
         }
     }
