@@ -45,7 +45,7 @@ final class LogReadRepository{
             ->innerJoin(['a' => AdminsFinderRepository::$tableName], ['a.id = fpl.admin_type_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fpl.status_id'])
             ->where(["fpl.free_place_id" => $id])
-            ->order(['fp.created_at' => 'ASC']);
+            ->order(['fpl.created_at' => 'ASC']);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 
