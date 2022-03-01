@@ -127,7 +127,9 @@
         "Server pki error": "Ошибка на сервере подписа!",
         "Error to add free place": "Ошибка при добавлении записи!",
         "Error to update free place": "Ошибка при обновление записи, данные не сохранены!",
-        "Error to delete free place": "Ошибка при удалении записи! Запись может быть удалена если статус \"Создано\"."
+        "Error to delete free place": "Ошибка при удалении записи! Запись может быть удалена если статус \"Создано\".",
+        "Free place status must be created": "Только заявки со статус \"Создано\" доступно для отправки!",
+        "Error to sign action": "Ошибка при подписании! Повторите попытку позже!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -139,6 +141,7 @@
         "Applicant success updated": "Данные соискателя успешно обновлены!",
         "Free place success added": "Запись успешно добавлено!",
         "Free place success edited": "Данные успешно обновлены!",
-        "Free place success deleted": "Запись успешно удалена!"
+        "Free place success deleted": "Запись успешно удалена!",
+        "Free place success sended": "Заявка успешно отправлено!"
     }
 }

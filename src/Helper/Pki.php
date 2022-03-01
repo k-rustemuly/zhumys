@@ -79,7 +79,10 @@ class Pki{
                 ->addToCert($subject_info, "organization");
             $commonName = array_key_exists('commonName', $subject_info) ? $subject_info["commonName"] : null;
             list($surname,$name) = explode(' ',$commonName,2);
-            $this->cert["name"] = $name; 
+
+            $this->cert["surname"] = mb_convert_case($this->cert["surname"], MB_CASE_TITLE, 'UTF-8');
+            $this->cert["name"] = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
+            $this->cert["lastname"] = mb_convert_case($this->cert["lastname"], MB_CASE_TITLE, 'UTF-8');
 
             $keyUser = $info->keyUser;
             $this->cert["is_individual"] = in_array("INDIVIDUAL", $keyUser);

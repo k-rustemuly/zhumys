@@ -75,4 +75,18 @@ final class FreePlaceReadRepository{
         return $query->execute()->fetch('assoc') ?: [];
     }
 
+    /**
+     * Find datas by company bin and id
+     *
+     * @param string $bin The company bin
+     * @param int $id The id
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function findByBinAndId(string $bin, int $id): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(["id" => $id, "bin" => $bin]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
+
 }
