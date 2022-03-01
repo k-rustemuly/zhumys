@@ -3,6 +3,7 @@
 namespace App\Domain\FreePlace\Service;
 
 use App\Domain\FreePlace\Repository\FreePlaceReadRepository;
+use App\Domain\FreePlace\Log\Repository\LogReadRepository;
 use App\Helper\Field;
 use App\Helper\Render;
 use App\Helper\Fields\Number;
@@ -23,6 +24,11 @@ final class About extends Admin{
     private $readRepository;
 
     /**
+     * @var LogReadRepository
+     */
+    private $logReadRepository;
+
+    /**
      * @var Render
      */
     private $render;
@@ -35,10 +41,12 @@ final class About extends Admin{
     /**
      * The constructor.
      * @param FreePlaceReadRepository $readRepository
+     * @param LogReadRepository $logReadRepository
      *
      */
-    public function __construct(FreePlaceReadRepository $readRepository) {
+    public function __construct(FreePlaceReadRepository $readRepository, LogReadRepository $logReadRepository) {
         $this->readRepository = $readRepository;
+        $this->logReadRepository = $logReadRepository;
         $this->render = new Render();
     }
 
@@ -57,12 +65,12 @@ final class About extends Admin{
         return $this->render
         ->lang($lang)
         ->block("free_place_info", $this->getFreePlaceBlockValues())
-        ->block("free_place_log_info", $this->getFreePlaceBlockValues())
+        ->block("free_place_log_info", $this->getFreePlaceLogBlockValues($this->logReadRepository->getAllByIdAndLang($id, $lang)))
         ->build();
     }
 
     /**
-     * Get company info block values
+     * Get free place info block values
      *
      * @param array<mixed> $values
      * 
@@ -77,6 +85,26 @@ final class About extends Admin{
             "reason" => Field::getInstance()->init(new Text())->value($this->freePlaceInfo["reason"])->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->value($this->freePlaceInfo["created_at"])->execute(),
         );
+    }
+
+    /**
+     * Get free place log info block values
+     *
+     * @param array<mixed> $values
+     * 
+     */
+    public function getFreePlaceLogBlockValues(array $data) :array{
+        $array = array();
+        foreach ($data as $i => $v){
+            $array[$i] = array(
+                "admin_type_id" => Field::getInstance()->init(new Reference())->reference_name("admin")->reference_id("id")->value($v["admin_type_name"])->execute(),
+                "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value($v["status_name"])->execute(),
+                "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
+                "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
+                "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
+            );
+        }
+        return $array;
     }
 
 }

@@ -98,7 +98,6 @@ return function (App $app) {
 
                             $app->get('', \App\Action\Company\FreePlace\AboutAction::class);
 
-
                         });
 
                     });
