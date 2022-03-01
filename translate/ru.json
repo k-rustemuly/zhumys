@@ -125,7 +125,8 @@
         "The parameter by which you can determine the holder of the certificate (key) is a legal entity. face or not, it is not": "Параметр, по которому можно определить держателя сертификата (ключа) — юридическое лицо. лицо или нет не указан",
         "The owner not does not match the certificate auth": "Держатель ЭЦП при входе не соответствует!",
         "Server pki error": "Ошибка на сервере подписа!",
-        "Error to add free place": "Ошибка при добавлении записи!"
+        "Error to add free place": "Ошибка при добавлении записи!",
+        "Error to update free place": "Ошибка при обновление записи, данные не сохранены!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -135,6 +136,7 @@
         "Company admin info success updated": "Данные успешно обновлены!",
         "Applicant success added": "Соискатель успешно добавлено!",
         "Applicant success updated": "Данные соискателя успешно обновлены!",
-        "Free place success added": "Запись успешно добавлено!"
+        "Free place success added": "Запись успешно добавлено!",
+        "Free place success edited": "Данные успешно обновлены!"
     }
 }

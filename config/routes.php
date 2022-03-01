@@ -88,6 +88,12 @@ return function (App $app) {
 
                         $app->post('', \App\Action\Company\FreePlace\AddAction::class);
 
+                        $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
+
+                            $app->patch('', \App\Action\Company\FreePlace\EditAction::class);
+
+                        });
+
                     });
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 

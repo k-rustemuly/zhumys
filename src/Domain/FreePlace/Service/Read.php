@@ -9,10 +9,7 @@ use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
-use App\Helper\Fields\File;
-use App\Helper\Fields\Password;
 use App\Domain\Company\Admin;
-use App\Domain\Position\Repository\PositionFinderRepository;
 /**
  * Service.
  */
@@ -24,11 +21,6 @@ final class Read extends Admin{
     private $readRepository;
 
     /**
-     * @var PositionFinderRepository
-     */
-    private $positionFinderRepository;
-
-    /**
      * @var Render
      */
     private $render;
@@ -38,9 +30,8 @@ final class Read extends Admin{
      * @param FreePlaceReadRepository $readRepository
      *
      */
-    public function __construct(FreePlaceReadRepository $readRepository, PositionFinderRepository $positionFinderRepository) {
+    public function __construct(FreePlaceReadRepository $readRepository) {
         $this->readRepository = $readRepository;
-        $this->positionFinderRepository = $positionFinderRepository;
         $this->render = new Render();
     }
 
@@ -71,13 +62,11 @@ final class Read extends Admin{
      */
     public static function getHeader() :array{
         return array(
-            "position_id" => Field::getInstance()->init(new Reference())->can_create(true)->reference_name("position")->reference_id("id")->is_required(true)->execute(),
-            "count" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min(1)->execute(),
-            "comment" => Field::getInstance()->init(new Text())->can_create(true)->is_visible(false)->execute(),
+            "position_id" => Field::getInstance()->init(new Reference())->can_create(true)->can_update(true)->reference_name("position")->reference_id("id")->is_required(true)->execute(),
+            "count" => Field::getInstance()->init(new Number())->can_create(true)->can_update(true)->is_required(true)->min(1)->execute(),
+            "comment" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_visible(false)->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->execute(),
-            "sign_p12" => Field::getInstance()->init(new File())->is_visible(false)->can_create(true)->is_required(true)->execute(),
-            "password" => Field::getInstance()->init(new Password())->is_visible(false)->can_create(true)->is_required(true)->execute(),
         );
     }
 

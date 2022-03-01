@@ -31,15 +31,16 @@ final class FreePlaceUpdaterRepository{
     /**
      * Update row.
      *
+     * @param string $bin The company bin
      * @param int $id The id
      * @param array<mixed> $where The where
      *
      * @return void
      */
-    public function updateById(int $id, array $data): int{
+    public function updateByBinAndId(string $bin, int $id, array $data): int{
         try
         {
-            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("id" => $id))->execute()->rowCount();
+            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("id" => $id, "bin" => $bin))->execute()->rowCount();
         }catch(PDOException $e){
             return 0;
         }
