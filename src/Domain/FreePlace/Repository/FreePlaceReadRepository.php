@@ -89,4 +89,24 @@ final class FreePlaceReadRepository{
         return $query->execute()->fetch('assoc') ?: [];
     }
 
+    /**
+     * Find datas by company bin and id
+     *
+     * @param string $bin The company bin
+     * @param int $id The id
+     * @param string $lang The lang
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function findByBinAndIdAndLang(string $bin, int $id, string $lang): array{
+        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query->select(["fp.*",
+                        "p.name_".$lang." as position_name",
+                        "s.name_".$lang." as status_name"])
+            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
+            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->where(["fp.bin" => $bin, "fp.id" => $id]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
+
 }

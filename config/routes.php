@@ -96,6 +96,9 @@ return function (App $app) {
 
                             $app->post('', \App\Action\Company\FreePlace\SendAction::class);
 
+                            $app->get('', \App\Action\Company\FreePlace\AboutAction::class);
+
+
                         });
 
                     });
