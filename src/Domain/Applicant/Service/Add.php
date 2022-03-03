@@ -132,7 +132,7 @@ final class Add extends Admin {
                 $log = array(
                     "center_admins_id" => $this->getAdminId(),
                     "center_admin_full_name" => $certInfo["full_name"],
-                    "applicant_id" => $applicantInfo["id"],
+                    "applicant_id" => $applicantId,
                     "applicant_full_name" => $applicantInfo["full_name"],
                     "action" => "add",
                     "field" => $signed_result["raw"],

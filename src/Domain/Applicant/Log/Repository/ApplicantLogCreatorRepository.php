@@ -4,6 +4,7 @@ namespace App\Domain\Applicant\Log\Repository;
 
 use App\Factory\QueryFactory;
 use PDOException;
+use DomainException;
 
 /**
  * Repository.
@@ -40,7 +41,7 @@ final class ApplicantLogCreatorRepository{
         {
             return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();
         }catch(PDOException $e){
-            return 0;
+            throw new DomainException($e->getMessage());
         }
     }
 }
