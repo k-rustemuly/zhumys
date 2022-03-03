@@ -29,6 +29,7 @@ class Admin{
     public function init(array $data){
         $this->id = $data['id'];
         $this->bin = $data['org_bin'];
+        $this->iin = $data['iin'];
     }
 
     public function getAdminId() :int{
