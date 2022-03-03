@@ -72,8 +72,8 @@ final class Read{
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->is_required(true)->can_create(true)->can_update(true)->execute(),
             "address" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->is_required(true)->execute(),
             "second_phone_number" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),
-            "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
-            "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
+            // "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
+            // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),
         );
     }
