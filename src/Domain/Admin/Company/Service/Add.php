@@ -122,14 +122,16 @@ final class Add extends Admin {
                 "center_admins_id" => $this->getAdminId(),
                 "center_admin_full_name" => $certInfo["full_name"],
                 "company_admin_full_name" => $adminInfo["full_name"],
-                "action " => "add",
+                "action" => "add",
                 "field" => $signed_result["raw"],
                 "sign" => $signed_result["xml"]
             );
             if($this->logCreateRepository->insert($log) == 0) {
+                //TODO: Company admin delete!
                 throw new DomainException("Company admin not added");
             }
         } else {
+            //TODO: Company admin delete!
             throw new DomainException("Error to sign action");
         }
     }

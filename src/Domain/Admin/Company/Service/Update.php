@@ -101,7 +101,7 @@ final class Update extends Admin{
                     "center_admins_id" => $this->getAdminId(),
                     "center_admin_full_name" => $certInfo["full_name"],
                     "company_admin_full_name" => $newInfo["full_name"],
-                    "action " => "update",
+                    "action" => "update",
                     "field" => $signed_result["raw"],
                     "sign" => $signed_result["xml"]
                 );

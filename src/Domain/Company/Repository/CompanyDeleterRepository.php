@@ -12,7 +12,7 @@ final class CompanyDeleterRepository{
     /**
      * @var string
      */
-    public static $tableName = 'company_logs';
+    public static $tableName = 'company';
 
     /**
      * @var QueryFactory

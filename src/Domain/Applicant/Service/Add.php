@@ -134,7 +134,7 @@ final class Add extends Admin {
                     "center_admin_full_name" => $certInfo["full_name"],
                     "applicant_id" => $applicantInfo["id"],
                     "applicant_full_name" => $applicantInfo["full_name"],
-                    "action " => "add",
+                    "action" => "add",
                     "field" => $signed_result["raw"],
                     "sign" => $signed_result["xml"]
                 );

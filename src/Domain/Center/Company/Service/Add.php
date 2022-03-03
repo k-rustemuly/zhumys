@@ -164,7 +164,7 @@ final class Add extends Admin{
                 "company_id" => $companyId,
                 "admin_id" => $this->getAdminId(),
                 "admin_full_name" => $certInfo["full_name"],
-                "action " => "add",
+                "action" => "add",
                 "field" => $signed_result["raw"],
                 "sign" => $signed_result["xml"]
             );
