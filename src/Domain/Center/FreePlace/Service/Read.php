@@ -9,6 +9,7 @@ use App\Helper\Fields\Number;
 use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
+use App\Helper\Fields\Text;
 /**
  * Service.
  */
