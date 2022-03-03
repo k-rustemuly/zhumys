@@ -70,7 +70,7 @@ return function (App $app) {
 
                     $app->group('/free-place', function (RouteCollectorProxy $app) {
 
-                        $app->get('', \App\Action\Center\Company\CompanyReadAction::class);
+                        $app->get('', \App\Action\Center\FreePlace\FreePlaceReadAction::class);
 
                     });
 
