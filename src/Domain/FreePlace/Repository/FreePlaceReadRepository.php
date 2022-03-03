@@ -5,6 +5,7 @@ namespace App\Domain\FreePlace\Repository;
 use App\Factory\QueryFactory;
 use App\Domain\Position\Repository\PositionFinderRepository;
 use App\Domain\PlaceStatus\Repository\PlaceStatusFinderRepository;
+use App\Domain\Company\Repository\CompanyReadRepository;
 
 /**
  * Repository.
@@ -107,6 +108,28 @@ final class FreePlaceReadRepository{
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->where(["fp.bin" => $bin, "fp.id" => $id]);
         return $query->execute()->fetch('assoc') ?: [];
+    }
+
+    /**
+     * Get All data from db
+     *
+     * @param string $lang The lang
+     * @param string $bin The bin
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function getAllByLang(string $lang): array{
+        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query->select(["fp.*",
+                        "c.name_".$lang." as company_name",
+                        "p.name_".$lang." as position_name",
+                        "s.name_".$lang." as status_name"])
+            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
+            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
+            ->where(["fp.status_id !=" => 1])
+            ->order(['fp.created_at' => 'DESC']);
+        return $query->execute()->fetchAll('assoc') ?: [];
     }
 
 }

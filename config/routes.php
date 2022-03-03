@@ -68,6 +68,12 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/free-place', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Center\Company\CompanyReadAction::class);
+
+                    });
+
                 })->add(\App\Middleware\CenterAdminMiddleware::class);
 
             });
