@@ -8,6 +8,7 @@ use App\Helper\Render;
 use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Boolean;
+use App\Helper\Language;
 use DomainException;
 
 /**
@@ -26,6 +27,11 @@ final class InfoRead{
     private $render;
 
     /**
+     * @var Language
+     */
+    private $language;
+
+    /**
      * @var array
      */
     private $companyInfo;
@@ -38,6 +44,7 @@ final class InfoRead{
     public function __construct(CompanyReadRepository $readRepository){
         $this->readRepository = $readRepository;
         $this->render = new Render();
+        $this->language = new Language();
     }
 
     /**
@@ -52,6 +59,7 @@ final class InfoRead{
      * 
      */
     public function info(string $bin, string $lang) :array{
+        $this->language->locale($lang);
         $companyInfo = $this->readRepository->getByBin($bin);
         if(empty($companyInfo)) throw new DomainException("Company not found");
         $this->companyInfo = $companyInfo;
@@ -76,7 +84,7 @@ final class InfoRead{
             "full_name_kk" => Field::getInstance()->init(new Text())->value($this->companyInfo["full_name_kk"])->execute(),
             "full_name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["full_name_ru"])->execute(),
             "director_fullname" => Field::getInstance()->init(new Text())->value($this->companyInfo["director_fullname"])->execute(),
-            "is_active" => Field::getInstance()->init(new Boolean())->value($this->companyInfo["is_active"])->execute(),
+            "is_active" => Field::getInstance()->init(new Boolean())->value(array("id" => $this->companyInfo["is_active"], "value" => $this->language->get("boolean")["company_is_active"][$this->companyInfo["is_active"]]))->execute(),
         );
     }
 }

@@ -8,6 +8,7 @@ use App\Helper\Render;
 use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Boolean;
+use App\Helper\Language;
 
 /**
  * Service.
@@ -25,6 +26,11 @@ final class Read{
     private $render;
 
     /**
+     * @var Language
+     */
+    private $language;
+
+    /**
      * The constructor.
      * @param CompanyReadRepository $readRepository
      *
@@ -32,6 +38,7 @@ final class Read{
     public function __construct(CompanyReadRepository $readRepository){
         $this->readRepository = $readRepository;
         $this->render = new Render();
+        $this->language = new Language();
     }
 
     /**
@@ -44,11 +51,11 @@ final class Read{
      */
     public function list(string $lang) :array{
         $companies = $this->readRepository->getAll();
-
+        $this->language->locale($lang);
         return $this->render
                 ->lang($lang)
                 ->header(self::getHeader())
-                ->data($companies)
+                ->data($this->parseData($companies))
                 ->build();
     }
 
@@ -74,5 +81,21 @@ final class Read{
             "director_fullname" => Field::getInstance()->init(new Text())->execute(),
             "is_active" => Field::getInstance()->init(new Boolean())->can_update(true)->execute(),
         );
+    }
+
+    /**
+     * Parse data
+     *
+     * @param array<mixed> $header
+     * 
+     */
+    private function parseData(array $data) :array{
+        foreach ($data as $i => $d) {
+            $data[$i]["is_active"] = array(
+                "id" => $d["is_active"],
+                "value" => $this->language->get("boolean")["company_is_active"][$d["is_active"]]
+            );
+        }
+        return $data;
     }
 }

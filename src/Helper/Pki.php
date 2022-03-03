@@ -83,7 +83,7 @@ class Pki{
             $this->cert["surname"] = mb_convert_case($this->cert["surname"], MB_CASE_TITLE, 'UTF-8');
             $this->cert["name"] = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
             $this->cert["lastname"] = mb_convert_case($this->cert["lastname"], MB_CASE_TITLE, 'UTF-8');
-
+            $this->cert["full_name"] = $this->cert["surname"]." ".$this->cert["name"]." ".$this->cert["lastname"];
             $keyUser = $info->keyUser;
             $this->cert["is_individual"] = in_array("INDIVIDUAL", $keyUser);
             $this->cert["is_legal_entity"] = in_array("ORGANIZATION", $keyUser);

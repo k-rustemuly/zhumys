@@ -18,6 +18,11 @@ class Admin{
     public $bin;
 
     /**
+     * @var string
+     */
+    public $iin;
+
+    /**
      * The init
      *
      */
@@ -32,5 +37,9 @@ class Admin{
 
     public function getOrgBin() :string{
         return $this->bin;
+    }
+
+    public function getIin() :string{
+        return $this->iin;
     }
 }

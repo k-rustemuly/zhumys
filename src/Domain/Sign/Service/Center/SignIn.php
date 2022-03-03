@@ -74,7 +74,7 @@ final class SignIn{
 
         if(!$adminInfo["updated_at"]){
             $update = array();
-            $update["full_name"] = mb_convert_case($certInfo["surname"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["name"], MB_CASE_TITLE, 'UTF-8')." ".mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, 'UTF-8');
+            $update["full_name"] = $certInfo["full_name"];
             if(strlen($certInfo["email"])>2)
                 $update["email"] = strtolower($certInfo["email"]);
             $birthdate = $certInfo["birthdate"];
@@ -130,6 +130,7 @@ final class SignIn{
             'id' => (int) $data['id'],
             'type' => 'admin',
             'org_type' => 'center',
+            "iin" => $data["iin"],
             'org_bin' => $data['org_bin']
         ];
     }

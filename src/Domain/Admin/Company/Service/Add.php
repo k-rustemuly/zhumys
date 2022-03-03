@@ -10,7 +10,7 @@ use App\Helper\Validator;
 /**
  * Service.
  */
-final class Add extends Admin{
+final class Add extends Admin {
 
     /**
      * @var AdminCreaterRepository
@@ -27,7 +27,7 @@ final class Add extends Admin{
      * @param AdminCreaterRepository $createRepository
      *
      */
-    public function __construct(AdminCreaterRepository $createRepository){
+    public function __construct(AdminCreaterRepository $createRepository) {
         $this->createRepository = $createRepository;
         $this->validator = new Validator();
     }
@@ -40,10 +40,9 @@ final class Add extends Admin{
      *
      * @throws DomainException
      */
-    public function add(string $bin, array $post){
+    public function add(string $bin, array $post) {
         $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
         $data["org_bin"] = $bin;
-        $data["added_center_admin_id"] = $this->getAdminId();
         if($this->createRepository->insert($data) == 0) throw new DomainException("Company admin not added"); 
     }
 }

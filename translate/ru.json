@@ -1,8 +1,8 @@
 {
-    "handbook": {
-        "yes_no": {
+    "boolean": {
+        "company_is_active": {
             "0": "Нет",
-            "1": "Да"
+            "1": "Есть"
         }
     },
     "field": {
@@ -142,7 +142,8 @@
         "Error to delete free place": "Ошибка при удалении записи! Запись может быть удалена если статус \"Создано\".",
         "Free place status must be created": "Только заявки со статус \"Создано\" доступно для отправки!",
         "Error to sign action": "Ошибка при подписании! Повторите попытку позже!",
-        "Free place not found": "Свободное место не найдено!"
+        "Free place not found": "Свободное место не найдено!",
+        "Not updated": "Данные не обновлены!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
