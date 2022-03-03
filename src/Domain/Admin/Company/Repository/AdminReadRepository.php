@@ -52,4 +52,17 @@ final class AdminReadRepository{
         $query->select(["*"])->where(["iin" => $iin]);
         return $query->execute()->fetch('assoc') ?: [];
     }
+
+    /**
+     * Get data from db by id
+     *
+     * @param int $id The id
+     *
+     * @return array<mixed> The list view data
+     */
+    public function findById(int $id): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(["id" => $id]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
 }
