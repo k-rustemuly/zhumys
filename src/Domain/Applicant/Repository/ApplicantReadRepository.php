@@ -37,4 +37,30 @@ final class ApplicantReadRepository{
         $query->select(["*"]);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
+
+    /**
+     * Find data by id from db
+     * 
+     * @param int $id
+     *
+     * @return array<mixed> The list view data
+     */
+    public function findById(int $id): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(array('id' => $id));
+        return $query->execute()->fetch('assoc') ?: [];
+    }
+
+    /**
+     * Find data by id from db
+     * 
+     * @param string $iin
+     *
+     * @return array<mixed> The list view data
+     */
+    public function findByIin(string $iin): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->where(array('iin' => $iin));
+        return $query->execute()->fetch('assoc') ?: [];
+    }
 }

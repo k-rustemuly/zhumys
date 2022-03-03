@@ -14,7 +14,7 @@ use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Service.
  */
-final class Update extends Admin{
+final class Update extends Admin {
 
     /**
      * @var CompanyReadRepository

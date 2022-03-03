@@ -144,7 +144,9 @@
         "Error to sign action": "Ошибка при подписании! Повторите попытку позже!",
         "Free place not found": "Свободное место не найдено!",
         "Not updated": "Данные не обновлены!",
-        "Company admin not found": "Админстратор не найдено в базе!"
+        "Company admin not found": "Админстратор не найдено в базе!",
+        "Applicant not added": "Соискатель не добавлен в базу! Возможно уже существует запись с таким ИИН-ом!",
+        "Applicant not found": "Соискатель не найдено в базе!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",

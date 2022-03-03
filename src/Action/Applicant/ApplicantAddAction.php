@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Applicant\Service\Add;
 use App\Helper\Language;
+use App\Middleware\CenterAdminMiddleware;
 
 /**
  * Action.
@@ -51,6 +52,7 @@ final class ApplicantAddAction{
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->language->locale($args['lang']);
         $post = (array)$request->getParsedBody();
+        $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
         $this->service->add($post);
 
         return $this->responder->success($response, $this->language->get("success")["Applicant success added"]);
