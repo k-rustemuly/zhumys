@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Admin\Company\Service\Update;
 use App\Helper\Language;
+use App\Middleware\CenterAdminMiddleware;
 
 /**
  * Action.
@@ -51,6 +52,7 @@ final class UpdateAction{
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->language->locale($args['lang']);
         $patch = (array)$request->getParsedBody();
+        $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
         $this->service->update((int)$args["id"], $patch);
 
         return $this->responder->success($response, $this->language->get("success")["Company admin info success updated"]);
