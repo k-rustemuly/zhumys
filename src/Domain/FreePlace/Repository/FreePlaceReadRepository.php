@@ -149,7 +149,7 @@ final class FreePlaceReadRepository{
             ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
-            ->where(["fp.status_id !=" => 1, "id" => $id])
+            ->where(["fp.status_id !=" => 1, "fp.id" => $id])
             ->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetch('assoc') ?: [];
     }
