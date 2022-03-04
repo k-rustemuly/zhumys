@@ -120,7 +120,7 @@ final class FreePlaceReadRepository{
      */
     public function getAllByLang(string $lang): array{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
-        $query->select(["fp.*",
+        $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.created_at",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name"])

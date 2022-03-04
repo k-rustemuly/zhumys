@@ -46,7 +46,7 @@ final class Read {
      */
     public function list(string $lang, array $params) :array{
         $search = $this->parseParams($params);
-        $data = $this->readRepository->getAllByLang( $lang);
+        $data = $this->readRepository->getAllByLang($lang);
 
         return $this->render
                 ->lang($lang)
