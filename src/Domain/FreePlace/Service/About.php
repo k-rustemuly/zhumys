@@ -78,9 +78,9 @@ final class About extends Admin{
     public function getFreePlaceBlockValues() :array{
         return array(
             "id" => Field::getInstance()->init(new Number())->value($this->freePlaceInfo["id"])->execute(),
-            "position_id" => Field::getInstance()->init(new Reference())->reference_name("position")->reference_id("id")->value(array("id" => $this->freePlaceInfo["position_id"], "value" => $this->freePlaceInfo["position_name"]))->execute(),
-            "count" => Field::getInstance()->init(new Number())->is_required(true)->value($this->freePlaceInfo["count"])->execute(),
-            "comment" => Field::getInstance()->init(new Textarea())->value($this->freePlaceInfo["comment"])->execute(),
+            "position_id" => Field::getInstance()->init(new Reference())->reference_name("position")->reference_id("id")->value(array("id" => $this->freePlaceInfo["position_id"], "value" => $this->freePlaceInfo["position_name"]))->can_update(true)->execute(),
+            "count" => Field::getInstance()->init(new Number())->is_required(true)->value($this->freePlaceInfo["count"])->can_update(true)->execute(),
+            "comment" => Field::getInstance()->init(new Textarea())->value($this->freePlaceInfo["comment"])->can_update(true)->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value(array("id" => $this->freePlaceInfo["status_id"], "value" => $this->freePlaceInfo["status_name"]))->execute(),
             "reason" => Field::getInstance()->init(new Text())->value($this->freePlaceInfo["reason"])->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->value($this->freePlaceInfo["created_at"])->execute(),

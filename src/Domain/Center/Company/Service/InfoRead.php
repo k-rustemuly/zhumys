@@ -79,12 +79,12 @@ final class InfoRead {
     public function getCompanyInfoBlockValues() :array{
         return array(
             "bin" => Field::getInstance()->init(new Number())->value($this->companyInfo["bin"])->execute(),
-            "name_kk" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_kk"])->execute(),
-            "name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_ru"])->execute(),
+            "name_kk" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_kk"])->can_update(true)->execute(),
+            "name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_ru"]->can_update(true))->execute(),
             "full_name_kk" => Field::getInstance()->init(new Text())->value($this->companyInfo["full_name_kk"])->execute(),
             "full_name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["full_name_ru"])->execute(),
             "director_fullname" => Field::getInstance()->init(new Text())->value($this->companyInfo["director_fullname"])->execute(),
-            "is_active" => Field::getInstance()->init(new Boolean())->value(array("id" => $this->companyInfo["is_active"], "value" => $this->language->get("boolean")["company_is_active"][$this->companyInfo["is_active"]]))->execute(),
+            "is_active" => Field::getInstance()->init(new Boolean())->value(array("id" => $this->companyInfo["is_active"], "value" => $this->language->get("boolean")["company_is_active"][$this->companyInfo["is_active"]]))->can_update(true)->execute(),
         );
     }
 }
