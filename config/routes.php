@@ -72,6 +72,11 @@ return function (App $app) {
 
                         $app->get('', \App\Action\Center\FreePlace\FreePlaceReadAction::class);
 
+                        $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
+
+                            $app->get('', \App\Action\Center\FreePlace\FreePlaceAboutAction::class);
+                        });
+
                     });
 
                 })->add(\App\Middleware\CenterAdminMiddleware::class);

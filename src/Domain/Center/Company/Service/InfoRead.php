@@ -14,7 +14,7 @@ use DomainException;
 /**
  * Service.
  */
-final class InfoRead{
+final class InfoRead {
 
     /**
      * @var CompanyReadRepository
