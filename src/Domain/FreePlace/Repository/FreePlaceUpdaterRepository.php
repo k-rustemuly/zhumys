@@ -45,4 +45,21 @@ final class FreePlaceUpdaterRepository{
             return 0;
         }
     }
+
+    /**
+     * Update row.
+     *
+     * @param int $id The id
+     * @param array<mixed> $where The where
+     *
+     * @return void
+     */
+    public function updateById(int $id, array $data): int{
+        try
+        {
+            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("id" => $id))->execute()->rowCount();
+        }catch(PDOException $e){
+            return 0;
+        }
+    }
 }

@@ -75,6 +75,11 @@ return function (App $app) {
                         $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
 
                             $app->get('', \App\Action\Center\FreePlace\FreePlaceAboutAction::class);
+
+                            $app->post('/accept', \App\Action\Center\FreePlace\FreePlaceAcceptAction::class);
+
+                            $app->post('/reject', \App\Action\Center\FreePlace\FreePlaceRejectAction::class);
+
                         });
 
                     });

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Action\Company\FreePlace;
+namespace App\Action\Center\FreePlace;
 
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\FreePlace\Service\Send;
-use App\Middleware\CompanyAdminMiddleware;
+use App\Domain\Center\FreePlace\Service\Reject;
+use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class SendAction{
+final class FreePlaceRejectAction{
     /**
-     * @var Send
+     * @var Reject
      */
     private $service;
 
@@ -31,11 +31,11 @@ final class SendAction{
     /**
      * The constructor.
      *
-     * @param Send $service The service
+     * @param Reject $service The service
      * @param Responder $responder The responder
      * @param Language $language The language
      */
-    public function __construct(Send $service, Responder $responder, Language $language){
+    public function __construct(Reject $service, Responder $responder, Language $language){
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;
@@ -52,10 +52,9 @@ final class SendAction{
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->language->locale($args['lang']);
-
-        $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
+        $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
         $post = (array)$request->getParsedBody();
-        $this->service->send((int)$args["id"], $post);
-        return $this->responder->success($response, $this->language->get("success")["Free place success sended"]);
+        $this->service->reject((int)$args["id"], $post);
+        return $this->responder->success($response, $this->language->get("success")["Free place success rejected"]);
     }
 }

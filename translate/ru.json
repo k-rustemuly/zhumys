@@ -148,7 +148,11 @@
         "Not updated": "Данные не обновлены!",
         "Company admin not found": "Админстратор не найдено в базе!",
         "Applicant not added": "Соискатель не добавлен в базу! Возможно уже существует запись с таким ИИН-ом!",
-        "Applicant not found": "Соискатель не найдено в базе!"
+        "Applicant not found": "Соискатель не найдено в базе!",
+        "Free place status must be sended": "Статус заявки должен быть \"Отправлено\"!",
+        "Error to accept free place": "Произошла ошибка при попытка обновление статус заявки!",
+        "The reason must be a string": "Укажите причину!",
+        "Error to reject free place": "Произошла ошибка при попытка обновление статус заявки!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -161,6 +165,8 @@
         "Free place success added": "Запись успешно добавлено!",
         "Free place success edited": "Данные успешно обновлены!",
         "Free place success deleted": "Запись успешно удалена!",
-        "Free place success sended": "Заявка успешно отправлено!"
+        "Free place success sended": "Заявка успешно отправлено!",
+        "Free place success accepted": "Заявка успешно принято!",
+        "Free place success rejected": "Заявка успешно отклонена!"
     }
 }
