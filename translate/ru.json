@@ -169,6 +169,7 @@
         "Free place success deleted": "Запись успешно удалена!",
         "Free place success sended": "Заявка успешно отправлено!",
         "Free place success accepted": "Заявка успешно принято!",
-        "Free place success rejected": "Заявка успешно отклонена!"
+        "Free place success rejected": "Заявка успешно отклонена!",
+        "Free place success published": "Заявка успешно опубликовано!"
     }
 }

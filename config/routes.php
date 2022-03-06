@@ -82,6 +82,8 @@ return function (App $app) {
 
                             $app->post('/generate', \App\Action\Center\FreePlace\FreePlaceGenerateAction::class);
 
+                            $app->post('/publish', \App\Action\Center\FreePlace\FreePlacePublishAction::class);
+
                         });
 
                     });
