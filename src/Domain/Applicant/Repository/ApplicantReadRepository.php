@@ -49,7 +49,7 @@ final class ApplicantReadRepository{
     public function getAllByLang(string $lang): array{
         $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
         $query->select(["a.*",
-                        "p.name_".$lang." as privelege_name"])
+                        "p.name_".$lang." as privilege_name"])
             ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = a.privilege_id"]);
             //->where(["ca.iin" => $iin]);
         return $query->execute()->fetchAll("assoc") ?: [];

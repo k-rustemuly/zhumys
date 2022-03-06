@@ -72,7 +72,7 @@ final class Read{
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->is_required(true)->can_create(true)->can_update(true)->execute(),
             "address" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->is_required(true)->execute(),
             "second_phone_number" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),
-            "privelege_id" => Field::getInstance()->init(new Reference())->reference_name("privelege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->execute(),
+            "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->execute(),
             // "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
             // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),
@@ -88,8 +88,8 @@ final class Read{
      */
     private function parseData(array $data) :array{
         foreach ($data as $i => $v) {
-            $data[$i]["privelege_id"] = array("id" => $v["privilege_id"], "value" => $v["privelege_name"]);
-            unset($data[$i]["privelege_name"]);
+            $data[$i]["privilege_id"] = array("id" => $v["privilege_id"], "value" => $v["privilege_name"]);
+            unset($data[$i]["privilege_name"]);
         }
         return $data;
     }
