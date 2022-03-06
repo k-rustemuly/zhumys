@@ -142,7 +142,7 @@ final class FreePlaceReadRepository{
      */
     public function findByIdAndLang(int $id, string $lang): array{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
-        $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.comment, fp.created_at",
+        $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.comment, fp.created_at, fp.reason",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name"])
