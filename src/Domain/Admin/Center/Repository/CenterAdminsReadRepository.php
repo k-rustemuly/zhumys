@@ -54,7 +54,7 @@ final class CenterAdminsReadRepository{
         $query->select(["ca.*",
                         "c.name_".$lang." as company_name"])
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = ca.org_bin'])
-            ->where(["ca.iin !=" => $iin]);
+            ->where(["ca.iin" => $iin]);
         return $query->execute()->fetch('assoc') ?: [];
     }
 }
