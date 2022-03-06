@@ -42,6 +42,7 @@ final class ApplicantUpdaterRepository{
         {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("iin" => $iin))->execute()->rowCount();
         }catch(PDOException $e){
+            throw new DomainException($e->getMessage());
             return 0;
         }
     }
