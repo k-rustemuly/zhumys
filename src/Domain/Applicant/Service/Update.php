@@ -69,9 +69,10 @@ final class Update extends Admin {
      * @throws DomainException
      */
     public function update(string $iin, array $data){
-        $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);
         $sign_p12 = $data["base64"]?:"";
         $password = $data["password"]?:"";
+        $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);
+        
         $certInfo = $this->pki->getCertificateInfo($sign_p12, $password, false);
         if(!$certInfo["is_individual"]) {
             throw new DomainException("Only individual usage digital signature accessed");
