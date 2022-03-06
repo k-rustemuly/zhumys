@@ -62,13 +62,14 @@ final class SignIn{
      * @return array<mixed> The result
      */
     public function pkcs(array $post): array{
+        $lang = $post["lang"]?:"ru";
         $certInfo = $this->pki->getCertificateInfo($post["base64"], $post["password"], true);
         if(!$certInfo["is_individual"]){
             throw new DomainException("Only individual usage digital signature accessed");
         }
         $iin = (string)$certInfo["iin"];
 
-        $adminInfo = $this->readRepository->getByIin($iin);
+        $adminInfo = $this->readRepository->findByIinAndLang($iin, $lang);
         if(empty($adminInfo)) throw new DomainException("Center admin not found on database");
         if(!$adminInfo["is_active"]) throw new DomainException("Center admin is inactive");
 
@@ -96,20 +97,20 @@ final class SignIn{
      */
     private function mapToUserRow(array $data): array{
         $payload = $this->mapToUserPayload($data);
-        $token = JWT::encode($payload, $_ENV['JWT_KEY']);
+        $token = JWT::encode($payload, $_ENV["JWT_KEY"]);
         $refreshToken = $this->generateRefreshToken();
         $refreshData = array("token" => $token,
-        "id" => $data['id'],
+        "id" => $data["id"],
         "type" => "admin",
-        'org_type' => 'center',
-        'org_bin' => $data['org_bin']);
-        $this->redis->setex($refreshToken, $_ENV['REFRESH_TOKEN_LIVE_SEC'], json_encode($refreshData, JSON_UNESCAPED_UNICODE));
+        "org_type" => "center",
+        "org_bin" => $data["org_bin"]);
+        $this->redis->setex($refreshToken, $_ENV["REFRESH_TOKEN_LIVE_SEC"], json_encode($refreshData, JSON_UNESCAPED_UNICODE));
 
         return [
-            'full_name' => $data['full_name'],
-            "org_name" => "123",
-            'token' => $token,
-            'refresh_token' => $refreshToken
+            "full_name" => $data["full_name"],
+            "org_name" => $data["company_name"],
+            "token" => $token,
+            "refresh_token" => $refreshToken
         ];
     }
 
@@ -122,16 +123,16 @@ final class SignIn{
      */
     private function mapToUserPayload(array $data): array{
         return [
-            'iss' => $_ENV['API_URL'],
-            'aud' => $_ENV['URL'],
-            'jti' => $this->generateJti(32),
+            "iss" => $_ENV["API_URL"],
+            "aud" => $_ENV["URL"],
+            "jti" => $this->generateJti(32),
             "iat" => time(),
-            "exp" => time() + intval($_ENV['JWT_LIVE_SEC']),
-            'id' => (int) $data['id'],
-            'type' => 'admin',
-            'org_type' => 'center',
+            "exp" => time() + intval($_ENV["JWT_LIVE_SEC"]),
+            "id" => (int) $data["id"],
+            "type" => "admin",
+            "org_type" => "center",
             "iin" => $data["iin"],
-            'org_bin' => $data['org_bin']
+            "org_bin" => $data["org_bin"]
         ];
     }
 
@@ -144,13 +145,13 @@ final class SignIn{
         if(!isset($length) || intval($length) <= 8 ){
             $length = 32;
         }
-        if (function_exists('random_bytes')) {
+        if (function_exists("random_bytes")) {
             return bin2hex(random_bytes($length));
         }
-        if (function_exists('mcrypt_create_iv')) {
+        if (function_exists("mcrypt_create_iv")) {
             return bin2hex(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM));
         }
-        if (function_exists('openssl_random_pseudo_bytes')) {
+        if (function_exists("openssl_random_pseudo_bytes")) {
             return bin2hex(openssl_random_pseudo_bytes($length));
         }
     }
@@ -161,7 +162,7 @@ final class SignIn{
      * @return string The refresh token
      */
     private function generateRefreshToken(int $length = 36, int $attempt = 1) :string{
-        $randomStr = $this->base64url_encode(substr(hash('sha512', mt_rand()), 0, $length));
+        $randomStr = $this->base64url_encode(substr(hash("sha512", mt_rand()), 0, $length));
         if($this->redis->exists($randomStr))
         {
             if($attempt > 10)
@@ -181,6 +182,6 @@ final class SignIn{
      * @return string The cleaned string
      */
     public function base64url_encode(string $data) :string{ 
-        return rtrim(strtr(base64_encode($data), '+/', '-_'), '='); 
+        return rtrim(strtr(base64_encode($data), "+/", "-_"), "="); 
     }
 }
