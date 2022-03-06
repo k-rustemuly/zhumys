@@ -89,8 +89,8 @@ final class About {
             "position_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["position_id"], "value" => $data["position_name"]))->execute(),
             "count" => Field::getInstance()->init(new Number())->value($data["count"])->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->value($data["comment"])->execute(),
-            "reason" => Field::getInstance()->init(new Textarea())->value($data["reason"])->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["status_id"], "value" => $data["status_name"]))->execute(),
+            "reason" => Field::getInstance()->init(new Textarea())->value($data["reason"])->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->value($data["created_at"])->execute(),
         );
     }
