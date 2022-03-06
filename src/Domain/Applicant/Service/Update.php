@@ -115,6 +115,8 @@ final class Update extends Admin {
                 $this->updateRepository->updateByIin($iin, $oldData);
                 throw new DomainException("Not updated");
             }
+        } else {
+            throw new DomainException("Not updated");
         }
     }
 }
