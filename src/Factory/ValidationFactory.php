@@ -6,6 +6,7 @@ use Cake\Validation\Validator;
 use Selective\Validation\Converter\CakeValidationConverter;
 use Selective\Validation\ValidationResult;
 use App\Exception\FieldException;
+use DomainException;
 
 /**
  * Validation factory.
@@ -209,6 +210,7 @@ final class ValidationFactory{
             $errors = $validationResult->getErrors();
             foreach($errors as $error)
             {
+                throw new DomainException($error->getMessage());
                 $message[] = array('field' => $error->getField(), 'message' => $error->getMessage());
             }
             throw new FieldException($message);
