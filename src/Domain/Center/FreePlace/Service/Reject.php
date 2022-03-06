@@ -124,13 +124,14 @@ final class Reject extends Admin{
         );
         $xml = ArrayToXml::convert($sign_arr);
         $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-        if(!empty($signed_result)){
+        if(!empty($signed_result)) {
             $log = array(
                 "free_place_id" => $id,
                 "admin_type_id" => $this->admin_type_id,
                 "admin_id" => $this->getAdminId(),
                 "admin_full_name" => $certInfo["full_name"],
                 "status_id" => $this->status_id,
+                "reason" => $reason,
                 "field" => $signed_result["raw"],
                 "sign" => $signed_result["xml"]
             );

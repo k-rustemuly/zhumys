@@ -35,7 +35,7 @@ final class FreePlaceRejectAction{
      * @param Responder $responder The responder
      * @param Language $language The language
      */
-    public function __construct(Reject $service, Responder $responder, Language $language){
+    public function __construct(Reject $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

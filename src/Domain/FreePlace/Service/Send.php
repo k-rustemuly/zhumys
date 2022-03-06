@@ -127,7 +127,7 @@ final class Send extends Admin{
                 "admin_type_id" => $this->admin_type_id,
                 "admin_id" => $this->getAdminId(),
                 "admin_full_name" => $certInfo["surname"]." ".$certInfo["name"]." ".$certInfo["lastname"],
-                "status_id" => $freePlaceInfo["status_id"],
+                "status_id" => $this->status_id,
                 "field" => $signed_result["raw"],
                 "sign" => $signed_result["xml"]
             );
