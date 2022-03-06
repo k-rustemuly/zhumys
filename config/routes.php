@@ -124,6 +124,8 @@ return function (App $app) {
 
                 $app->get('/position', \App\Action\HandBook\PositionReadAction::class);
 
+                $app->get('/privelege', \App\Action\HandBook\PrivelegeReadAction::class);
+
             });
 
         });

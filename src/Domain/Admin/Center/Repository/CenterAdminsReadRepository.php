@@ -12,7 +12,7 @@ final class CenterAdminsReadRepository{
     /**
      * @var string
      */
-    public static $tableName = 'center_admins';
+    public static $tableName = "center_admins";
 
     /**
      * @var QueryFactory
@@ -38,7 +38,7 @@ final class CenterAdminsReadRepository{
     public function getByIin(string $iin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["iin" => $iin]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -50,11 +50,11 @@ final class CenterAdminsReadRepository{
      * @return array<mixed> The list view data
      */
     public function findByIinAndLang(string $iin, string $lang): array{
-        $query = $this->queryFactory->newSelect(['ca' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["ca" => self::$tableName]);
         $query->select(["ca.*",
                         "c.name_".$lang." as company_name"])
-            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = ca.org_bin'])
+            ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = ca.org_bin"])
             ->where(["ca.iin" => $iin]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 }
