@@ -98,6 +98,9 @@ final class Add extends Admin {
                 "Birthdate" => [
                     "date" => $applicantInfo["birthdate"]
                 ],
+                "Privelege id" => [
+                    "integer" => $applicantInfo["privelege_id"]
+                ],
                 "Email" => [
                     "text" => $applicantInfo["email"]
                 ],

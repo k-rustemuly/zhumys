@@ -9,7 +9,7 @@ use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Date;
 use App\Helper\Fields\PhoneNumber;
-use App\Helper\Fields\Boolean;
+use App\Helper\Fields\Reference;
 use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Email;
 
@@ -47,7 +47,7 @@ final class Read{
      * 
      */
     public function list(string $lang) :array{
-        $companies = $this->readRepository->getAll();
+        $companies = $this->readRepository->getAllByLang($lang);
 
         return $this->render
                 ->lang($lang)
@@ -72,6 +72,7 @@ final class Read{
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->is_required(true)->can_create(true)->can_update(true)->execute(),
             "address" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->is_required(true)->execute(),
             "second_phone_number" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),
+            "privelege_id" => Field::getInstance()->init(new Reference())->reference_name("privelege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->execute(),
             // "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
             // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),

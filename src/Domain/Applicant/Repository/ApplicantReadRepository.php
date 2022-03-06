@@ -3,6 +3,7 @@
 namespace App\Domain\Applicant\Repository;
 
 use App\Factory\QueryFactory;
+use App\Domain\Privelege\Repository\PrivelegeReadRepository;
 
 /**
  * Repository.
@@ -36,6 +37,22 @@ final class ApplicantReadRepository{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"]);
         return $query->execute()->fetchAll('assoc') ?: [];
+    }
+
+    /**
+     * Get All data from db
+     * 
+     * @param string $lang interface language
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getAllByLang(string $lang): array{
+        $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
+        $query->select(["a.*",
+                        "p.name_".$lang." as privelege_name"])
+            ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = a.privilege_id"]);
+            //->where(["ca.iin" => $iin]);
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
