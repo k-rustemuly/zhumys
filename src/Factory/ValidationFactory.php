@@ -44,6 +44,20 @@ final class ValidationFactory{
                         $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Field is required');
                     }
                 }
+            } 
+            else if($type == "email") {
+                if($can_create) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
+                    if($is_required) {
+                        $validator->email($field, true, 'Email is invalid', Validator::WHEN_CREATE);
+                    }
+                }
+                if($can_update) {
+                    $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
+                    if($is_required) {
+                        $validator->email($field, true, 'Email is invalid', Validator::WHEN_UPDATE);
+                    }
+                }
             }
             else if($type == "date") {
                 if($can_create) {

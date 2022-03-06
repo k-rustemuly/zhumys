@@ -152,6 +152,7 @@
         "Free place status must be sended": "Статус заявки должен быть \"Отправлено\"!",
         "Error to accept free place": "Произошла ошибка при попытка обновление статус заявки!",
         "The reason must be a string": "Укажите причину!",
+        "Email is invalid": "Неправильный адрес электронный почты!",
         "Error to reject free place": "Произошла ошибка при попытка обновление статус заявки!"
     },
     "success":{
