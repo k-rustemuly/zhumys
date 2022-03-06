@@ -153,7 +153,8 @@
         "Error to accept free place": "Произошла ошибка при попытка обновление статус заявки!",
         "The reason must be a string": "Укажите причину!",
         "Email is invalid": "Неправильный адрес электронный почты!",
-        "Error to reject free place": "Произошла ошибка при попытка обновление статус заявки!"
+        "Error to reject free place": "Произошла ошибка при попытка обновление статус заявки!",
+        "Free place status must be accepted": "Статус заявки должен быть \"Одобрено\"!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",

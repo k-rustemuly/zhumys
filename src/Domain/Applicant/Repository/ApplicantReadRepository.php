@@ -80,4 +80,20 @@ final class ApplicantReadRepository{
         $query->select(["*"])->where(array('iin' => $iin));
         return $query->execute()->fetch('assoc') ?: [];
     }
+
+    /**
+     * Get data by position,status,privilege Id and count from db
+     * 
+     * @param int $position_id
+     * @param int $status_id
+     * @param int $privilege_id
+     * @param int $count
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getCandidates(int $position_id, int $status_id, int $privilege_id, int $count): array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["id", "full_name", "iin"])->where(["privilege_id" => $privilege_id])->orderDesc("raiting_number")->limit($count);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
 }

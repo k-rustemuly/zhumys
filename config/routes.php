@@ -80,6 +80,8 @@ return function (App $app) {
 
                             $app->post('/reject', \App\Action\Center\FreePlace\FreePlaceRejectAction::class);
 
+                            $app->post('/generate', \App\Action\Center\FreePlace\FreePlaceGenerateAction::class);
+
                         });
 
                     });
