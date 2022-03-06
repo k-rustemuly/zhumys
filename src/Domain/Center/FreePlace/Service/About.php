@@ -10,6 +10,7 @@ use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
 use App\Helper\Fields\Text;
+use App\Domain\FreePlace\Log\Repository\LogReadRepository;
 
 /**
  * Service.
@@ -27,12 +28,19 @@ final class About {
     private $render;
 
     /**
+     * @var LogReadRepository
+     */
+    private $logReadRepository;
+
+    /**
      * The constructor.
      * @param FreePlaceReadRepository $readRepository
+     * @param LogReadRepository $logReadRepository
      * 
      */
-    public function __construct(FreePlaceReadRepository $readRepository) {
+    public function __construct(FreePlaceReadRepository $readRepository, LogReadRepository $logReadRepository) {
         $this->readRepository = $readRepository;
+        $this->logReadRepository = $logReadRepository;
         $this->render = new Render();
     }
 
@@ -51,6 +59,7 @@ final class About {
         return $this->render
                 ->lang($lang)
                 ->block("free_place_info", $this->getFreePlaceBlockValues($data))
+                ->block("free_place_log_info", $this->getFreePlaceLogBlockValues($this->logReadRepository->getAllByIdAndLang($id, $lang)))
                 ->build();
     }
 
@@ -83,6 +92,27 @@ final class About {
             "status_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["status_id"], "value" => $data["status_name"]))->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->value($data["created_at"])->execute(),
         );
+    }
+
+    /**
+     * Get free place log info block values
+     *
+     * @param array<mixed> $values
+     * 
+     */
+    public function getFreePlaceLogBlockValues(array $data) :array{
+        $array = array();
+        foreach ($data as $i => $v){
+            $array[$i] = array(
+                "admin_type_id" => Field::getInstance()->init(new Reference())->reference_name("admin")->reference_id("id")->value(array("id" => $v["admin_type_id"], "value" => $v["admin_type_name"]))->execute(),
+                "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"]))->execute(),
+                "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
+                "company_name" => Field::getInstance()->init(new Text())->value($v["company_name"])->execute(),
+                "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
+                "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
+            );
+        }
+        return $array;
     }
 
 }

@@ -127,6 +127,7 @@ final class Accept extends Admin{
                 "admin_type_id" => $this->admin_type_id,
                 "admin_id" => $this->getAdminId(),
                 "admin_full_name" => $certInfo["full_name"],
+                "company_bin" => $this->getOrgBin(),
                 "status_id" => $this->status_id,
                 "field" => $signed_result["raw"],
                 "sign" => $signed_result["xml"]

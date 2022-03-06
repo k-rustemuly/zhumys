@@ -5,7 +5,7 @@ namespace App\Domain\FreePlace\Log\Repository;
 use App\Factory\QueryFactory;
 use App\Domain\Admin\Repository\AdminsFinderRepository;
 use App\Domain\PlaceStatus\Repository\PlaceStatusFinderRepository;
-
+use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Repository.
  */
@@ -41,9 +41,11 @@ final class LogReadRepository{
         $query = $this->queryFactory->newSelect(['fpl' => self::$tableName]);
         $query->select(["fpl.*",
                         "a.name_".$lang." as admin_type_name",
-                        "s.name_".$lang." as status_name"])
+                        "s.name_".$lang." as status_name",
+                        "c.name_".$lang." as company_name"])
             ->innerJoin(['a' => AdminsFinderRepository::$tableName], ['a.id = fpl.admin_type_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fpl.status_id'])
+            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fpl.company_bin'])
             ->where(["fpl.free_place_id" => $id])
             ->order(['fpl.created_at' => 'ASC']);
         return $query->execute()->fetchAll('assoc') ?: [];

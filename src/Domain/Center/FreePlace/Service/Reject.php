@@ -132,6 +132,7 @@ final class Reject extends Admin{
                 "admin_full_name" => $certInfo["full_name"],
                 "status_id" => $this->status_id,
                 "reason" => $reason,
+                "company_bin" => $this->getOrgBin(),
                 "field" => $signed_result["raw"],
                 "sign" => $signed_result["xml"]
             );
