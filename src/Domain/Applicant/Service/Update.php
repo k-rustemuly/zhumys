@@ -76,8 +76,8 @@ final class Update extends Admin {
         if(!$certInfo["is_individual"]) {
             throw new DomainException("Only individual usage digital signature accessed");
         }
-        $iin = (string)$certInfo["iin"];
-        if($iin != $this->getIin()) {
+        $center_admin_iin = (string)$certInfo["iin"];
+        if($center_admin_iin != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");
         }
         $oldInfo = $this->readRepository->findByIin($iin);
