@@ -16,6 +16,7 @@ use Slim\Exception\HttpUnauthorizedException;
 use Slim\Routing\RouteContext;  
 use Throwable;
 use App\Helper\Language;
+use App\Exception\FieldException;
 
 /**
  * Default Error Renderer.
@@ -80,11 +81,17 @@ final class DefaultErrorHandler
 
         // Detect status code
         $statusCode = $this->getHttpStatusCode($exception);
+        
 
         // Error message
         $errorMessage = $displayErrorDetails ? $this->getErrorMessage($exception, $statusCode, $displayErrorDetails) : null;
-
-        $response = $this->responder->error($this->language->get("error")[$exception->getMessage()], $statusCode, $errorMessage);
+        if ($exception instanceof FieldException) {
+            $errors = $exception->getErrors();
+            $response = $this->responder->error($this->language->get("error")[$errors[0]["message"]], $statusCode, $errorMessage);
+        } 
+        else {
+            $response = $this->responder->error($this->language->get("error")[$exception->getMessage()], $statusCode, $errorMessage);
+        }
 
         return $response;
     }
