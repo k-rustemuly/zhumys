@@ -52,7 +52,7 @@ final class Read{
         return $this->render
                 ->lang($lang)
                 ->header(self::getHeader())
-                ->data($companies)
+                ->data($this->parseData($companies))
                 ->build();
     }
 
@@ -77,5 +77,20 @@ final class Read{
             // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->execute(),
         );
+    }
+
+    /**
+     * Parse data
+     * 
+     * @param array $data
+     * 
+     * @return array<mixed>
+     */
+    private function parseData(array $data) :array{
+        foreach ($data as $i => $v) {
+            $data[$i]["privelege_id"] = array("id" => $v["privilege_id"], "value" => $v["privelege_name"]);
+            unset($data[$i]["privelege_name"]);
+        }
+        return $data;
     }
 }
