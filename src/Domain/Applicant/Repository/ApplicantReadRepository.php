@@ -97,7 +97,10 @@ final class ApplicantReadRepository{
      */
     public function getCandidates(int $position_id, int $status_id, int $privilege_id, int $count): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
-        $query->select(["id", "full_name", "iin"])->where(["privilege_id" => $privilege_id])->orderDesc("raiting_number")->limit($count);
+        $query->select(["id", "full_name", "iin"])
+        ->where(["privilege_id" => $privilege_id, "positions LIKE" => "%@".$position_id."@%", "status_id" => $status_id])
+        ->orderAsc("raiting_number")
+        ->limit($count);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 }
