@@ -80,7 +80,7 @@ final class InfoRead {
         return array(
             "bin" => Field::getInstance()->init(new Number())->value($this->companyInfo["bin"])->execute(),
             "name_kk" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_kk"])->can_update(true)->execute(),
-            "name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_ru"]->can_update(true))->execute(),
+            "name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["name_ru"])->can_update(true)->execute(),
             "full_name_kk" => Field::getInstance()->init(new Text())->value($this->companyInfo["full_name_kk"])->execute(),
             "full_name_ru" => Field::getInstance()->init(new Text())->value($this->companyInfo["full_name_ru"])->execute(),
             "director_fullname" => Field::getInstance()->init(new Text())->value($this->companyInfo["director_fullname"])->execute(),
