@@ -70,6 +70,7 @@ final class Generate extends Admin{
                 $default["1"]+= $free;
             }
         }
+        throw new DomainException(implode(" ", $candidates));
         foreach($default as $privilege_id => $count) {
             $founded = $this->applicantRepository->getCandidates($id, 1, $privilege_id, $count);
             $candidates = array_merge($candidates, $founded);
