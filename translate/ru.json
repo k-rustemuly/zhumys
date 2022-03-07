@@ -47,7 +47,8 @@
         "admin_type_id": "Тип админстратора",
         "admin_full_name": "ФИО",
         "company_name": "Наименование компании",
-        "privilege_id": "Льгота"
+        "privilege_id": "Льгота",
+        "positions": "Позиция"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -91,7 +92,8 @@
         "admin_type_id": "",
         "admin_full_name": "",
         "company_name": "",
-        "privilege_id": ""
+        "privilege_id": "",
+        "positions": "Позиция"
     },
     "block": {
         "company_info": "О компании",
