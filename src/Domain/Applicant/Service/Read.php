@@ -105,7 +105,8 @@ final class Read {
             //getAllByIdsAndLang
             $data[$i]["positions"] = $this->positionReadRepository->getAllByIdsAndLang($this->unparsePositions($v["positions"]), $lang);
             $data[$i]["status_id"] = array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]);
-            unset($data[$i]["status_id"]);
+            unset($data[$i]["status_name"]);
+            unset($data[$i]["status_color"]);
         }
         return $data;
     }
