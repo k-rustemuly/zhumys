@@ -79,6 +79,7 @@ final class Add extends Admin {
         if($iin != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");
         }
+        $data["positions"] = self::parsePosition($data["positions"]);
         $applicantId = $this->createRepository->insert($data);
         if($applicantId > 0) {
             $applicantInfo = $this->readRepository->findById($applicantId);
@@ -103,6 +104,9 @@ final class Add extends Admin {
                 ],
                 "Email" => [
                     "text" => $applicantInfo["email"]
+                ],
+                "Positions" => [
+                    "text" => $applicantInfo["positions"]
                 ],
                 "Phone number" => [
                     "text" => $applicantInfo["phone_number"]
@@ -152,5 +156,22 @@ final class Add extends Admin {
         } else {
             throw new DomainException("Applicant not added");
         }
+    }
+
+    /**
+     * Parse position
+     *
+     * @param array<mixed> $post fileds The post fields
+     *
+     * @return string
+     */
+    public static function parsePosition(array $data) :string{
+        $s = "@";
+        foreach ($data as $id) {
+            if(is_numeric($id) && $id > 0) {
+                $s.= $id."@";
+            }
+        }
+        return $s;
     }
 }

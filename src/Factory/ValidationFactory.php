@@ -93,6 +93,7 @@ final class ValidationFactory{
                     $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_CREATE);
                     if($is_required) {
                         $validator->requirePresence($field, Validator::WHEN_CREATE, 'Select at least one');
+                        $validator->notEmptyArray($field, 'Field is required', Validator::WHEN_CREATE);
                     }
                 }
                 if($can_update)
@@ -100,6 +101,7 @@ final class ValidationFactory{
                     $validator->notEmptyString($field, 'Field is empty', Validator::WHEN_UPDATE);
                     if($is_required) {
                         $validator->requirePresence($field, Validator::WHEN_UPDATE, 'Select at least one');
+                        $validator->notEmptyArray($field, 'Field is required', Validator::WHEN_UPDATE);
                     }
                 }
             }

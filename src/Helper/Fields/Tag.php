@@ -10,6 +10,8 @@ class Tag{
      */
     public $array = array(
         "type" => "tag",
-        "value" => null
+        "value" => null,
+        "tag_name" => null,
+        "tag_id" => null
     );
 }

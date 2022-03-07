@@ -89,6 +89,7 @@ final class Update extends Admin {
         unset($oldData["last_visit"]);
         unset($oldData["created_at"]);
         unset($oldData["updated_at"]);
+        $data["positions"] = Add::parsePosition($data["positions"]);
         if($this->updateRepository->updateByIin($iin, $data) > 0 ) {
             $newInfo = $this->readRepository->findByIin($iin);
             $sign_arr = array(
