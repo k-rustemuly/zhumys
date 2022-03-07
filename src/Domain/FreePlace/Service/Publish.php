@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Center\FreePlace\Service;
+namespace App\Domain\FreePlace\Service;
 
 use App\Domain\Center\Admin;
 use App\Domain\FreePlace\Repository\FreePlaceReadRepository;

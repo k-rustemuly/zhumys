@@ -5,7 +5,7 @@ namespace App\Action\Center\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\Publish;
+use App\Domain\FreePlace\Service\Publish;
 use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
