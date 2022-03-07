@@ -62,12 +62,17 @@ final class Generate extends Admin{
         $candidates = array();
         $default = array(1 => $post[1]);
         unset($post[1]);
+        $s = "";
+        foreach($post as $privilege_id => $count) {
+            $s.="[".$privilege_id."/".$count."] ";
+        }
+        throw new DomainException($s);
         foreach($post as $privilege_id => $count) {
             $founded = $this->applicantRepository->getCandidates($id, 1, $privilege_id, $count);
             $candidates = array_merge($candidates, $founded);
             if(count($founded) < $count) {
                 $free = $count - count($founded);
-                $default["1"]+= $free;
+                $default[1]+= $free;
             }
         }
         
