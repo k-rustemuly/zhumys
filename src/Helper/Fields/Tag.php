@@ -12,6 +12,7 @@ class Tag{
         "type" => "tag",
         "value" => null,
         "tag_name" => null,
-        "tag_id" => null
+        "tag_id" => null,
+        "tag_show" => null
     );
 }
