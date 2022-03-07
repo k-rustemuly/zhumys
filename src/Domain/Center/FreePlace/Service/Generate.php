@@ -61,7 +61,7 @@ final class Generate extends Admin{
         }
         $candidates = array();
         $default = array(1 => $post[1]);
-        unset($post[1]);
+        //unset($post[1]);
         throw new DomainException("*".implode("/", $post)."*");
         foreach($post as $privilege_id => $count) {
             $founded = $this->applicantRepository->getCandidates($id, 1, $privilege_id, $count);
