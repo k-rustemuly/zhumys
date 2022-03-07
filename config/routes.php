@@ -135,6 +135,8 @@ return function (App $app) {
 
                 $app->get('/privilege', \App\Action\HandBook\PrivelegeReadAction::class);
 
+                $app->get('/applicant-status', \App\Action\HandBook\ApplicantStatusReadAction::class);
+                
             });
 
         });

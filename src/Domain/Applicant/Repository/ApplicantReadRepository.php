@@ -4,6 +4,7 @@ namespace App\Domain\Applicant\Repository;
 
 use App\Factory\QueryFactory;
 use App\Domain\Privelege\Repository\PrivelegeReadRepository;
+use App\Domain\ApplicantStatus\Repository\ApplicantStatusFinderRepository;
 
 /**
  * Repository.
@@ -49,8 +50,11 @@ final class ApplicantReadRepository{
     public function getAllByLang(string $lang): array{
         $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
         $query->select(["a.*",
-                        "p.name_".$lang." as privilege_name"])
-            ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = a.privilege_id"]);
+                        "p.name_".$lang." as privilege_name",
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color"])
+            ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = a.privilege_id"])
+            ->innerJoin(["s" => ApplicantStatusFinderRepository::$tableName], ["s.id = a.status_id"]);
             //->where(["ca.iin" => $iin]);
         return $query->execute()->fetchAll("assoc") ?: [];
     }
