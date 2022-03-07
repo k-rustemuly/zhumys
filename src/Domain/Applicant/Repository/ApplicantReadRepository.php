@@ -5,6 +5,7 @@ namespace App\Domain\Applicant\Repository;
 use App\Factory\QueryFactory;
 use App\Domain\Privelege\Repository\PrivelegeReadRepository;
 use App\Domain\ApplicantStatus\Repository\ApplicantStatusFinderRepository;
+use DomainException;
 
 /**
  * Repository.
@@ -101,6 +102,7 @@ final class ApplicantReadRepository{
         ->where(["privilege_id" => $privilege_id, "positions LIKE" => "%@".$position_id."@%", "status_id" => $status_id])
         ->orderAsc("raiting_number")
         ->limit($count);
+        throw new DomainException((string) $query);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 }
