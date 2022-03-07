@@ -6,7 +6,6 @@ use App\Domain\FreePlace\Repository\FreePlaceReadRepository;
 use App\Helper\Field;
 use App\Helper\Render;
 use App\Helper\Fields\Number;
-use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
 use App\Helper\Fields\Text;
@@ -103,8 +102,9 @@ final class Read {
                         unset($data[$i]["position_name"]);
                     break;
                     case 'status_id':
-                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"]);
+                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"], "color" => $data[$i]["status_color"]);
                         unset($data[$i]["status_name"]);
+                        unset($data[$i]["status_color"]);
                     break;
                 }
             }

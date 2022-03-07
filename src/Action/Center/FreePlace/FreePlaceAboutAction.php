@@ -6,7 +6,6 @@ use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Center\FreePlace\Service\About;
-//use App\Middleware\CenterAdminMiddleware;
 
 /**
  * Action.

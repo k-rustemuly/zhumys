@@ -89,7 +89,7 @@ final class About {
             "position_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["position_id"], "value" => $data["position_name"]))->execute(),
             "count" => Field::getInstance()->init(new Number())->value($data["count"])->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->value($data["comment"])->execute(),
-            "status_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["status_id"], "value" => $data["status_name"]))->execute(),
+            "status_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["status_id"], "value" => $data["status_name"], "color" => $data["status_color"]))->execute(),
             "reason" => Field::getInstance()->init(new Textarea())->value($data["reason"])->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->value($data["created_at"])->execute(),
         );
@@ -106,7 +106,7 @@ final class About {
         foreach ($data as $i => $v){
             $array[$i] = array(
                 "admin_type_id" => Field::getInstance()->init(new Reference())->reference_name("admin")->reference_id("id")->value(array("id" => $v["admin_type_id"], "value" => $v["admin_type_name"]))->execute(),
-                "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"]))->execute(),
+                "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]))->execute(),
                 "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
                 "company_name" => Field::getInstance()->init(new Text())->value($v["company_name"])->execute(),
                 "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
