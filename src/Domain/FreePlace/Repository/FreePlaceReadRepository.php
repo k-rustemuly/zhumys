@@ -55,7 +55,8 @@ final class FreePlaceReadRepository{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
         $query->select(["fp.*",
                         "p.name_".$lang." as position_name",
-                        "s.name_".$lang." as status_name"])
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",])
             ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->where(["fp.bin" => $bin])
@@ -103,7 +104,8 @@ final class FreePlaceReadRepository{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
         $query->select(["fp.*",
                         "p.name_".$lang." as position_name",
-                        "s.name_".$lang." as status_name"])
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",])
             ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->where(["fp.bin" => $bin, "fp.id" => $id]);
@@ -123,7 +125,8 @@ final class FreePlaceReadRepository{
         $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.created_at",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
-                        "s.name_".$lang." as status_name"])
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",])
             ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
@@ -145,7 +148,8 @@ final class FreePlaceReadRepository{
         $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.comment, fp.created_at, fp.reason",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
-                        "s.name_".$lang." as status_name"])
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",])
             ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])

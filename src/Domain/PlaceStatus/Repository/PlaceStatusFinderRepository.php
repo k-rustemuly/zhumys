@@ -38,7 +38,7 @@ final class PlaceStatusFinderRepository
     public function getAllByLang(string $lang): array
     {
         $query = $this->queryFactory->newSelect(self::$tableName);
-        $query->select(["id", "name_".$lang." as name"]);
+        $query->select(["id", "name_".$lang." as name", "color"]);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 }

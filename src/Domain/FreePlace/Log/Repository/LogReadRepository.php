@@ -42,6 +42,7 @@ final class LogReadRepository{
         $query->select(["fpl.*",
                         "a.name_".$lang." as admin_type_name",
                         "s.name_".$lang." as status_name",
+                        "s.color as status_color",
                         "c.name_".$lang." as company_name"])
             ->innerJoin(['a' => AdminsFinderRepository::$tableName], ['a.id = fpl.admin_type_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fpl.status_id'])
