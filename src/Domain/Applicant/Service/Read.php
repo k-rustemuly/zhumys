@@ -13,16 +13,22 @@ use App\Helper\Fields\Reference;
 use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
+use App\Domain\Position\Repository\PositionFinderRepository;
 
 /**
  * Service.
  */
-final class Read{
+final class Read {
 
     /**
      * @var ApplicantReadRepository
      */
     private $readRepository;
+
+    /**
+     * @var PositionFinderRepository
+     */
+    private $positionReadRepository;
 
     /**
      * @var Render
@@ -32,10 +38,12 @@ final class Read{
     /**
      * The constructor.
      * @param ApplicantReadRepository $readRepository
+     * @param PositionFinderRepository $positionReadRepository
      *
      */
-    public function __construct(ApplicantReadRepository $readRepository){
+    public function __construct(ApplicantReadRepository $readRepository, PositionFinderRepository $positionReadRepository) {
         $this->readRepository = $readRepository;
+        $this->positionReadRepository = $positionReadRepository;
         $this->render = new Render();
     }
 
@@ -53,7 +61,7 @@ final class Read{
         return $this->render
                 ->lang($lang)
                 ->header(self::getHeader())
-                ->data($this->parseData($companies))
+                ->data($this->parseData($companies, $lang))
                 ->build();
     }
 
@@ -85,14 +93,35 @@ final class Read{
      * Parse data
      * 
      * @param array $data
+     * @param string $lang
      * 
      * @return array<mixed>
      */
-    private function parseData(array $data) :array{
+    private function parseData(array $data, string $lang) :array{
         foreach ($data as $i => $v) {
             $data[$i]["privilege_id"] = array("id" => $v["privilege_id"], "value" => $v["privilege_name"]);
             unset($data[$i]["privilege_name"]);
+            //getAllByIdsAndLang
+            $data[$i]["positions"] = $this->positionReadRepository->getAllByIdsAndLang($this->unparsePositions($v["positions"]), $lang);
         }
         return $data;
+    }
+
+    /**
+     * Unparse positions
+     * 
+     * @param string $positions
+     * 
+     * @return array<int>
+     */
+    private function unparsePositions(string $positions) :array{
+        $p = explode("@", $positions);
+        $array = array();
+        foreach ($p as $v) {
+            if(is_numeric($v) && $v > 0) {
+                $array[] = $v;
+            }
+        }
+        return $array;
     }
 }

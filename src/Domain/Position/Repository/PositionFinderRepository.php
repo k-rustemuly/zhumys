@@ -56,4 +56,19 @@ final class PositionFinderRepository
         $query->select([ "name_".$lang." as name"])->where(["id" => $id]);
         return $query->execute()->fetch('assoc') ?: [];
     }
+
+    /**
+     * Get all by ids on db 
+     *
+     * @param array<int> $lang The language
+     * @param string $lang The language
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getAllByIdsAndLang(array $ids, string $lang): array
+    {
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["id", "name_".$lang." as name"])->whereInList("id", $ids);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
 }
