@@ -58,13 +58,11 @@ class Render{
         if(isset($this->array["block"])) {
             foreach($this->array["block"] as $key => $value) {
                 $block = $this->language->get("block")[$key];
-                if($this->array["block"][$key]["type"] == "default") {
                     $this->array["block"][$key]["name"] = $block;
                     foreach($value["values"] as $k => $v){
                         $field = $this->language->get("field")[$k];
                         $this->array["block"][$key]["values"][$k]["name"] = $field;
                     }
-                }
                 
             }
         }
