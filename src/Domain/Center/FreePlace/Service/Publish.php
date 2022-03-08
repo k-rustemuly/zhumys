@@ -13,6 +13,7 @@ use App\Domain\Applicant\Repository\ApplicantUpdaterRepository;
 use DomainException;
 use Predis\ClientInterface;
 use Spatie\ArrayToXml\ArrayToXml;
+use App\Helper\Pki;
 
 /**
  * Service.
@@ -70,6 +71,11 @@ final class Publish extends Admin {
     private $applicantUpdateRepository;
 
     /**
+     * @var Pki
+     */
+    private $pki;
+
+    /**
      * The constructor.
      * @param FreePlaceReadRepository       $readRepository
      * @param ApplicantReadRepository       $applicantReadRepository
@@ -79,6 +85,7 @@ final class Publish extends Admin {
      * @param RangingDeleterRepository      $deleteRepository
      * @param ApplicantUpdaterRepository    $applicantUpdateRepository
      * @param ClientInterface               $redis
+     * @param Pki                           $pki The pki client
      */
     public function __construct(
                                 FreePlaceReadRepository $readRepository,
@@ -88,7 +95,8 @@ final class Publish extends Admin {
                                 RangingCreatorRepository $createRepository,
                                 RangingDeleterRepository $deleteRepository,
                                 ApplicantUpdaterRepository $applicantUpdateRepository,
-                                ClientInterface $redis) {
+                                ClientInterface $redis,
+                                Pki $pki) {
         $this->readRepository = $readRepository;
         $this->applicantReadRepository = $applicantReadRepository;
         $this->logCreateRepository = $logCreateRepository;
@@ -97,6 +105,7 @@ final class Publish extends Admin {
         $this->deleteRepository = $deleteRepository;
         $this->applicantUpdateRepository = $applicantUpdateRepository;
         $this->redis = $redis;
+        $this->pki = $pki;
     }
 
     /**
