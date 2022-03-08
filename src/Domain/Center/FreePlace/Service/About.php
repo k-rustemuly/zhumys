@@ -11,6 +11,7 @@ use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
 use App\Helper\Fields\Text;
 use App\Domain\FreePlace\Log\Repository\LogReadRepository;
+use App\Domain\Ranging\Repository\RangingReaderRepository;
 
 /**
  * Service.
@@ -33,14 +34,23 @@ final class About {
     private $logReadRepository;
 
     /**
+     * @var RangingReaderRepository
+     */
+    private $rangingReadRepository;
+
+    /**
      * The constructor.
      * @param FreePlaceReadRepository $readRepository
      * @param LogReadRepository $logReadRepository
+     * @param RangingReaderRepository $rangingReadRepository
      * 
      */
-    public function __construct(FreePlaceReadRepository $readRepository, LogReadRepository $logReadRepository) {
+    public function __construct(FreePlaceReadRepository $readRepository,
+                                LogReadRepository $logReadRepository,
+                                RangingReaderRepository $rangingReadRepository) {
         $this->readRepository = $readRepository;
         $this->logReadRepository = $logReadRepository;
+        $this->rangingReadRepository = $rangingReadRepository;
         $this->render = new Render();
     }
 
@@ -56,11 +66,14 @@ final class About {
     public function get(int $id, string $lang) :array{
         $data = $this->readRepository->findByIdAndLang($id, $lang);
 
-        return $this->render
+        $render = $this->render
                 ->lang($lang)
                 ->block("free_place_info", $this->getFreePlaceBlockValues($data))
-                ->block("free_place_log_info", $this->getFreePlaceLogBlockValues($this->logReadRepository->getAllByIdAndLang($id, $lang)))
-                ->build();
+                ->block("free_place_log_info", $this->getFreePlaceLogBlockValues($this->logReadRepository->getAllByIdAndLang($id, $lang)));
+        if($data["status_id"] == 5) {
+            $render = $render->block("free_place_ranging_info", $this->getFreePlaceRangingBlockValues($lang, $this->rangingReadRepository->getAllByFreePlaceIdAndLang($id, $lang)), "table");
+        }
+        return $render->build();
     }
 
     /**
@@ -116,4 +129,30 @@ final class About {
         return $array;
     }
 
+    /**
+     * Get data for block free place ranging result
+     *
+     * @param string $lang
+     * @param array<mixed> $data
+     * 
+     * @return array<mixed>
+     */
+    private function getFreePlaceRangingBlockValues(string $lang, array $data) :array {
+        foreach ($data as $i => $v) {
+            $data[$i]["status_id"] = array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]);
+            $data[$i]["privilege_id"] = array("id" => $v["privilege_id"], "value" => $v["privilege_name"]);
+        }
+        $render = new Render();
+        $render->lang($lang)
+                ->header(
+                    array(
+                        "raiting_number" => Field::getInstance()->init(new Number())->execute(),
+                        "iin" => Field::getInstance()->init(new Number())->execute(),
+                        "full_name" => Field::getInstance()->init(new Text())->execute(),
+                        "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->execute(),
+                        "status_id" => Field::getInstance()->init(new Reference())->reference_name("ranging-status")->reference_id("id")->execute(),
+                    )
+                )->data($data);
+        return $render->build();
+    }
 }

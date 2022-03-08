@@ -38,10 +38,11 @@ class Render{
         return $this;
     }
 
-    public function block(string $key, array $array) :self{
+    public function block(string $key, array $array, string $type = "default") :self{
         $this->array["block"][$key] = array(
             "name" => null,
-            "values" => $array
+            "values" => $array,
+            "type" => $type
         );
         return $this;
     }
