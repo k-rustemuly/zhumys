@@ -49,21 +49,25 @@ class Render{
 
     public function build() :array{
         if(isset($this->array["header"]))
-            foreach($this->array["header"] as $key => $value){
+            foreach($this->array["header"] as $key => $value) {
                 $field = $this->language->get("field")[$key];
                 $hint = $this->language->get("hint")[$key];
                 $this->array["header"][$key]["name"] = $field;
                 $this->array["header"][$key]["hint"] = $hint;
             }
-        if(isset($this->array["block"]) && $this->array["block"]["type"] == "default")
-            foreach($this->array["block"] as $key => $value){
+        if(isset($this->array["block"])) {
+            foreach($this->array["block"] as $key => $value) {
                 $block = $this->language->get("block")[$key];
-                $this->array["block"][$key]["name"] = $block;
-                foreach($value["values"] as $k => $v){
-                    $field = $this->language->get("field")[$k];
-                    $this->array["block"][$key]["values"][$k]["name"] = $field;
+                if($this->array["block"][$key]["type"] == "default") {
+                    $this->array["block"][$key]["name"] = $block;
+                    foreach($value["values"] as $k => $v){
+                        $field = $this->language->get("field")[$k];
+                        $this->array["block"][$key]["values"][$k]["name"] = $field;
+                    }
                 }
+                
             }
+        }
         return $this->array;
     }
 }
