@@ -1,6 +1,8 @@
 <?php
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (App $app) {
 
@@ -16,6 +18,11 @@ return function (App $app) {
                 ->withHeader('Access-Control-Allow-Headers', 'X-Auth, Content-Type, Accept, Origin')
                 ->withHeader('Access-Control-Expose-Headers', '*')
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    });
+
+    $app->get('/github', function (Request $request, Response $response){
+        shell_exec('git pull origin master');
+        return $response;
     });
 
     $app->group(
