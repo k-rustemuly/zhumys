@@ -49,12 +49,13 @@ final class Generate extends Admin{
      *
      * @param int $id The id of free place
      * @param array<mixed> $post fileds The post fields
+     * @param string $lang
      *
      * @throws DomainException
      * 
      * @return array<mixed>
      */
-    public function generate(int $id, array $post) {
+    public function generate(int $id, array $post, string $lang) {
         $freePlaceInfo = $this->readRepository->findById($id);
         if($freePlaceInfo["status_id"] != 3) {
             throw new DomainException("Free place status must be accepted");
@@ -64,16 +65,16 @@ final class Generate extends Admin{
         unset($post[1]);
         $position_id = (int)$freePlaceInfo["position_id"];
         foreach($post as $privilege_id => $count) {
-            $founded = $this->applicantRepository->getCandidates($position_id, 1, $privilege_id, $count);
+            $founded = $this->applicantRepository->getCandidates($position_id, 1, $privilege_id, $count, $lang);
             $candidates = array_merge($candidates, $founded);
             if(count($founded) < $count) {
                 $free = $count - count($founded);
                 $default[1]+= $free;
             }
         }
-        
+
         foreach($default as $privilege_id => $count) {
-            $founded = $this->applicantRepository->getCandidates($position_id, 1, $privilege_id, $count);
+            $founded = $this->applicantRepository->getCandidates($position_id, 1, $privilege_id, $count, $lang);
             $candidates = array_merge($candidates, $founded);
         }
         $hash = $this->generateHash();

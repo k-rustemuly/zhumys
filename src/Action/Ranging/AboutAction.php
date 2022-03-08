@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Action\Center\FreePlace;
+namespace App\Action\Ranging;
 
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\Generate;
-use App\Middleware\CenterAdminMiddleware;
+use App\Domain\Ranging\Service\About as Service;
 
 /**
  * Action.
  */
-final class FreePlaceGenerateAction{
+final class AboutAction
+{
     /**
-     * @var Generate
+     * @var Service
      */
     private $service;
 
@@ -25,10 +25,11 @@ final class FreePlaceGenerateAction{
     /**
      * The constructor.
      *
-     * @param Generate $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Generate $service, Responder $responder) {
+    public function __construct(Service $service, Responder $responder)
+    {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -42,10 +43,9 @@ final class FreePlaceGenerateAction{
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
-        $post = (array)$request->getParsedBody();
-        $data = $this->service->generate((int)$args["id"], $post, $args["lang"]);
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
+    {
+        $data = $this->service->get($args["lang"]);
         return $this->responder->success($response, null, $data);
     }
 }

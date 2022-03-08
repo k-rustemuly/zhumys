@@ -125,7 +125,9 @@ return function (App $app) {
 
                             $app->get('', \App\Action\Company\FreePlace\AboutAction::class);
 
-                            $app->group('/ranging', function (RouteCollectorProxy $app) {
+                            $app->group('/ranging/{ranging_id:[0-9]+}', function (RouteCollectorProxy $app) {
+
+                                $app->get('', \App\Action\Ranging\AboutAction::class);
 
                             });
 
