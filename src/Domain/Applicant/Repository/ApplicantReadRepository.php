@@ -104,4 +104,19 @@ final class ApplicantReadRepository{
         ->limit($count);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
+
+    /**
+     * Get candiadates by candidates_ids
+     * 
+     * @param array<int> $ids
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function getCandidatesByIds(array $ids) :array {
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["id", "raiting_number", "iin", "full_name", "birthdate", "privilege_id", "positions", "email", "phone_number", "address", "second_phone_number", "comment"])
+        ->whereInList("id", $ids)
+        ->andWhere(["status_id" => 1]);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
 }

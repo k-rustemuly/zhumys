@@ -156,7 +156,10 @@
         "The reason must be a string": "Укажите причину!",
         "Email is invalid": "Неправильный адрес электронный почты!",
         "Error to reject free place": "Произошла ошибка при попытка обновление статус заявки!",
-        "Free place status must be accepted": "Статус заявки должен быть \"Одобрено\"!"
+        "Free place status must be accepted": "Статус заявки должен быть \"Одобрено\"!",
+        "Hash not found": "Повторите попытку!",
+        "Data is incorrect": "Данные неверны!",
+        "Free place not published": "Не удалось опубликовать заявку, повторите попытку!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",

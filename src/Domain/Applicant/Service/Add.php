@@ -131,6 +131,9 @@ final class Add extends Admin {
                 ],
                 "Updated date" => [
                     "datetime" => $applicantInfo["updated_at"]
+                ],
+                "Sign date" => [
+                    "datetime" => date("Y-m-d H:i:s")
                 ]
             );
             $xml = ArrayToXml::convert($sign_arr);

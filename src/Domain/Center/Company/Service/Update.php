@@ -94,7 +94,10 @@ final class Update extends Admin {
             $newCompanyInfo = $this->readRepository->getByBin($bin);
             $sign_arr = array(
                 "Old company info" => $oldCompanyInfo,
-                "New company info" => $newCompanyInfo 
+                "New company info" => $newCompanyInfo ,
+                "Sign date" => [
+                    "datetime" => date("Y-m-d H:i:s")
+                ]
             );
             $xml = ArrayToXml::convert($sign_arr);
             $signed_result = $this->pki->sign($xml, $sign_p12, $password);
