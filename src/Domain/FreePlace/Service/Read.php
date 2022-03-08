@@ -104,8 +104,9 @@ final class Read extends Admin{
                         unset($data[$i]["position_name"]);
                     break;
                     case 'status_id':
-                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"]);
+                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"], "color" => $data[$i]["status_color"]);
                         unset($data[$i]["status_name"]);
+                        unset($data[$i]["status_color"]);
                     break;
                 }
             }
