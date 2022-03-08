@@ -20,7 +20,7 @@ return function (App $app) {
                 ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     });
 
-    $app->get('/github', function (Request $request, Response $response){
+    $app->post('/github', function (Request $request, Response $response){
         echo shell_exec('git pull origin master');
         return $response;
     });
