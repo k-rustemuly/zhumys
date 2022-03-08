@@ -21,7 +21,7 @@ return function (App $app) {
     });
 
     $app->get('/github', function (Request $request, Response $response){
-        shell_exec('git pull origin master');
+        echo shell_exec('git pull origin master');
         return $response;
     });
 
