@@ -8,7 +8,7 @@ use App\Domain\Applicant\Repository\ApplicantReadRepository;
 use App\Domain\FreePlace\Log\Repository\LogCreatorRepository;
 use App\Domain\FreePlace\Repository\FreePlaceUpdaterRepository;
 use App\Domain\Ranging\Repository\RangingCreatorRepository;
-use App\Domain\Company\Repository\RangingDeleterRepository;
+use App\Domain\Ranging\Repository\RangingDeleterRepository;
 use App\Domain\Applicant\Repository\ApplicantUpdaterRepository;
 use DomainException;
 use Predis\ClientInterface;
