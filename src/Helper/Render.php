@@ -41,8 +41,8 @@ class Render{
     public function block(string $key, array $array, string $type = "default") :self{
         $this->array["block"][$key] = array(
             "name" => null,
-            "values" => $array,
-            "type" => $type
+            "type" => $type,
+            "values" => $array
         );
         return $this;
     }
@@ -55,7 +55,7 @@ class Render{
                 $this->array["header"][$key]["name"] = $field;
                 $this->array["header"][$key]["hint"] = $hint;
             }
-        if(isset($this->array["block"]))
+        if(isset($this->array["block"]) && $this->array["block"]["type"] == "default")
             foreach($this->array["block"] as $key => $value){
                 $block = $this->language->get("block")[$key];
                 $this->array["block"][$key]["name"] = $block;

@@ -100,7 +100,7 @@
         "company_admins": "Админстраторы компании",
         "free_place_info": "Информация о записи",
         "free_place_log_info": "Действии",
-        "free_place_ranging_info": "Реультат ранжирование"
+        "free_place_ranging_info": "Результат ранжирование"
     },
     "email": {
         "email_confirmation_subject": "Подтвердите электронный адрес",

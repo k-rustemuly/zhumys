@@ -141,6 +141,9 @@ final class About {
         foreach ($data as $i => $v) {
             $data[$i]["status_id"] = array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]);
             $data[$i]["privilege_id"] = array("id" => $v["privilege_id"], "value" => $v["privilege_name"]);
+            unset($data[$i]["status_name"]);
+            unset($data[$i]["status_color"]);
+            unset($data[$i]["privilege_name"]);
         }
         $render = new Render();
         $render->lang($lang)
