@@ -61,7 +61,7 @@ class Render{
                     $this->array["block"][$key]["name"] = $block;
                     foreach($value["values"] as $k => $v){
                         $field = $this->language->get("field")[$k];
-                        $this->array["block"][$key]["values"][$k]["name"] = $field;
+                        if($field) $this->array["block"][$key]["values"][$k]["name"] = $field;
                     }
                 
             }

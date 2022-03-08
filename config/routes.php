@@ -125,6 +125,10 @@ return function (App $app) {
 
                             $app->get('', \App\Action\Company\FreePlace\AboutAction::class);
 
+                            $app->group('/ranging', function (RouteCollectorProxy $app) {
+
+                            });
+
                         });
 
                     });
