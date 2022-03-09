@@ -12,13 +12,15 @@ use App\Helper\Fields\Email;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Time;
+use App\Helper\Fields\DateTime;
 use DomainException;
 use App\Domain\Company\Admin;
+use App\Domain\Ranging\Log\Repository\RangingLogReadRepository;
 
 /**
  * Service.
  */
-final class About extends Admin{
+final class About extends Admin {
 
     /**
      * @var Render
@@ -36,12 +38,19 @@ final class About extends Admin{
     private $rangingReadRepository;
 
     /**
+     * @var RangingLogReadRepository
+     */
+    private $logReadRepository;
+
+    /**
      * The constructor.
      * @param RangingReaderRepository $rangingReadRepository
+     * @param RangingLogReadRepository $logReadRepository
      *
      */
-    public function __construct(RangingReaderRepository $rangingReadRepository) {
+    public function __construct(RangingReaderRepository $rangingReadRepository, RangingLogReadRepository $logReadRepository) {
         $this->rangingReadRepository = $rangingReadRepository;
+        $this->logReadRepository = $logReadRepository;
         $this->render = new Render();
     }
 
@@ -59,7 +68,8 @@ final class About extends Admin{
         if(empty($this->info)) throw new DomainException("Free place not found");
         $render = $this->render
                 ->lang($lang)
-                ->block("candidate_info", $this->getCandidateBlockValues());
+                ->block("candidate_info", $this->getCandidateBlockValues())
+                ->block("candidate_log_info", $this->getCandidateLogBlockValues($this->logReadRepository->getAllByIdAndLang($rangingId, $lang)));
         return $render->build();
     }
 
@@ -88,6 +98,26 @@ final class About extends Admin{
             "interview_comment" => Field::getInstance()->init(new Text())->value($this->info["interview_comment"])->execute(),
             "reason" => Field::getInstance()->init(new Text())->value($this->info["reason"])->execute()
         );
+    }
+
+    /**
+     * Get free place log info block values
+     *
+     * @param array<mixed> $values
+     * 
+     */
+    public function getCandidateLogBlockValues(array $data) :array{
+        $array = array();
+        foreach ($data as $i => $v){
+            $array[$i] = array(
+                "status_id" => Field::getInstance()->init(new Reference())->reference_name("ranging-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]))->execute(),
+                "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
+                "company_name" => Field::getInstance()->init(new Text())->value($v["company_name"])->execute(),
+                "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
+                "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
+            );
+        }
+        return $array;
     }
 
 }
