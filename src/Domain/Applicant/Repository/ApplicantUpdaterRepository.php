@@ -42,7 +42,6 @@ final class ApplicantUpdaterRepository{
         {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("iin" => $iin))->execute()->rowCount();
         }catch(PDOException $e){
-            throw new DomainException($e->getMessage());
             return 0;
         }
     }
@@ -59,7 +58,22 @@ final class ApplicantUpdaterRepository{
         {
             return (int) $this->queryFactory->newUpdate(self::$tableName, array("status_id" => 2))->whereInList("id", $ids)->execute()->rowCount();
         }catch(PDOException $e){
-            throw new DomainException($e->getMessage());
+            return 0;
+        }
+    }
+
+    /**
+     * Update row for interview
+     *
+     * @param int $id The id
+     *
+     * @return int
+     */
+    public function updateByIdInterview(int $id): int{
+        try
+        {
+            return (int) $this->queryFactory->newUpdate(self::$tableName, array("status_id" => 3))->where(["id" => $id])->execute()->rowCount();
+        }catch(PDOException $e){
             return 0;
         }
     }

@@ -75,9 +75,7 @@ final class Reject extends Admin{
         $sign_p12 = $post["base64"]?:"";
         $password = $post["password"]?:"";
         $certInfo = $this->pki->getCertificateInfo($sign_p12, $password, false);
-        if(!$certInfo["is_individual"]) {
-            throw new DomainException("Only individual usage digital signature accessed");
-        }
+
         $iin = (string)$certInfo["iin"];
         if($iin != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");

@@ -73,9 +73,7 @@ final class Update extends Admin {
         $password = $data["password"]?:"";
         $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);
         $certInfo = $this->pki->getCertificateInfo($sign_p12, $password, false);
-        if(!$certInfo["is_individual"]) {
-            throw new DomainException("Only individual usage digital signature accessed");
-        }
+        
         $center_admin_iin = (string)$certInfo["iin"];
         if($center_admin_iin != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");

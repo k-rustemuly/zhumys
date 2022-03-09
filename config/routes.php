@@ -129,6 +129,8 @@ return function (App $app) {
 
                                 $app->get('', \App\Action\Ranging\AboutAction::class);
 
+                                $app->post('/interview', \App\Action\Ranging\InterviewAction::class);
+
                             });
 
                         });

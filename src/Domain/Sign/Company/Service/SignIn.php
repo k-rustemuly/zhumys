@@ -72,9 +72,7 @@ final class SignIn{
     public function pkcs(array $post): array{
         $lang = $post["lang"];
         $certInfo = $this->pki->getCertificateInfo($post["base64"], $post["password"], true);
-        if(!$certInfo["is_individual"]) {
-            throw new DomainException("Only individual usage digital signature accessed");
-        }
+        
         $iin = (string)$certInfo["iin"];
 
         $adminInfo = $this->readRepository->findByIin($iin);

@@ -161,7 +161,10 @@
         "Free place status must be accepted": "Статус заявки должен быть \"Одобрено\"!",
         "Hash not found": "Повторите попытку!",
         "Data is incorrect": "Данные неверны!",
-        "Free place not published": "Не удалось опубликовать заявку, повторите попытку!"
+        "Free place not published": "Не удалось опубликовать заявку, повторите попытку!",
+        "Ranging status must be on process": "Результат ранжирование должен быть \"В обработке\"",
+        "Ranging not found": "Не удалось найти результат ранжирование!",
+        "Error to add interview": "Ошибка при назначении собеседование!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -177,6 +180,7 @@
         "Free place success sended": "Заявка успешно отправлено!",
         "Free place success accepted": "Заявка успешно принято!",
         "Free place success rejected": "Заявка успешно отклонена!",
-        "Free place success published": "Заявка успешно опубликовано!"
+        "Free place success published": "Заявка успешно опубликовано!",
+        "Ranging success sended interview": "Кандидат успешно приглашен на собеседование!"
     }
 }

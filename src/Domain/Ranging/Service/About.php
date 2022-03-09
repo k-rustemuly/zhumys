@@ -9,11 +9,11 @@ use App\Helper\Fields\Number;
 use App\Helper\Fields\Date;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\Email;
-use App\Domain\Company\Admin;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Time;
 use DomainException;
+use App\Domain\Company\Admin;
 
 /**
  * Service.

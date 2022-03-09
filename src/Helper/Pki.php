@@ -54,7 +54,7 @@ class Pki{
      * @return mixed $result
      *
      */
-    public function getCertificateInfo(string $p12Base64, string $sPassword, bool $is_auth = true):array
+    public function getCertificateInfo(string $p12Base64, string $sPassword, bool $is_auth = true, bool $is_individual = true):array
     {
         try{
             $info = $this->nca->pkcs12Info($p12Base64, $sPassword, $this->bVerifyOcsp, $this->bVerifyCrl);
@@ -92,6 +92,9 @@ class Pki{
             $this->cert["is_can_sign_financial"] = in_array("CAN_SIGN_FINANCIAL", $keyUser);
             $this->cert["is_hr"] = in_array("HR", $keyUser);
             $this->cert["is_employee"] = in_array("EMPLOYEE",$keyUser);
+            if($is_individual && !$this->cert["is_individual"]) {
+                throw new DomainException("Only individual usage digital signature accessed");
+            }
         }catch(ApiErrorException $e){
             throw new DomainException("Wrong password or corrupted file");
         }catch(CurlException $e){
