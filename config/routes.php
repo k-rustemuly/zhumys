@@ -90,7 +90,12 @@ return function (App $app) {
                             $app->post('/generate', \App\Action\Center\FreePlace\FreePlaceGenerateAction::class);
 
                             $app->post('/publish', \App\Action\Center\FreePlace\FreePlacePublishAction::class);
+                            
+                            $app->group('/ranging/{ranging_id:[0-9]+}', function (RouteCollectorProxy $app) {
 
+                                $app->get('', \App\Action\Ranging\AboutAction::class);
+
+                            });
                         });
 
                     });

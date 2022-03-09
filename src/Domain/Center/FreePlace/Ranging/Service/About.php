@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Ranging\Service;
+namespace App\Domain\Center\FreePlace\Ranging\Service;
 
 use App\Domain\Ranging\Repository\RangingReaderRepository;
 use App\Helper\Field;
@@ -14,13 +14,12 @@ use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Time;
 use App\Helper\Fields\DateTime;
 use DomainException;
-use App\Domain\Company\Admin;
 use App\Domain\Ranging\Log\Repository\RangingLogReadRepository;
 
 /**
  * Service.
  */
-final class About extends Admin {
+final class About {
 
     /**
      * @var Render
@@ -64,7 +63,7 @@ final class About extends Admin {
      * 
      */
     public function get(string $lang, int $freePlaceId, int $rangingId) :array{
-        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBinAndLang($rangingId, $freePlaceId, $this->getBin(), $lang);
+        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndLang($rangingId, $freePlaceId, $lang);
         if(empty($this->info)) throw new DomainException("Free place not found");
         $render = $this->render
                 ->lang($lang)
