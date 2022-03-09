@@ -48,7 +48,10 @@
         "admin_full_name": "ФИО",
         "company_name": "Наименование компании",
         "privilege_id": "Льгота",
-        "positions": "Позиция"
+        "positions": "Позиция",
+        "interview_comment": "Комментарии для собеседовании",
+        "interview_time": "Время собеседовании",
+        "interview_date": "Дата собеседовании"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -93,7 +96,10 @@
         "admin_full_name": "",
         "company_name": "",
         "privilege_id": "",
-        "positions": "Позиция"
+        "positions": "Позиция",
+        "interview_comment": "",
+        "interview_time": "",
+        "interview_date": ""
     },
     "block": {
         "company_info": "О компании",
