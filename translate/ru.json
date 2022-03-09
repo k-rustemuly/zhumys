@@ -164,7 +164,9 @@
         "Free place not published": "Не удалось опубликовать заявку, повторите попытку!",
         "Ranging status must be on process": "Результат ранжирование должен быть \"В обработке\"",
         "Ranging not found": "Не удалось найти результат ранжирование!",
-        "Error to add interview": "Ошибка при назначении собеседование!"
+        "Error to add interview": "Ошибка при назначении собеседование!",
+        "Ranging status must be on process or on interview": "Невозможно отклонить кандидата!",
+        "Error to add free place log": "Ошибка при создание лога действия!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
@@ -181,6 +183,8 @@
         "Free place success accepted": "Заявка успешно принято!",
         "Free place success rejected": "Заявка успешно отклонена!",
         "Free place success published": "Заявка успешно опубликовано!",
-        "Ranging success sended interview": "Кандидат успешно приглашен на собеседование!"
+        "Ranging success sended interview": "Кандидат успешно приглашен на собеседование!",
+        "Ranging success rejected": "Кандидат успешно отклонен!",
+        "Ranging success accepted": "Кандидат успешно принять!"
     }
 }

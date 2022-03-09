@@ -77,4 +77,36 @@ final class ApplicantUpdaterRepository{
             return 0;
         }
     }
+
+    /**
+     * Update row for interview
+     *
+     * @param int $id The id
+     *
+     * @return int
+     */
+    public function updateByIdReject(int $id): int{
+        try
+        {
+            return (int) $this->queryFactory->newUpdate(self::$tableName, array("status_id" => 1))->where(["id" => $id])->execute()->rowCount();
+        }catch(PDOException $e){
+            return 0;
+        }
+    }
+
+    /**
+     * Update row for interview
+     *
+     * @param int $id The id
+     *
+     * @return int
+     */
+    public function updateByIdAccept(int $id): int{
+        try
+        {
+            return (int) $this->queryFactory->newUpdate(self::$tableName, array("status_id" => 4))->where(["id" => $id])->execute()->rowCount();
+        }catch(PDOException $e){
+            return 0;
+        }
+    }
 }

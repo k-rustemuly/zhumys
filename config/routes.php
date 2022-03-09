@@ -131,6 +131,10 @@ return function (App $app) {
 
                                 $app->post('/interview', \App\Action\Ranging\InterviewAction::class);
 
+                                $app->post('/reject', \App\Action\Ranging\RejectAction::class);
+
+                                $app->post('/accept', \App\Action\Ranging\AcceptAction::class);
+
                             });
 
                         });
