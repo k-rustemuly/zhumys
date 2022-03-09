@@ -93,7 +93,7 @@ return function (App $app) {
                             
                             $app->group('/ranging/{ranging_id:[0-9]+}', function (RouteCollectorProxy $app) {
 
-                                $app->get('', \App\Action\Ranging\AboutAction::class);
+                                $app->get('', \App\Action\Center\FreePlace\Ranging\AboutAction::class);
 
                             });
                         });
