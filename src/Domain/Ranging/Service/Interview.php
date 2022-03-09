@@ -143,7 +143,6 @@ final class Interview extends Admin{
         if(!empty($signed_result)){
             $log = array(
                 "ranging_id" => $rangingId,
-                "admin_type_id" => $this->admin_type_id,
                 "admin_id" => $this->getAdminId(),
                 "admin_full_name" => $certInfo["full_name"],
                 "status_id" => $this->status_id,
