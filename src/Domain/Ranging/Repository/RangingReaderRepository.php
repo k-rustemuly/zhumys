@@ -5,6 +5,7 @@ namespace App\Domain\Ranging\Repository;
 use App\Factory\QueryFactory;
 use App\Domain\RangingStatus\Repository\RangingStatusFinderRepository;
 use App\Domain\Privelege\Repository\PrivelegeReadRepository;
+use App\Domain\FreePlace\Repository\FreePlaceReadRepository;
 
 /**
  * Repository.
@@ -47,5 +48,28 @@ final class RangingReaderRepository{
             ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
             ->where(["r.free_place_id" => $freePlaceId]);
         return $query->execute()->fetchAll('assoc') ?: [];
+    }
+
+    /**
+     * Get All data from db
+     *
+     * @param int $id 
+     * @param int $freePlaceId 
+     * @param string $bin
+     * @param string $lang The lang
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function findByIdAndFreePlaceIdAndBinAndLang(int $id, int $freePlaceId, string $bin, string $lang): array{
+        $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
+        $query->select(["r.*",
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",
+                        "p.name_".$lang." as privilege_name"])
+            ->innerJoin(['s' => RangingStatusFinderRepository::$tableName], ['s.id = r.status_id'])
+            ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
+            ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
+            ->where(["r.free_place_id" => $freePlaceId, "r.id" => $id, "f.bin" => $bin]);
+        return $query->execute()->fetch('assoc') ?: [];
     }
 }

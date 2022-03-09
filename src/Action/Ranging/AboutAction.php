@@ -45,7 +45,7 @@ final class AboutAction
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
-        $data = $this->service->get($args["lang"]);
+        $data = $this->service->get($args["lang"], (int)$args["id"], (int)$args['ranging_id']);
         return $this->responder->success($response, null, $data);
     }
 }
