@@ -42,6 +42,6 @@ final class ApplicantReadAction{
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        return $this->responder->success($response, null, $this->service->list((string)$args['lang']));
+        return $this->responder->success($response, null, $this->service->list((string)$args['lang'], $request->getQueryParams()));
     }
 }

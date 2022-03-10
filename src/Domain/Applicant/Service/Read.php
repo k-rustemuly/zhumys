@@ -55,8 +55,12 @@ final class Read {
      * @return array<mixed> $post fileds The post fields
      * 
      */
-    public function list(string $lang) :array{
-        $companies = $this->readRepository->getAllByLang($lang);
+    public function list(string $lang, array $params = array()) :array{
+        if(isset($params['status_id'])) {
+            $companies = $this->readRepository->getAllByLangAndStatusId($lang, (int) $params['status_id']);
+        } else {
+            $companies = $this->readRepository->getAllByLang($lang);
+        }
 
         return $this->render
                 ->lang($lang)
