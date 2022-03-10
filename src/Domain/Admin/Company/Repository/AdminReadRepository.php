@@ -79,6 +79,7 @@ final class AdminReadRepository{
         $query->select(["a.*",
                         "c.name_".$lang." as company_name"])
         ->innerJoin(["с" => CompanyReadRepository::$tableName], ["c.bin = a.org_bin"]);
+        return array((string)$query);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 }
