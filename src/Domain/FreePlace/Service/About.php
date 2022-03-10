@@ -77,7 +77,7 @@ final class About extends Admin{
                 ->lang($lang)
                 ->block("free_place_info", $this->getFreePlaceBlockValues())
                 ->block("free_place_log_info", $this->getFreePlaceLogBlockValues($this->logReadRepository->getAllByIdAndLang($id, $lang)));
-        if($this->freePlaceInfo["status_id"] == 5) {
+        if($this->freePlaceInfo["status_id"] > 5) {
             $render = $render->block("free_place_ranging_info", $this->getFreePlaceRangingBlockValues($lang, $this->rangingReadRepository->getAllByFreePlaceIdAndLang($id, $lang)), "table");
         }        
         return $render->build();
