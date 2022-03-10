@@ -178,7 +178,7 @@ final class FreePlaceReadRepository{
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
             ->where(["fp.status_id !=" => 1]);
         
-        if($status_id > 0 ) $query->andWhere(['status_id' => $status_id]);
+        if($status_id > 0 ) $query->where(['status_id' => $status_id]);
         
         $query->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];
