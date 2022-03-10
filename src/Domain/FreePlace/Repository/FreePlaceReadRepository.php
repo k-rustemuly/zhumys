@@ -158,4 +158,30 @@ final class FreePlaceReadRepository{
         return $query->execute()->fetch('assoc') ?: [];
     }
 
+    /**
+     * Get All data from db
+     *
+     * @param string $lang The lang
+     * @param string $bin The bin
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function search(string $lang, int $status_id = 0): array{
+        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.created_at",
+                        "c.name_".$lang." as company_name",
+                        "p.name_".$lang." as position_name",
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",])
+            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
+            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
+            ->where(["fp.status_id !=" => 1]);
+        
+        if($status_id > 0 ) $query->andWhere(['status_id' => $status_id]);
+        
+        $query->order(['fp.created_at' => 'DESC']);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
+
 }
