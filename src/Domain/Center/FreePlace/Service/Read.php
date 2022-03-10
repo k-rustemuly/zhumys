@@ -44,7 +44,8 @@ final class Read {
      * 
      */
     public function list(string $lang, array $params) :array{
-        $status_id = null;
+        return $params;
+        $status_id = 0;
         if(isset($params["status_id"])) {
             $status_id = (int)$params['status_id'];
         }
