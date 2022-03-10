@@ -15,7 +15,7 @@ use App\Helper\Language;
 /**
  * Service.
  */
-final class Read{
+final class AllRead{
 
     /**
      * @var AdminReadRepository
@@ -52,9 +52,8 @@ final class Read{
      * @return array<mixed> $post fileds The post fields
      * 
      */
-    public function list(string $bin,string $lang) :array{
-        $this->language->locale($lang);
-        $companies = $this->readRepository->getByBin($bin);
+    public function list(string $lang) :array{
+        $companies = $this->readRepository->getAllByLang($lang);
 
         return $this->render
                 ->lang($lang)
@@ -71,6 +70,8 @@ final class Read{
      */
     public static function getHeader() :array{
         return array(
+            "bin" => Field::getInstance()->init(new Number())->execute(),
+            "company_name" => Field::getInstance()->init(new Text())->execute(),
             "iin" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(2)->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->execute(),

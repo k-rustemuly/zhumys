@@ -2,6 +2,7 @@
 
 namespace App\Domain\Admin\Company\Repository;
 
+use App\Domain\Company\Repository\CompanyReadRepository;
 use App\Factory\QueryFactory;
 
 /**
@@ -64,5 +65,20 @@ final class AdminReadRepository{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["id" => $id]);
         return $query->execute()->fetch('assoc') ?: [];
+    }
+
+    /**
+     * Get data from db by lang
+     *
+     * @param string $lang The lang
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getAllByLang(string $lang): array{
+        $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
+        $query->select(["a.*",
+                        "c.name_".$lang." as company_name"])
+        ->innerJoin(["с" => CompanyReadRepository::$tableName], ["c.bin = a.org_bin"]);
+        return $query->execute()->fetchAll('assoc') ?: [];
     }
 }
