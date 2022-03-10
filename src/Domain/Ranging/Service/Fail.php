@@ -16,11 +16,11 @@ use App\Domain\FreePlace\Log\Repository\LogCreatorRepository;
 /**
  * Service.
  */
-final class Reject extends Admin{
+final class Fail extends Admin{
     /**
      * @var int
      */
-    private $status_id = 4;
+    private $status_id = 5;
 
     /**
      * @var array
@@ -91,7 +91,7 @@ final class Reject extends Admin{
     }
 
     /**
-     * reject the candidate
+     * fail the candidate
      * 
      * @param int $freePlaceId 
      * @param int $rangingId 
@@ -100,7 +100,7 @@ final class Reject extends Admin{
      * @throws DomainException
      * 
      */
-    public function reject(int $freePlaceId, int $rangingId, array $post) {
+    public function fail(int $freePlaceId, int $rangingId, array $post) {
         $sign_p12 = $post["base64"]?:"";
         $password = $post["password"]?:"";
         $reason = $post["reason"]?:"";
@@ -112,8 +112,8 @@ final class Reject extends Admin{
         if(empty($this->info)) {
             throw new DomainException("Ranging not found");
         }
-        if($this->info["status_id"] != 1) {
-            throw new DomainException("Ranging status must be on process");
+        if($this->info["status_id"] !=2 ) {
+            throw new DomainException("Ranging status must be on interview");
         }
         $sign_arr = array(
             "Id" => [

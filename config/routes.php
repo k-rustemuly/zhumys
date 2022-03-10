@@ -140,6 +140,8 @@ return function (App $app) {
 
                                 $app->post('/accept', \App\Action\Ranging\AcceptAction::class);
 
+                                $app->post('/fail', \App\Action\Ranging\FailAction::class);
+
                             });
 
                         });
