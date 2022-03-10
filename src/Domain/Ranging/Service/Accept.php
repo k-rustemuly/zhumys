@@ -176,7 +176,7 @@ final class Accept extends Admin{
             $rangingUpdated = $this->updateRepository->updateById($rangingId, array("status_id" => $this->status_id, "reason" => $reason)) > 0;
             if($rangingUpdated) {
                 if($this->applicantUpdateRepository->updateByIdAccept((int)$this->info["applicant_id"]) > 0) {
-                    $this->freePlaceUpdateRepository->updateByBinAndId($this->getBin(), $freePlaceId, array("employed_count" => "employed_count+1"));
+                    $this->freePlaceUpdateRepository->updateByBinAndId($this->getBin(), $freePlaceId, array("employed_count" => "+1"));
                 }
                 $this->checkRanging($freePlaceId, $sign_p12, $password, $certInfo["full_name"]);
             }
