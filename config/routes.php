@@ -77,6 +77,12 @@ return function (App $app) {
 
                         $app->patch('/{iin:[0-9]+}', \App\Action\Applicant\ApplicantUpdateAction::class);
 
+                        $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
+
+                            $app->get('', \App\Action\Applicant\ApplicantAboutAction::class);
+
+                        });
+
                     });
 
                     $app->group('/free-place', function (RouteCollectorProxy $app) {
