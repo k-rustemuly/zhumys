@@ -16,6 +16,7 @@ use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
 use App\Domain\Position\Repository\PositionFinderRepository;
 use App\Domain\Ranging\Log\Repository\RangingLogReadRepository;
+use DomainException;
 
 /**
  * Service.
@@ -74,7 +75,9 @@ final class About {
      */
     public function about(int $id, string $lang) :array{
         $this->info = $this->readRepository->findByIdAndLang($id, $lang);
-
+        if(empty($this->info)) {
+            throw new DomainException("Applicant not found");
+        } 
         return $this->render
                 ->lang($lang)
                 ->block("applicant_info", $this->getApplicantBlockValues($lang))

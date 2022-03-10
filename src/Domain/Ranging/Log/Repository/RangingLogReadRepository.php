@@ -66,7 +66,7 @@ final class RangingLogReadRepository{
                         "c.name_".$lang." as company_name"])
             ->innerJoin(['s' => RangingStatusFinderRepository::$tableName], ['s.id = rl.status_id'])
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = rl.company_bin'])
-            ->innerJoin(['r' => RangingReaderRepository::$tableName], ['r.applicant_id = rl.ranging_id'])
+            ->innerJoin(['r' => RangingReaderRepository::$tableName], ['r.id = rl.ranging_id'])
             ->where(["r.applicant_id" => $id])
             ->order(['rl.created_at' => 'ASC']);
         return $query->execute()->fetchAll('assoc') ?: [];
