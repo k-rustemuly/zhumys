@@ -172,7 +172,6 @@
         "Ranging status must be on process": "Результат ранжирование должен быть \"В обработке\"",
         "Ranging not found": "Не удалось найти результат ранжирование!",
         "Error to add interview": "Ошибка при назначении собеседование!",
-        "Ranging status must be on process": "Невозможно отклонить кандидата!",
         "Error to add free place log": "Ошибка при создание лога действия!",
         "Ranging status must be on interview": "Статус кандидата должен быть \"Проходить собеседование\"!"
     },
