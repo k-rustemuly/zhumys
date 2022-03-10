@@ -76,7 +76,7 @@ final class AdminReadRepository{
      */
     public function getAllByLang(string $lang): array{
         $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
-        $query->select(["a.*",
+        $query->select(["a.id", "a.iin", "a.full_name", "a.birthdate", "a.email", "a.is_active", "a.org_bin as bin",
                         "c.name_".$lang." as company_name"])
         ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = a.org_bin"]);
 
