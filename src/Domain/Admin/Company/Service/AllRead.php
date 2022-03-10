@@ -53,6 +53,7 @@ final class AllRead{
      * 
      */
     public function list(string $lang) :array{
+        $this->language->locale($lang);
         $companies = $this->readRepository->getAllByLang($lang);
 
         return $this->render

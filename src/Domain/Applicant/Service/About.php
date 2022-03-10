@@ -8,12 +8,14 @@ use App\Helper\Render;
 use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Date;
+use App\Helper\Fields\DateTime;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
 use App\Domain\Position\Repository\PositionFinderRepository;
+use App\Domain\Ranging\Log\Repository\RangingLogReadRepository;
 
 /**
  * Service.
@@ -41,14 +43,23 @@ final class About {
     private $info;
 
     /**
+     * @var RangingLogReadRepository
+     */
+    private $logReadRepository;
+
+    /**
      * The constructor.
      * @param ApplicantReadRepository $readRepository
      * @param PositionFinderRepository $positionReadRepository
+     * @param RangingLogReadRepository $logReadRepository
      *
      */
-    public function __construct(ApplicantReadRepository $readRepository, PositionFinderRepository $positionReadRepository) {
+    public function __construct(ApplicantReadRepository $readRepository,
+                                PositionFinderRepository $positionReadRepository,
+                                RangingLogReadRepository $logReadRepository) {
         $this->readRepository = $readRepository;
         $this->positionReadRepository = $positionReadRepository;
+        $this->logReadRepository = $logReadRepository;
         $this->render = new Render();
     }
 
@@ -67,6 +78,7 @@ final class About {
         return $this->render
                 ->lang($lang)
                 ->block("applicant_info", $this->getApplicantBlockValues($lang))
+                ->block("applicant_log_info", $this->getCandidateLogBlockValues($this->logReadRepository->getAllByApplicantIdAndLang($id, $lang)))
                 ->build();
     }
 
@@ -111,6 +123,26 @@ final class About {
             if(is_numeric($v) && $v > 0) {
                 $array[] = $v;
             }
+        }
+        return $array;
+    }
+
+    /**
+     * Get ranging candidate log info block values
+     *
+     * @param array<mixed> $values
+     * 
+     */
+    public function getCandidateLogBlockValues(array $data) :array{
+        $array = array();
+        foreach ($data as $i => $v){
+            $array[$i] = array(
+                "status_id" => Field::getInstance()->init(new Reference())->reference_name("ranging-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]))->execute(),
+                "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
+                "company_name" => Field::getInstance()->init(new Text())->value($v["company_name"])->execute(),
+                "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
+                "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
+            );
         }
         return $array;
     }

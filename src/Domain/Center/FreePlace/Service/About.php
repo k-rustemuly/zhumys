@@ -70,7 +70,7 @@ final class About {
                 ->lang($lang)
                 ->block("free_place_info", $this->getFreePlaceBlockValues($data))
                 ->block("free_place_log_info", $this->getFreePlaceLogBlockValues($this->logReadRepository->getAllByIdAndLang($id, $lang)));
-        if($data["status_id"] == 5) {
+        if($data["status_id"] >= 5) {
             $render = $render->block("free_place_ranging_info", $this->getFreePlaceRangingBlockValues($lang, $this->rangingReadRepository->getAllByFreePlaceIdAndLang($id, $lang)), "table");
         }
         return $render->build();

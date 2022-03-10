@@ -109,7 +109,8 @@
         "free_place_ranging_info": "Результат ранжирование",
         "candidate_info": "О кандидате",
         "candidate_log_info": "Действии",
-        "applicant_info": "О соискателя"
+        "applicant_info": "О соискателя",
+        "applicant_log_info": "История"
     },
     "email": {
         "email_confirmation_subject": "Подтвердите электронный адрес",
