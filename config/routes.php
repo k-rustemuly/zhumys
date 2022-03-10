@@ -39,9 +39,11 @@ return function (App $app) {
 
                 $app->group('', function (RouteCollectorProxy $app) {
 
-                    $app->get('/admin', \App\Action\Center\Company\Admin\AllReadAction::class);
+                    
 
                     $app->group('/company', function (RouteCollectorProxy $app) {
+
+                        $app->get('/admin', \App\Action\Center\Company\Admin\AllReadAction::class);
 
                         $app->post('', \App\Action\Center\Company\CompanyAddAction::class);
 
