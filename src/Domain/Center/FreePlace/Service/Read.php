@@ -45,7 +45,7 @@ final class Read {
      */
     public function list(string $lang, array $params) :array{
         $status_id = null;
-        if(in_array("status_id", $params)) {
+        if(isset($params["status_id"])) {
             $status_id = (int)$params['status_id'];
         }
         $data = $this->readRepository->search($lang, $status_id);
