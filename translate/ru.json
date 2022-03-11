@@ -42,7 +42,7 @@
         "created_at": "Создано",
         "sign_p12": "ЭЦП",
         "password": "",
-        "id": "№",
+        "id": "Регистрационный номер",
         "reason": "Причина",
         "admin_type_id": "Тип админстратора",
         "admin_full_name": "ФИО",

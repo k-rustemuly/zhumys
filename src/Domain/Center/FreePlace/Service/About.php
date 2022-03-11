@@ -9,6 +9,7 @@ use App\Helper\Fields\Number;
 use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
+use App\Helper\Fields\Date;
 use App\Helper\Fields\Text;
 use App\Domain\FreePlace\Log\Repository\LogReadRepository;
 use App\Domain\Ranging\Repository\RangingReaderRepository;
@@ -138,8 +139,9 @@ final class About {
                 ->header(
                     array(
                         "raiting_number" => Field::getInstance()->init(new Number())->execute(),
-                        "iin" => Field::getInstance()->init(new Number())->execute(),
+                        //"iin" => Field::getInstance()->init(new Number())->execute(),
                         "full_name" => Field::getInstance()->init(new Text())->execute(),
+                        "birthdate" => Field::getInstance()->init(new Date())->execute(),
                         "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->execute(),
                         "status_id" => Field::getInstance()->init(new Reference())->reference_name("ranging-status")->reference_id("id")->execute(),
                     )
