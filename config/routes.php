@@ -39,8 +39,6 @@ return function (App $app) {
 
                 $app->group('', function (RouteCollectorProxy $app) {
 
-                    
-
                     $app->group('/company', function (RouteCollectorProxy $app) {
 
                         $app->get('/admin', \App\Action\Center\Company\Admin\AllReadAction::class);
@@ -54,6 +52,8 @@ return function (App $app) {
                             $app->patch('', \App\Action\Center\Company\CompanyUpdateAction::class);
 
                             $app->get('', \App\Action\Center\Company\CompanyInfoReadAction::class);
+
+                            $app->get('/free-place', \App\Action\Center\Company\CompanyFreePlaceReadAction::class);
 
                             $app->group('/admin', function (RouteCollectorProxy $app) {
 
