@@ -84,10 +84,10 @@ final class About {
      */
     public static function getFreePlaceBlockValues(array $data) :array{
         return array(
-            "bin" => Field::getInstance()->init(new Number())->value($data["bin"])->execute(),
-            "company_name" => Field::getInstance()->init(new Text())->value($data["company_name"])->execute(),
+            //"bin" => Field::getInstance()->init(new Number())->value($data["bin"])->execute(),
             "position_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["position_id"], "value" => $data["position_name"]))->execute(),
             "count" => Field::getInstance()->init(new Number())->value($data["count"])->execute(),
+            "company_name" => Field::getInstance()->init(new Text())->value($data["company_name"])->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->value($data["comment"])->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["status_id"], "value" => $data["status_name"], "color" => $data["status_color"]))->execute(),
             "reason" => Field::getInstance()->init(new Textarea())->value($data["reason"])->execute(),
