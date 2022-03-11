@@ -80,7 +80,7 @@ final class PositionFinderRepository
     public function getAll(): array
     {
         $query = $this->queryFactory->newSelect(self::$tableName);
-        $query->select(["*"]);
+        $query->select(["*"])->orderAsc("id");
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 }
