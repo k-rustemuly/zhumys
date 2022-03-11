@@ -46,8 +46,8 @@ final class Read extends Admin{
      */
     public function list(string $lang, array $params) :array{
         $status_id = 0;
-        if(isset($params['status_id'])) {
-            $status_id = (int)$params['status_id'];
+        if(isset($params["status_id"])) {
+            $status_id = (int)$params["status_id"];
         }
 
         $data = $this->readRepository->getAllByBinAndLangAndStatusId($this->getBin(), $lang, $status_id);
@@ -88,11 +88,11 @@ final class Read extends Admin{
         foreach($data as $i => $v) {
             foreach($v as $key => $val) {
                 switch($key) {
-                    case 'position_id':
+                    case "position_id":
                         $data[$i][$key] = array("id" => $val, "value" => $data[$i]["position_name"]);
                         unset($data[$i]["position_name"]);
                     break;
-                    case 'status_id':
+                    case "status_id":
                         $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"], "color" => $data[$i]["status_color"]);
                         unset($data[$i]["status_name"]);
                         unset($data[$i]["status_color"]);

@@ -83,7 +83,7 @@ final class FreePlaceReadRepository{
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
             ->where(["fp.bin" => $bin]);
         if($status_id > 0) {
-            $query->where(["fp.status_id", $status_id]);
+            $query->andWhere(["fp.status_id" => $status_id]);
         }
         $query->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];
