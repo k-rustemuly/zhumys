@@ -138,7 +138,7 @@ final class About {
         $render->lang($lang)
                 ->header(
                     array(
-                        "raiting_number" => Field::getInstance()->init(new Number())->execute(),
+                        //"raiting_number" => Field::getInstance()->init(new Number())->execute(),
                         //"iin" => Field::getInstance()->init(new Number())->execute(),
                         "full_name" => Field::getInstance()->init(new Text())->execute(),
                         "birthdate" => Field::getInstance()->init(new Date())->execute(),
