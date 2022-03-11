@@ -24,8 +24,7 @@ final class PrivelegeReadRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -36,8 +35,7 @@ final class PrivelegeReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByLang(string $lang): array
-    {
+    public function getAllByLang(string $lang): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["id", "name_".$lang." as name"]);
         return $query->execute()->fetchAll('assoc') ?: [];
@@ -50,10 +48,20 @@ final class PrivelegeReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function findByIdAndLang(int $id, string $lang): array
-    {
+    public function findByIdAndLang(int $id, string $lang): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select([ "name_".$lang." as name"])->where(["id" => $id]);
         return $query->execute()->fetch('assoc') ?: [];
+    }
+
+    /**
+     * Get all
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getAll() :array{
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"])->orderAsc("id");
+        return $query->execute()->fetchAll('assoc') ?: [];
     }
 }

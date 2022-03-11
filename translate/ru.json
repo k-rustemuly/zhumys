@@ -176,8 +176,7 @@
         "Error to add interview": "Ошибка при назначении собеседование!",
         "Error to add free place log": "Ошибка при создание лога действия!",
         "Ranging status must be on interview": "Статус кандидата должен быть \"Проходить собеседование\"!",
-        "Reference not added": "Ошибка при добавлении!"
-    },
+        "Reference not added": "Ошибка при добавлении!"    },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
         "Company info updated": "Данные успешно обновлены!",
@@ -196,6 +195,7 @@
         "Ranging success sended interview": "Кандидат успешно приглашен на собеседование!",
         "Ranging success rejected": "Кандидат успешно отклонен!",
         "Ranging success accepted": "Кандидат успешно принять!",
-        "Position created successfully": "Запись успешно создано!"
+        "Position created successfully": "Запись успешно создано!",
+        "Privelege created successfully" : "Запись успешно создано!"
     }
 }

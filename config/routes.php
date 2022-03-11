@@ -120,8 +120,13 @@ return function (App $app) {
 
                         });
 
+                        $app->group('/privilege', function (RouteCollectorProxy $app) { 
 
-                        $app->post('/privilege', \App\Action\HandBook\PrivelegeCreateAction::class);
+                            $app->get('', \App\Action\HandBook\PrivelegeCenterReadAction::class);
+
+                            $app->post('', \App\Action\HandBook\PrivelegeCreateAction::class);
+
+                        });
 
                     });
 
