@@ -13,6 +13,7 @@ use App\Domain\Applicant\Repository\ApplicantUpdaterRepository;
 use App\Domain\FreePlace\Repository\FreePlaceUpdaterRepository;
 use App\Domain\FreePlace\Log\Repository\LogCreatorRepository;
 use App\Domain\FreePlace\Repository\FreePlaceReadRepository;
+use App\Domain\CompanyEmployee\Repository\CompanyEmployeeCreatorRepository;
 
 /**
  * Service.
@@ -68,18 +69,23 @@ final class Accept extends Admin{
      */
     private $freePlaceReadRepository;
 
+    /**
+     * @var CompanyEmployeeCreatorRepository
+     */
+    private $companyEmployeeCreatorRepository;
 
     /** 
      * The constructor.
-     * @param RangingReaderRepository       $rangingReadRepository
-     * @param RangingCreatorRepository      $rangingCreateRepository
-     * @param RangingUpdaterRepository      $updateRepository
-     * @param ApplicantUpdaterRepository    $applicantUpdateRepository
-     * @param RangingReaderRepository       $rangingReadRepository
-     * @param LogCreatorRepository          $freePlaceLogCreateRepository
-     * @param FreePlaceUpdaterRepository    $freePlaceUpdateRepository
-     * @param FreePlaceReadRepository       $freePlaceReadRepository
-     * @param Pki                           $pki
+     * @param RangingReaderRepository           $rangingReadRepository
+     * @param RangingCreatorRepository          $rangingCreateRepository
+     * @param RangingUpdaterRepository          $updateRepository
+     * @param ApplicantUpdaterRepository        $applicantUpdateRepository
+     * @param RangingReaderRepository           $rangingReadRepository
+     * @param LogCreatorRepository              $freePlaceLogCreateRepository
+     * @param FreePlaceUpdaterRepository        $freePlaceUpdateRepository
+     * @param FreePlaceReadRepository           $freePlaceReadRepository
+     * @param CompanyEmployeeCreatorRepository  $companyEmployeeCreatorRepository
+     * @param Pki                               $pki
      *
      */
     public function __construct(RangingReaderRepository $rangingReadRepository,
@@ -89,6 +95,7 @@ final class Accept extends Admin{
                                 LogCreatorRepository $freePlaceLogCreateRepository,
                                 FreePlaceUpdaterRepository $freePlaceUpdateRepository,
                                 FreePlaceReadRepository $freePlaceReadRepository,
+                                CompanyEmployeeCreatorRepository $companyEmployeeCreatorRepository,
                                 Pki $pki) {
         $this->rangingReadRepository = $rangingReadRepository;
         $this->logCreateRepository = $logCreateRepository;
@@ -97,6 +104,7 @@ final class Accept extends Admin{
         $this->freePlaceLogCreateRepository = $freePlaceLogCreateRepository;
         $this->freePlaceUpdateRepository = $freePlaceUpdateRepository;
         $this->freePlaceReadRepository = $freePlaceReadRepository;
+        $this->companyEmployeeCreatorRepository = $companyEmployeeCreatorRepository;
         $this->pki = $pki;
     }
 
@@ -177,6 +185,7 @@ final class Accept extends Admin{
             if($rangingUpdated) {
                 if($this->applicantUpdateRepository->updateByIdAccept((int)$this->info["applicant_id"]) > 0) {
                     $this->freePlaceUpdateRepository->updateByBinAndId($this->getBin(), $freePlaceId, array("employed_count" => "+1"));
+                    $this->companyEmployeeCreatorRepository->insert($this->mapToEmployeeData());
                 }
                 $this->checkRanging($freePlaceId, $sign_p12, $password, $certInfo["full_name"]);
             }
@@ -246,5 +255,29 @@ final class Accept extends Admin{
                 throw new DomainException("Error to sign action");
             }
         }
+    }
+    
+    /**
+     * Map to insert data to company employees table
+     * 
+     * @param array<mixed>
+     */
+    private function mapToEmployeeData() :array{
+        return array(
+            "bin" => $this->getBin(),
+            "ranging_id" => $this->info["id"],
+            "free_place_id" => $this->info["free_place_id"],
+            "applicant_id" => $this->info["applicant_id"],
+            "iin" => $this->info["iin"],
+            "full_name" => $this->info["full_name"],
+            "birthdate" => $this->info["birthdate"],
+            "privilege_id" => $this->info["privilege_id"],
+            "positions" => $this->info["positions"],
+            "email" => $this->info["email"],
+            "phone_number" => $this->info["phone_number"],
+            "address" => $this->info["address"],
+            "second_phone_number" => $this->info["second_phone_number"],
+            "comment" => $this->info["comment"]
+        );
     }
 }
