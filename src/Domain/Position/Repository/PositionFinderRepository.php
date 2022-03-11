@@ -71,4 +71,16 @@ final class PositionFinderRepository
         $query->select(["id", "name_".$lang." as name"])->whereInList("id", $ids);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
+
+    /**
+     * Get all 
+     *
+     * @return array<mixed> The list view data
+     */
+    public function getAll(): array
+    {
+        $query = $this->queryFactory->newSelect(self::$tableName);
+        $query->select(["*"]);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
 }

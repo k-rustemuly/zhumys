@@ -110,6 +110,21 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/reference', function (RouteCollectorProxy $app) {
+
+                        $app->group('/position', function (RouteCollectorProxy $app) { 
+
+                            $app->get('', \App\Action\HandBook\PositionCenterReadAction::class);
+
+                            $app->post('', \App\Action\HandBook\PositionCreateAction::class);
+
+                        });
+
+
+                        $app->post('/privilege', \App\Action\HandBook\PrivelegeCreateAction::class);
+
+                    });
+
                 })->add(\App\Middleware\CenterAdminMiddleware::class);
 
             });
