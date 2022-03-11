@@ -45,29 +45,18 @@ final class Read extends Admin{
      * 
      */
     public function list(string $lang, array $params) :array{
-        $search = $this->parseParams($params);
-        $data = $this->readRepository->getAllByBinAndLang($this->getBin(), $lang);
+        $status_id = 0;
+        if(isset($params['status_id'])) {
+            $status_id = (int)$params['status_id'];
+        }
+
+        $data = $this->readRepository->getAllByBinAndLangAndStatusId($this->getBin(), $lang, $status_id);
 
         return $this->render
                 ->lang($lang)
                 ->header(self::getHeader())
                 ->data($this->parseData($data))
                 ->build();
-    }
-
-    /**
-     * Get applicant list
-     * 
-     * @param array<mixed> $params The get params
-     *
-     * @return array<mixed> 
-     * 
-     */
-    private function parseParams(array $params) :array{
-        if(isset($params[""])){
-            
-        }
-        return array();
     }
 
     /**

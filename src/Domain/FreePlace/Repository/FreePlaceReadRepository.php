@@ -65,6 +65,31 @@ final class FreePlaceReadRepository{
     }
 
     /**
+     * Get All data from db
+     *
+     * @param string $lang The lang
+     * @param string $bin The bin
+     * @param int $status_id 
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function getAllByBinAndLangAndStatusId(string $bin, string $lang, int $status_id = 0): array{
+        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query->select(["fp.*",
+                        "p.name_".$lang." as position_name",
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color",])
+            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
+            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->where(["fp.bin" => $bin]);
+        if($status_id > 0) {
+            $query->where(["fp.status_id", $status_id]);
+        }
+        $query->order(['fp.created_at' => 'DESC']);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
+
+    /**
      * Find datas by id
      *
      * @param int $id The id
