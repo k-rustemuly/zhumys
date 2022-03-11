@@ -56,11 +56,15 @@ final class Read {
      * 
      */
     public function list(string $lang, array $params = array()) :array{
-        if(isset($params['status_id'])) {
-            $companies = $this->readRepository->getAllByLangAndStatusId($lang, (int) $params['status_id']);
-        } else {
-            $companies = $this->readRepository->getAllByLang($lang);
+        $status_id = 0;
+        $privilege_id = 0;
+        if(isset($params["status_id"])) {
+            $status_id = (int)$params["status_id"];
         }
+        if(isset($params["privilege_id"])) {
+            $privilege_id = (int)$params["privilege_id"];
+        }
+        $companies = $this->readRepository->getAllBySearch($lang, $status_id, $privilege_id);
 
         return $this->render
                 ->lang($lang)

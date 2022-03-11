@@ -65,18 +65,24 @@ final class ApplicantReadRepository{
      * 
      * @param string $lang interface language
      * @param int $status_id
+     * @param int $privilege_id
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByLangAndStatusId(string $lang, int $status_id): array{
+    public function getAllBySearch(string $lang, int $status_id = 0, int $privilege_id = 0): array{
         $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
         $query->select(["a.*",
                         "p.name_".$lang." as privilege_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color"])
             ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = a.privilege_id"])
-            ->innerJoin(["s" => ApplicantStatusFinderRepository::$tableName], ["s.id = a.status_id"])
-            ->where(["a.status_id" => $status_id]);
+            ->innerJoin(["s" => ApplicantStatusFinderRepository::$tableName], ["s.id = a.status_id"]);
+            if($status_id > 0) {
+                $query->where(["a.status_id" => $status_id]);
+            }
+            if($privilege_id > 0) {
+                $query->where(["a.privilege_id" => $privilege_id]);                
+            }
         return $query->execute()->fetchAll("assoc") ?: [];
     }
 
