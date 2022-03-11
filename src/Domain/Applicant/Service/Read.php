@@ -77,8 +77,8 @@ final class Read {
      */
     public static function getHeader() :array{
         return array(
-            "raiting_number" => Field::getInstance()->init(new Number())->execute(),
-            "iin" => Field::getInstance()->init(new Number())->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
+            //"raiting_number" => Field::getInstance()->init(new Number())->execute(),
+            "iin" => Field::getInstance()->init(new Number())->is_visible(false)->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(3)->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->is_visible(false)->can_create(true)->is_required(true)->min_date("1900-01-01")->max_date(date("Y-m-d"))->execute(),
             "email" => Field::getInstance()->init(new Email())->can_create(true)->can_update(true)->execute(),
