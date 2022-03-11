@@ -77,18 +77,6 @@ final class About {
     }
 
     /**
-     * Get applicant list
-     * 
-     * @param array<mixed> $params The get params
-     * 
-     * @return array<mixed> 
-     * 
-     */
-    private function parseParams(array $params) :array{
-        return array();
-    }
-
-    /**
      * Get header
      * 
      * @param array<mixed> $header
@@ -96,15 +84,15 @@ final class About {
      */
     public static function getFreePlaceBlockValues(array $data) :array{
         return array(
-            "id" => Field::getInstance()->init(new Number())->value($data["id"])->execute(),
             "bin" => Field::getInstance()->init(new Number())->value($data["bin"])->execute(),
-            "company_name" => Field::getInstance()->init(new Text())->value($data["company_bin"])->execute(),
+            "company_name" => Field::getInstance()->init(new Text())->value($data["company_name"])->execute(),
             "position_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["position_id"], "value" => $data["position_name"]))->execute(),
             "count" => Field::getInstance()->init(new Number())->value($data["count"])->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->value($data["comment"])->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->value(array("id" => $data["status_id"], "value" => $data["status_name"], "color" => $data["status_color"]))->execute(),
             "reason" => Field::getInstance()->init(new Textarea())->value($data["reason"])->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->value($data["created_at"])->execute(),
+            "id" => Field::getInstance()->init(new Number())->value($data["id"])->execute(),
         );
     }
 
