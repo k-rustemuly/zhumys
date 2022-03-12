@@ -59,7 +59,7 @@ final class FreePlaceReadRepository{
                         "s.color as status_color",])
             ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
-            ->where(["fp.bin" => $bin, "fp.status_id =!" => 1])
+            ->where(["fp.bin" => $bin, "fp.status_id !=" => 1])
             ->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
