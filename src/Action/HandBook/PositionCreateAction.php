@@ -7,6 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Position\Service\Create;
 use App\Helper\Language;
+use App\Middleware\CenterAdminMiddleware;
 
 /**
  * Action.
@@ -54,6 +55,7 @@ final class PositionCreateAction
     {
         $this->language->locale($args["lang"]);
         $post = (array)$request->getParsedBody();
+        $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
         $this->service->create($post);
         return $this->responder->success($response, $this->language->get("success")["Position created successfully"]);
     }
