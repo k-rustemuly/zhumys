@@ -57,13 +57,13 @@ final class Create extends Admin {
     }
 
     /**
-     * Add new applicant
+     * Add new 
      *
      * @param array<mixed> $post fileds The post fields
      *
      * @throws DomainException
      */
-    public function add(array $post) {
+    public function create(array $post) {
         $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
         $sign_p12 = $post["base64"]?:"";
         $password = $post["password"]?:"";
