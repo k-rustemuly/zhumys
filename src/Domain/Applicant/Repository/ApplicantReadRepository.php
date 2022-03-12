@@ -79,6 +79,8 @@ final class ApplicantReadRepository{
             ->innerJoin(["s" => ApplicantStatusFinderRepository::$tableName], ["s.id = a.status_id"]);
             if($status_id > 0) {
                 $query->where(["a.status_id" => $status_id]);
+            } else {
+                $query->where(["a.status_id !=" => 4]);
             }
             if($privilege_id > 0) {
                 $query->where(["a.privilege_id" => $privilege_id]);                
