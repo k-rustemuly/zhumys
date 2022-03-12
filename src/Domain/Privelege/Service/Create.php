@@ -5,7 +5,7 @@ namespace App\Domain\Privelege\Service;
 use DomainException;
 use App\Helper\Validator;
 use App\Domain\Center\Admin;
-use App\Domain\Privilege\Repository\PrivilegeCreateRepository;
+use App\Domain\Privelege\Repository\PrivilegeCreateRepository;
 use App\Domain\ReferenceLog\Repository\ReferenceLogCreateRepository;
 use App\Helper\Pki;
 use Spatie\ArrayToXml\ArrayToXml;

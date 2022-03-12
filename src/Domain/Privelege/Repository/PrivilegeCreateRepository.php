@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Privilege\Repository;
+namespace App\Domain\Privelege\Repository;
 
 use App\Factory\QueryFactory;
 use PDOException;
