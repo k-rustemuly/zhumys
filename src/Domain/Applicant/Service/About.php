@@ -95,17 +95,17 @@ final class About {
      */
     public function getApplicantBlockValues(string $lang) :array{
         return array(
-            "raiting_number" => Field::getInstance()->init(new Number())->value($this->info["raiting_number"])->execute(),
-            "iin" => Field::getInstance()->init(new Number())->value($this->info["iin"])->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_update(true)->is_required(true)->min_length(3)->value($this->info["full_name"])->execute(),
+            "iin" => Field::getInstance()->init(new Number())->value($this->info["iin"])->execute(),
+            "status_id" => Field::getInstance()->init(new Reference())->reference_name("applicant-status")->reference_id("id")->value(array("id" => $this->info["status_id"], "value" => $this->info["status_name"], "color" => $this->info["status_color"]))->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->can_create(true)->is_required(true)->min_date("1900-01-01")->max_date(date("Y-m-d"))->value($this->info["birthdate"])->execute(),
+            "positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->value($this->positionReadRepository->getAllByIdsAndLang($this->unparsePositions($this->info["positions"]), $lang))->execute(),
+            "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->value(array("id" => $this->info["privilege_id"], "value" => $this->info["privilege_name"]))->execute(),
             "email" => Field::getInstance()->init(new Email())->can_create(true)->can_update(true)->is_required(true)->value($this->info["email"])->execute(),
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->is_required(true)->can_create(true)->can_update(true)->value($this->info["phone_number"])->execute(),
             "address" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->is_required(true)->value($this->info["address"])->execute(),
             "second_phone_number" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->value($this->info["second_phone_number"])->execute(),
-            "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->value(array("id" => $this->info["privilege_id"], "value" => $this->info["privilege_name"]))->execute(),
-            "status_id" => Field::getInstance()->init(new Reference())->reference_name("applicant-status")->reference_id("id")->value(array("id" => $this->info["status_id"], "value" => $this->info["status_name"], "color" => $this->info["status_color"]))->execute(),
-            "positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->value($this->positionReadRepository->getAllByIdsAndLang($this->unparsePositions($this->info["positions"]), $lang))->execute(),
+            "raiting_number" => Field::getInstance()->init(new Number())->value($this->info["raiting_number"])->execute(),
             // "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
             // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->value($this->info["comment"])->execute(),
