@@ -206,7 +206,7 @@ final class FreePlaceReadRepository{
         
         if($status_id > 0 ) $query->where(['fp.status_id' => $status_id]);
 
-        if($position_id > 0 ) $query->where(['fp.position_id LIKE' => "%@".$position_id."@%"]);
+        if($position_id > 0 ) $query->where(['fp.position_id' => $position_id]);
         
         $query->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];
