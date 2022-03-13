@@ -49,7 +49,10 @@ final class Read {
         if(isset($params["status_id"])) {
             $status_id = (int)$params['status_id'];
         }
-        $data = $this->readRepository->search($lang, $status_id);
+        if(isset($params["position_id"])) {
+            $position_id = (int)$params['position_id'];
+        }
+        $data = $this->readRepository->search($lang, $status_id, $position_id);
 
         return $this->render
                 ->lang($lang)

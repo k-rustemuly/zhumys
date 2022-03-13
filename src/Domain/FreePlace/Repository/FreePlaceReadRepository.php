@@ -187,11 +187,12 @@ final class FreePlaceReadRepository{
      * Get All data from db
      *
      * @param string $lang The lang
-     * @param string $bin The bin
+     * @param int $status_id
+     * @param int $position_id
      * 
      * @return array<mixed> The list view data
      */
-    public function search(string $lang, int $status_id = 0): array{
+    public function search(string $lang, int $status_id = 0, int $position_id = 0): array{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
         $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.created_at",
                         "c.name_".$lang." as company_name",
@@ -204,6 +205,8 @@ final class FreePlaceReadRepository{
             ->where(["fp.status_id !=" => 1]);
         
         if($status_id > 0 ) $query->where(['fp.status_id' => $status_id]);
+
+        if($position_id > 0 ) $query->where(['position_id LIKE' => "%@".$position_id."@%"]);
         
         $query->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];
