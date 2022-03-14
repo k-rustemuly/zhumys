@@ -6,6 +6,7 @@ use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\CompanyEmployee\Service\Read as Service;
+use App\Middleware\CompanyAdminMiddleware;
 
 /**
  * Action.
@@ -43,6 +44,7 @@ final class ReadAction{
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $params = $request->getQueryParams();
+        $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
         return $this->responder->success($response, null, $this->service->list($args['lang'], $params));
     }
 }

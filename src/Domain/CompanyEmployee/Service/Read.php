@@ -15,11 +15,12 @@ use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
 use App\Helper\Fields\DateTime;
 use App\Domain\Position\Repository\PositionFinderRepository;
+use App\Domain\Company\Admin;
 
 /**
  * Service.
  */
-final class Read {
+final class Read extends Admin{
 
     /**
      * @var ReadRepository
@@ -57,7 +58,7 @@ final class Read {
      * 
      */
     public function list(string $lang, array $params = array()) :array{
-        $list = $this->readRepository->getAllByLang($lang);
+        $list = $this->readRepository->getAllByLangAndBin($lang, $this->getBin());
 
         return $this->render
                 ->lang($lang)
