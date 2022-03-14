@@ -48,6 +48,7 @@ final class LogReadRepository{
             ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fpl.status_id'])
             ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fpl.company_bin'])
             ->where(["fpl.free_place_id" => $id])
+            
             ->order(['fpl.created_at' => 'ASC']);
         return $query->execute()->fetchAll('assoc') ?: [];
     }

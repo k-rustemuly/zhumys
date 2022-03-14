@@ -87,7 +87,7 @@ final class About {
 
     /**
      * Get header
-     *
+     * 
      * @param string $lang
      * 
      * @return array<mixed>
