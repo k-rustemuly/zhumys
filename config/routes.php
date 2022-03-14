@@ -179,6 +179,11 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/employee', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\HandBook\AdminReadAction::class);
+                    });
+
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 
             });
