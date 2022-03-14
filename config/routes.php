@@ -100,12 +100,13 @@ return function (App $app) {
                             $app->post('/generate', \App\Action\Center\FreePlace\FreePlaceGenerateAction::class);
 
                             $app->post('/publish', \App\Action\Center\FreePlace\FreePlacePublishAction::class);
-                            
+
                             $app->group('/ranging/{ranging_id:[0-9]+}', function (RouteCollectorProxy $app) {
 
                                 $app->get('', \App\Action\Center\FreePlace\Ranging\AboutAction::class);
 
                             });
+
                         });
 
                     });
@@ -177,6 +178,7 @@ return function (App $app) {
                         });
 
                     });
+
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 
             });
@@ -192,7 +194,7 @@ return function (App $app) {
                 $app->get('/privilege', \App\Action\HandBook\PrivelegeReadAction::class);
 
                 $app->get('/applicant-status', \App\Action\HandBook\ApplicantStatusReadAction::class);
-                
+
             });
 
         });
