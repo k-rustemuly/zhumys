@@ -38,7 +38,7 @@ final class CompanyEmployeeReadRepository{
      */
     public function getAllByLang(string $lang): array{
         $query = $this->queryFactory->newSelect(["ce" => self::$tableName]);
-        $query->select(["ce.*",
+        $query->select(["ce.id", "ce.full_name", "ce.birthdate", "ce.privilege_id", "ce.positions", "ce.phone_number", "ce.created_at",
                         "p.name_".$lang." as privilege_name",])
             ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = ce.privilege_id"])
             ->orderDesc("ce.created_at");
