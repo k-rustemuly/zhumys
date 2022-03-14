@@ -179,9 +179,16 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/interviewed', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Company\Interview\ReadAction::class);
+
+                    });
+
                     $app->group('/employee', function (RouteCollectorProxy $app) {
 
                         $app->get('', \App\Action\Company\Employee\ReadAction::class);
+
                     });
 
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);

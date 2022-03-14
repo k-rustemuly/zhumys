@@ -108,4 +108,23 @@ final class RangingReaderRepository{
             ->where(["r.free_place_id" => $freePlaceId, "r.id" => $id]);
         return $query->execute()->fetch('assoc') ?: [];
     }
+
+    /**
+     * Get All data from db
+     *
+     * @param string $lang The lang
+     * @param string $bin
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function getAllByLangAndBinAndStatus(string $lang, string $bin, int $status_id = 2): array{
+        $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
+        $query->select(["r.id", "r.full_name", "r.birthdate", "r.privilege_id", "r.positions", "r.phone_number",
+                        "p.name_".$lang." as privilege_name"])
+            ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
+            ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
+            ->where(["r.status_id" => $status_id, "f.bin" => $bin])
+            ->order(['r.created_at' => 'DESC']);
+        return $query->execute()->fetchAll('assoc') ?: [];
+    }
 }
