@@ -145,6 +145,12 @@ return function (App $app) {
 
                 $app->group('', function (RouteCollectorProxy $app) {
 
+                    $app->group('/ranging/{ranging_id:[0-9]+}', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Ranging\AboutAction::class);
+
+                    });
+
                     $app->group('/free-place', function (RouteCollectorProxy $app) {
 
                         $app->get('', \App\Action\Company\FreePlace\ReadAction::class);
@@ -162,8 +168,6 @@ return function (App $app) {
                             $app->get('', \App\Action\Company\FreePlace\AboutAction::class);
 
                             $app->group('/ranging/{ranging_id:[0-9]+}', function (RouteCollectorProxy $app) {
-
-                                $app->get('', \App\Action\Ranging\AboutAction::class);
 
                                 $app->post('/interview', \App\Action\Ranging\InterviewAction::class);
 

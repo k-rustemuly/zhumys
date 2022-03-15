@@ -54,13 +54,12 @@ final class RangingReaderRepository{
      * Get All data from db
      *
      * @param int $id 
-     * @param int $freePlaceId 
      * @param string $bin
      * @param string $lang The lang
      * 
      * @return array<mixed> The list view data
      */
-    public function findByIdAndFreePlaceIdAndBinAndLang(int $id, int $freePlaceId, string $bin, string $lang = "ru"): array{
+    public function findByIdAndBinAndLang(int $id, string $bin, string $lang = "ru"): array{
         $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
         $query->select(["r.*",
                         "s.name_".$lang." as status_name",
@@ -69,7 +68,7 @@ final class RangingReaderRepository{
             ->innerJoin(['s' => RangingStatusFinderRepository::$tableName], ['s.id = r.status_id'])
             ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
             ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
-            ->where(["r.free_place_id" => $freePlaceId, "r.id" => $id, "f.bin" => $bin]);
+            ->where([ "r.id" => $id, "f.bin" => $bin]);
         return $query->execute()->fetch('assoc') ?: [];
     }
 

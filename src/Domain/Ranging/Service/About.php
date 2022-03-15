@@ -57,14 +57,14 @@ final class About extends Admin {
     /**
      * Get about one ranging candidate
      * 
-     * @param int $id The id
      * @param string $lang The interface language code
+     * @param int $rangingId The id
      *
      * @return array<mixed> $post fileds The post fields
      * 
      */
-    public function get(string $lang, int $freePlaceId, int $rangingId) :array{
-        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBinAndLang($rangingId, $freePlaceId, $this->getBin(), $lang);
+    public function get(string $lang, int $rangingId) :array{
+        $this->info = $this->rangingReadRepository->findByIdAndBinAndLang($rangingId, $this->getBin(), $lang);
         if(empty($this->info)) throw new DomainException("Free place not found");
         $render = $this->render
                 ->lang($lang)

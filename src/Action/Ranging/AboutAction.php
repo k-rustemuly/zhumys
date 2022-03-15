@@ -47,7 +47,7 @@ final class AboutAction
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
     {
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
-        $data = $this->service->get($args["lang"], (int)$args["id"], (int)$args['ranging_id']);
+        $data = $this->service->get($args["lang"], (int)$args['ranging_id']);
         return $this->responder->success($response, null, $data);
     }
 }
