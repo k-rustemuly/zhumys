@@ -8,6 +8,8 @@ use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\PhpRenderer;
 use Fig\Http\Message\StatusCodeInterface;
 use Slim\Psr7\Response;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Shared\File;
 use function http_build_query;
 
 /**
@@ -139,12 +141,18 @@ final class Responder
      *
      * @return ResponseInterface The response
      */
-    public function excel(ResponseInterface $response, $tempFile = null): ResponseInterface {
+    public function excel(ResponseInterface $response, $spreadsheet = null): ResponseInterface {
 
+        $tempFile = tempnam(File::sysGetTempDir(), 'phpxltmp');
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($tempFile);
         $stream = fopen($tempFile, 'r+');
+
+        $fileName = uniqid();
+
         $response = $response
             ->withHeader('Content-Type', 'application/vnd.ms-excel')
-            ->withHeader('Content-Disposition', 'attachment;filename="hellotest.xls"')
+            ->withHeader('Content-Disposition', 'attachment;filename="' . $fileName . '.xls"')
             ->withHeader('Cache-Control', 'max-age=0')
             ->withBody(new \Slim\Psr7\Stream($stream));
         return $response;

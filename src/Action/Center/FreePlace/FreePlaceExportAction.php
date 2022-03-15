@@ -6,6 +6,7 @@ use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use App\Domain\Center\FreePlace\Service\Read;
+use App\Domain\Center\FreePlace\Service\Export;
 
 /**
  * Action.
@@ -13,6 +14,11 @@ use App\Domain\Center\FreePlace\Service\Read;
 final class FreePlaceExportAction{
     /**
      * @var Read
+     */
+    private $readService;
+
+    /**
+     * @var Export
      */
     private $service;
 
@@ -27,8 +33,9 @@ final class FreePlaceExportAction{
      * @param Read $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder){
+    public function __construct(Export $service, Read $readService, Responder $responder){
         $this->service = $service;
+        $this->readService = $readService;
         $this->responder = $responder;
     }
 
@@ -42,7 +49,8 @@ final class FreePlaceExportAction{
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        $tempFile = $this->service->getTempFile($args['lang'], $request->getQueryParams());
-        return $this->responder->excel($response, $tempFile);
+        $data = $this->readService->list($args['lang'], $request->getQueryParams());
+        $spreadsheet = $this->service->getSpreadsheet($args['lang'], $data);
+        return $this->responder->excel($response, $spreadsheet);
     }
 }
