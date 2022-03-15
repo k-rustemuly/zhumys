@@ -131,6 +131,12 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/news', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\News\ReadAction::class);
+    
+                    });
+
                 })->add(\App\Middleware\CenterAdminMiddleware::class);
 
             });
@@ -210,6 +216,8 @@ return function (App $app) {
                 $app->get('/privilege', \App\Action\HandBook\PrivelegeReadAction::class);
 
                 $app->get('/applicant-status', \App\Action\HandBook\ApplicantStatusReadAction::class);
+
+                $app->get('/language', \App\Action\HandBook\LanguageReadAction::class);
 
             });
 
