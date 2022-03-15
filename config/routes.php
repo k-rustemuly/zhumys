@@ -179,7 +179,7 @@ return function (App $app) {
 
                     });
 
-                    $app->group('/interviewed', function (RouteCollectorProxy $app) {
+                    $app->group('/interview', function (RouteCollectorProxy $app) {
 
                         $app->get('', \App\Action\Company\Interview\ReadAction::class);
 
