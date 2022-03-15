@@ -70,10 +70,11 @@ final class FreePlaceReadRepository{
      * @param string $lang The lang
      * @param string $bin The bin
      * @param int $status_id 
+     * @param int $position_id 
      * 
      * @return array<mixed> The list view data
      */
-    public function getAllByBinAndLangAndStatusId(string $bin, string $lang, int $status_id = 0): array{
+    public function companySearch(string $bin, string $lang, int $status_id = 0, int $position_id = 0): array{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
         $query->select(["fp.*",
                         "p.name_".$lang." as position_name",
@@ -84,6 +85,9 @@ final class FreePlaceReadRepository{
             ->where(["fp.bin" => $bin]);
         if($status_id > 0) {
             $query->andWhere(["fp.status_id" => $status_id]);
+        }
+        if($position_id > 0) {
+            $query->where(["fp.position_id" => $position_id]);
         }
         $query->order(['fp.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];

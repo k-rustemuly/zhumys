@@ -46,11 +46,14 @@ final class Read extends Admin{
      */
     public function list(string $lang, array $params) :array{
         $status_id = 0;
+        $position_id = 0;
         if(isset($params["status_id"])) {
             $status_id = (int)$params["status_id"];
         }
-
-        $data = $this->readRepository->getAllByBinAndLangAndStatusId($this->getBin(), $lang, $status_id);
+        if(isset($params["position_id"])) {
+            $position_id = (int)$params["position_id"];
+        }
+        $data = $this->readRepository->companySearch($this->getBin(), $lang, $status_id, $position_id);
 
         return $this->render
                 ->lang($lang)
