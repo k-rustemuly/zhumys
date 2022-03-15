@@ -128,6 +128,29 @@ final class Responder
     }
 
     /**
+     * Return excel format document.
+     *
+     * This method prepares the response object to return an excel document
+     * to the client.
+     *
+     * @param ResponseInterface $response The response
+     * @param mixed $message The message
+     * @param mixed $data The data
+     *
+     * @return ResponseInterface The response
+     */
+    public function excel(ResponseInterface $response, $tempFile = null): ResponseInterface {
+
+        $stream = fopen($tempFile, 'r+');
+        $response = $response
+            ->withHeader('Content-Type', 'application/vnd.ms-excel')
+            ->withHeader('Content-Disposition', 'attachment;filename="hellotest.xls"')
+            ->withHeader('Cache-Control', 'max-age=0')
+            ->withBody(new \Slim\Psr7\Stream($stream));
+        return $response;
+    }
+
+    /**
      * Write success JSON to the response body.
      *
      * This method prepares the response object to return an HTTP JSON

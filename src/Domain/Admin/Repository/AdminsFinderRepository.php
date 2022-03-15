@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Domain\Admin\Repository;
-
 use App\Factory\QueryFactory;
 
 /**

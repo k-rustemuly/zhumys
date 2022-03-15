@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Action\Sign\Center;
+namespace App\Action\Center\FreePlace;
 
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Sign\Service\Center\SignIn;
+use App\Domain\Center\FreePlace\Service\Read;
 
 /**
  * Action.
  */
-final class SignInEcpAction{
+final class FreePlaceExportAction{
     /**
-     * @var SignIn
+     * @var Read
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class SignInEcpAction{
     /**
      * The constructor.
      *
-     * @param SignIn $service The service
+     * @param Read $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(SignIn $service,Responder $responder){
+    public function __construct(Read $service, Responder $responder){
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -42,14 +42,7 @@ final class SignInEcpAction{
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        $post = (array)$request->getParsedBody();
-        $params = $request->getServerParams();
-        $post["lang"] = $args['lang'];
-        $post["user_agent"] = $params['HTTP_USER_AGENT'];
-        $post["user_ip_address"] = $params['REMOTE_ADDR'];
-        $data = $this->service->pkcs($post);
-
-
-        return $this->responder->withJson($response, $data);
+        $tempFile = $this->service->getTempFile($args['lang'], $request->getQueryParams());
+        return $this->responder->excel($response, $tempFile);
     }
 }

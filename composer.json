@@ -22,7 +22,8 @@
         "symfony/polyfill-uuid": "^1.22",
         "php-di/php-di": "^6",
         "monolog/monolog": "^2",
-        "vlucas/phpdotenv": "^5.3"
+        "vlucas/phpdotenv": "^5.3",
+        "phpoffice/phpspreadsheet": "^1.22"
     },
     "autoload": {
         "psr-4": {

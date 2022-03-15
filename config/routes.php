@@ -89,6 +89,8 @@ return function (App $app) {
 
                         $app->get('', \App\Action\Center\FreePlace\FreePlaceReadAction::class);
 
+                        $app->get('/export', \App\Action\Center\FreePlace\FreePlaceExportAction::class);
+
                         $app->group('/{id:[0-9]+}', function (RouteCollectorProxy $app) {
 
                             $app->get('', \App\Action\Center\FreePlace\FreePlaceAboutAction::class);
