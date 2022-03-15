@@ -118,7 +118,7 @@ final class RangingReaderRepository{
      */
     public function getAllByLangAndBinAndStatus(string $lang, string $bin, int $status_id = 2): array{
         $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
-        $query->select(["r.id", "r.full_name", "r.birthdate", "r.privilege_id", "r.positions", "r.phone_number",
+        $query->select(["r.id", "r.id as ranging_id", "r.full_name", "r.birthdate", "r.privilege_id", "r.positions", "r.phone_number", "r.free_place_id",
                         "p.name_".$lang." as privilege_name"])
             ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
             ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
