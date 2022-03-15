@@ -126,4 +126,21 @@ final class RangingReaderRepository{
             ->order(['r.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];
     }
+
+    /**
+     * Get All data from db
+     *
+     * @param int $id 
+     * @param int $freePlaceId 
+     * @param string $bin
+     * 
+     * @return array<mixed> The list view data
+     */
+    public function findByIdAndFreePlaceIdAndBin(int $id, int $freePlaceId, string $bin): array{
+        $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
+        $query->select(["r.*"])
+            ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
+            ->where([ "r.id" => $id, "f.bin" => $bin, "r.free_place_id" => $freePlaceId]);
+        return $query->execute()->fetch('assoc') ?: [];
+    }
 }
