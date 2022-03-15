@@ -51,7 +51,8 @@
         "positions": "Позиция",
         "interview_comment": "Комментарии для собеседовании",
         "interview_time": "Время собеседовании",
-        "interview_date": "Дата собеседовании"
+        "interview_date": "Дата собеседовании",
+        "lang": "Язык"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -99,7 +100,8 @@
         "positions": "Позиция",
         "interview_comment": "",
         "interview_time": "",
-        "interview_date": ""
+        "interview_date": "",
+        "lang": ""
     },
     "block": {
         "company_info": "О компании",
