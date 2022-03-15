@@ -92,7 +92,7 @@ final class Interview extends Admin{
         if($certInfo["iin"] != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");
         }
-        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBinAndLang($rangingId, $freePlaceId, $this->getBin());
+        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBin($rangingId, $freePlaceId, $this->getBin());
         if(empty($this->info)) {
             throw new DomainException("Ranging not found");
         }
