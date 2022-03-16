@@ -18,7 +18,7 @@ use App\Domain\Position\Repository\PositionFinderRepository;
 /**
  * Service.
  */
-final class Read {
+final class UnemployedRead {
 
     /**
      * @var ApplicantReadRepository
@@ -51,7 +51,6 @@ final class Read {
      * Get applicant list
      * 
      * @param string $lang The interface language code
-     * @param array<mixed> $params The get params
      *
      * @return array<mixed> $post fileds The post fields
      * 
@@ -59,13 +58,10 @@ final class Read {
     public function list(string $lang, array $params = array()) :array{
         $status_id = 0;
         $privilege_id = 0;
-        if(isset($params["status_id"])) {
-            $status_id = (int)$params["status_id"];
-        }
         if(isset($params["privilege_id"])) {
             $privilege_id = (int)$params["privilege_id"];
         }
-        $companies = $this->readRepository->getAllBySearch($lang, $status_id, $privilege_id);
+        $companies = $this->readRepository->getAllByLangAndPrivilege($lang, $privilege_id);
 
         return $this->render
                 ->lang($lang)
@@ -86,13 +82,12 @@ final class Read {
             "iin" => Field::getInstance()->init(new Number())->is_visible(false)->can_create(true)->is_required(true)->min_length(12)->max_length(12)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->min_length(3)->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->is_visible(false)->can_create(true)->is_required(true)->min_date("1900-01-01")->max_date(date("Y-m-d"))->execute(),
-            "company_name" => Field::getInstance()->init(new Text())->execute(),
-            "positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->execute(),
             "email" => Field::getInstance()->init(new Email())->can_create(true)->can_update(true)->execute(),
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->is_visible(false)->is_required(true)->can_create(true)->can_update(true)->execute(),
             "address" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->is_required(true)->execute(),
             "second_phone_number" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->execute(),
             "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->execute(),
+            "positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->execute(),
         );
     }

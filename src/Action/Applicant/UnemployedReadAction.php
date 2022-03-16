@@ -5,14 +5,14 @@ namespace App\Action\Applicant;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Applicant\Service\Read;
+use App\Domain\Applicant\Service\UnemployedRead as Service;
 
 /**
  * Action.
  */
-final class ApplicantReadAction {
+final class UnemployedReadAction {
     /**
-     * @var Read
+     * @var Service
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class ApplicantReadAction {
     /**
      * The constructor.
      * 
-     * @param Read $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder) {
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }

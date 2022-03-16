@@ -71,6 +71,8 @@ return function (App $app) {
 
                     $app->group('/applicant', function (RouteCollectorProxy $app) {
 
+                        $app->get('/unemployed', \App\Action\Applicant\UnemployedReadAction::class);
+
                         $app->get('', \App\Action\Applicant\ApplicantReadAction::class);
 
                         $app->post('', \App\Action\Applicant\ApplicantAddAction::class);
