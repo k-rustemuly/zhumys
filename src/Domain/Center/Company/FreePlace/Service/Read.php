@@ -61,9 +61,10 @@ final class Read {
      */
     public static function getHeader() :array{
         return array(
-            "id" => Field::getInstance()->init(new Number())->execute(),
+            //"id" => Field::getInstance()->init(new Number())->execute(),
             "position_id" => Field::getInstance()->init(new Reference())->can_create(true)->can_update(true)->reference_name("position")->reference_id("id")->is_required(true)->execute(),
             "count" => Field::getInstance()->init(new Number())->can_create(true)->can_update(true)->is_required(true)->min(1)->execute(),
+            "employed_count" => Field::getInstance()->init(new Number())->execute(),
             //"comment" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->is_visible(false)->execute(),
             "status_id" => Field::getInstance()->init(new Reference())->reference_name("place-status")->reference_id("id")->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->execute(),
