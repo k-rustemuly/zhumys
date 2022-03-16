@@ -134,7 +134,9 @@ return function (App $app) {
                     $app->group('/news', function (RouteCollectorProxy $app) {
 
                         $app->get('', \App\Action\News\ReadAction::class);
-    
+
+                        $app->post('', \App\Action\News\AddAction::class);
+
                     });
 
                 })->add(\App\Middleware\CenterAdminMiddleware::class);

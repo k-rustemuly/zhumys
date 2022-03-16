@@ -9,7 +9,7 @@ use App\Domain\PlaceStatus\Repository\PlaceStatusFinderRepository;
 /**
  * Repository.
  */
-final class NewsReadRepository{
+final class NewsCreaterRepository{
     /**
      * @var string
      */

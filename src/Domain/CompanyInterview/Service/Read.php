@@ -10,7 +10,7 @@ use App\Helper\Fields\Date;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\Tag;
-use App\Helper\Fields\DateTime;
+use App\Helper\Fields\Time;
 use App\Domain\Position\Repository\PositionFinderRepository;
 use App\Domain\Company\Admin;
 
@@ -75,7 +75,9 @@ final class Read extends Admin{
             //"raiting_number" => Field::getInstance()->init(new Number())->execute(),
             //"iin" => Field::getInstance()->init(new Number())->is_visible(false)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->execute(),
-            "birthdate" => Field::getInstance()->init(new Date())->execute(),
+            "interview_date" => Field::getInstance()->init(new Date())->execute(),
+            "interview_time" => Field::getInstance()->init(new Time())->execute(),
+            //"birthdate" => Field::getInstance()->init(new Date())->execute(),
             //"email" => Field::getInstance()->init(new Email())->is_visible(false)->execute(),
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->execute(),
             //"address" => Field::getInstance()->init(new Textarea())->is_visible(false)->execute(),
@@ -86,7 +88,7 @@ final class Read extends Admin{
             // "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
             // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             //"comment" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->execute(),
-            "created_at" => Field::getInstance()->init(new DateTime())->execute(),
+            //"created_at" => Field::getInstance()->init(new DateTime())->execute(),
         );
     }
 
