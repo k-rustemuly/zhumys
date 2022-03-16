@@ -114,10 +114,13 @@ final class RangingReaderRepository{
      *
      * @param string $lang The lang
      * @param string $bin
+     * @param int $status_id 
+     * @param array $orderAsc
+     * @param array $orderDesc
      * 
      * @return array<mixed> The list view data
      */
-    public function getAllByLangAndBinAndStatus(string $lang, string $bin, int $status_id = 2): array{
+    public function search(string $lang, string $bin, int $status_id = 2, array $orderAsc = array(), array $orderDesc = array()): array{
         $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
         $query->select(["r.id", "r.id as ranging_id", "r.full_name", "r.birthdate", "r.privilege_id", "r.positions", "r.phone_number", "r.free_place_id",
                         "r.interview_date", "r.interview_time",
@@ -126,8 +129,13 @@ final class RangingReaderRepository{
             ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
             ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
             ->innerJoin(['po' => PositionFinderRepository::$tableName], ['po.id = f.position_id'])
-            ->where(["r.status_id" => $status_id, "f.bin" => $bin])
-            ->order(['r.created_at' => 'DESC']);
+            ->where(["r.status_id" => $status_id, "f.bin" => $bin]);
+            foreach ($orderAsc as $field) {
+                $query->orderAsc("r.".$field);
+            }
+            foreach ($orderDesc as $field) {
+                $query->orderDesc("r.".$field);
+            }
         return $query->execute()->fetchAll('assoc') ?: [];
     }
 

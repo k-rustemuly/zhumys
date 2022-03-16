@@ -55,7 +55,25 @@ final class Read extends Admin{
      * 
      */
     public function list(string $lang, array $params = array()) :array{
-        $list = $this->readRepository->getAllByLangAndBinAndStatus($lang, $this->getBin());
+        $orderAsc = array();
+        if(isset($params['orderAcs'])) {
+            $o = explode(',', $params['orderAcs']);
+            foreach($o as $field) {
+                if(strlen($field)>0) {
+                    $orderAsc[] = $field;
+                }
+            }
+        }
+        $orderDesc = array();
+        if(isset($params['orderDesc'])) {
+            $o = explode(',', $params['orderDesc']);
+            foreach($o as $field) {
+                if(strlen($field)>0) {
+                    $orderDesc[] = $field;
+                }
+            }
+        }
+        $list = $this->readRepository->search($lang, $this->getBin(), 2, $orderAsc, $orderDesc);
 
         return $this->render
                 ->lang($lang)
