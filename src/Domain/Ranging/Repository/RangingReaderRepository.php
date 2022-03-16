@@ -115,12 +115,13 @@ final class RangingReaderRepository{
      * @param string $lang The lang
      * @param string $bin
      * @param int $status_id 
+     * @param int $limit 
      * @param array $orderAsc
      * @param array $orderDesc
      * 
      * @return array<mixed> The list view data
      */
-    public function search(string $lang, string $bin, int $status_id = 2, array $orderAsc = array(), array $orderDesc = array()): array{
+    public function search(string $lang, string $bin, int $status_id = 2, int $limit = 0, array $orderAsc = array(), array $orderDesc = array()): array{
         $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
         $query->select(["r.id", "r.id as ranging_id", "r.full_name", "r.birthdate", "r.privilege_id", "r.positions", "r.phone_number", "r.free_place_id",
                         "r.interview_date", "r.interview_time",
@@ -135,6 +136,9 @@ final class RangingReaderRepository{
             }
             foreach ($orderDesc as $field) {
                 $query->orderDesc("r.".$field);
+            }
+            if($limit > 0) {
+                $query->limit($limit);
             }
         return $query->execute()->fetchAll('assoc') ?: [];
     }

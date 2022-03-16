@@ -55,9 +55,10 @@ final class Read extends Admin{
      * 
      */
     public function list(string $lang, array $params = array()) :array{
+        $limit = 0;
         $orderAsc = array();
-        if(isset($params['orderAsc'])) {
-            $o = explode(',', $params['orderAsc']);
+        if(isset($params["orderAsc"])) {
+            $o = explode(',', $params["orderAsc"]);
             foreach($o as $field) {
                 if(strlen($field)>0) {
                     $orderAsc[] = $field;
@@ -65,15 +66,18 @@ final class Read extends Admin{
             }
         }
         $orderDesc = array();
-        if(isset($params['orderDesc'])) {
-            $o = explode(',', $params['orderDesc']);
+        if(isset($params["orderDesc"])) {
+            $o = explode(',', $params["orderDesc"]);
             foreach($o as $field) {
                 if(strlen($field)>0) {
                     $orderDesc[] = $field;
                 }
             }
         }
-        $list = $this->readRepository->search($lang, $this->getBin(), 2, $orderAsc, $orderDesc);
+        if(isset($params["limit"]) && $params["limit"] > 0) {
+            $limit = $params["limit"];
+        }
+        $list = $this->readRepository->search($lang, $this->getBin(), 2, $limit, $orderAsc, $orderDesc);
 
         return $this->render
                 ->lang($lang)
