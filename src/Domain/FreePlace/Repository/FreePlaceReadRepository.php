@@ -198,7 +198,7 @@ final class FreePlaceReadRepository{
      */
     public function search(string $lang, int $status_id = 0, int $position_id = 0): array{
         $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
-        $query->select(["fp.id, fp.bin, fp.position_id, fp.count as free_place_count, fp.status_id, fp.created_at",
+        $query->select(["fp.id, fp.bin, fp.position_id, fp.count as free_place_count, fp.employed_count, fp.status_id, fp.created_at",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
