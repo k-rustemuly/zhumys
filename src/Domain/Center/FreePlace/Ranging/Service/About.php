@@ -80,8 +80,6 @@ final class About {
      */
     public function getCandidateBlockValues() :array{
         return array(
-            "id" => Field::getInstance()->init(new Number())->value($this->info["id"])->execute(),
-            "raiting_number" => Field::getInstance()->init(new Number())->value($this->info["raiting_number"])->execute(),
             "iin" => Field::getInstance()->init(new Number())->value($this->info["iin"])->execute(),
             "full_name" => Field::getInstance()->init(new Text())->value($this->info["full_name"])->execute(),
             "birthdate" => Field::getInstance()->init(new Date())->value($this->info["birthdate"])->execute(),
@@ -95,7 +93,9 @@ final class About {
             "interview_date" => Field::getInstance()->init(new Date())->value($this->info["interview_date"])->execute(),
             "interview_time" => Field::getInstance()->init(new Time())->value($this->info["interview_time"])->execute(),
             "interview_comment" => Field::getInstance()->init(new Text())->value($this->info["interview_comment"])->execute(),
-            "reason" => Field::getInstance()->init(new Text())->value($this->info["reason"])->execute()
+            "reason" => Field::getInstance()->init(new Text())->value($this->info["reason"])->execute(),
+            "id" => Field::getInstance()->init(new Number())->value($this->info["id"])->execute(),
+            "raiting_number" => Field::getInstance()->init(new Number())->value($this->info["raiting_number"])->execute(),
         );
     }
 
