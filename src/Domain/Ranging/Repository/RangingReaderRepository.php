@@ -6,6 +6,7 @@ use App\Factory\QueryFactory;
 use App\Domain\RangingStatus\Repository\RangingStatusFinderRepository;
 use App\Domain\Privelege\Repository\PrivelegeReadRepository;
 use App\Domain\FreePlace\Repository\FreePlaceReadRepository;
+use App\Domain\Position\Repository\PositionFinderRepository;
 
 /**
  * Repository.
@@ -120,9 +121,11 @@ final class RangingReaderRepository{
         $query = $this->queryFactory->newSelect(['r' => self::$tableName]);
         $query->select(["r.id", "r.id as ranging_id", "r.full_name", "r.birthdate", "r.privilege_id", "r.positions", "r.phone_number", "r.free_place_id",
                         "r.interview_date", "r.interview_time",
+                        "po.name_".$lang." as position_name",
                         "p.name_".$lang." as privilege_name"])
             ->innerJoin(['p' => PrivelegeReadRepository::$tableName], ['p.id = r.privilege_id'])
             ->innerJoin(['f' => FreePlaceReadRepository::$tableName], ['f.id = r.free_place_id'])
+            ->innerJoin(['po' => PositionFinderRepository::$tableName], ['po.id = f.position_id'])
             ->where(["r.status_id" => $status_id, "f.bin" => $bin])
             ->order(['r.created_at' => 'DESC']);
         return $query->execute()->fetchAll('assoc') ?: [];

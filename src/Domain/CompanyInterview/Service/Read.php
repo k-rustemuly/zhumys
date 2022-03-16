@@ -75,6 +75,7 @@ final class Read extends Admin{
             //"raiting_number" => Field::getInstance()->init(new Number())->execute(),
             //"iin" => Field::getInstance()->init(new Number())->is_visible(false)->execute(),
             "full_name" => Field::getInstance()->init(new Text())->execute(),
+            "position_id" => Field::getInstance()->init(new Reference())->reference_name("position")->reference_id("id")->execute(),
             "interview_date" => Field::getInstance()->init(new Date())->execute(),
             "interview_time" => Field::getInstance()->init(new Time())->execute(),
             //"birthdate" => Field::getInstance()->init(new Date())->execute(),
@@ -84,7 +85,7 @@ final class Read extends Admin{
             //"second_phone_number" => Field::getInstance()->init(new Textarea())->is_visible(false)->execute(),
             "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->execute(),
             //"status_id" => Field::getInstance()->init(new Reference())->reference_name("applicant-status")->reference_id("id")->execute(),
-            "positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->execute(),
+            //"positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->execute(),
             // "is_have_whatsapp" => Field::getInstance()->init(new Boolean())->execute(),
             // "is_have_telegram" => Field::getInstance()->init(new Boolean())->execute(),
             //"comment" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->execute(),
@@ -104,27 +105,9 @@ final class Read extends Admin{
         foreach ($data as $i => $v) {
             $data[$i]["privilege_id"] = array("id" => $v["privilege_id"], "value" => $v["privilege_name"]);
             unset($data[$i]["privilege_name"]);
-            $data[$i]["positions"] = $this->positionReadRepository->getAllByIdsAndLang($this->unparsePositions($v["positions"]), $lang);
-            unset($data[$i]["status_name"]);
+            $data[$i]["position_id"] = array("id" => $v["position_id"], "value" => $v["position_name"]);
+            unset($data[$i]["position_name"]);
         }
         return $data;
-    }
-
-    /**
-     * Unparse positions
-     * 
-     * @param string $positions
-     * 
-     * @return array<int>
-     */
-    private function unparsePositions(string $positions) :array{
-        $p = explode("@", $positions);
-        $array = array();
-        foreach ($p as $v) {
-            if(is_numeric($v) && $v > 0) {
-                $array[] = $v;
-            }
-        }
-        return $array;
     }
 }
