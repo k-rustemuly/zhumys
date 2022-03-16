@@ -73,8 +73,11 @@ final class ApplicantReadRepository{
     public function getAllByLangAndPrivilege(string $lang, int $privilege_id = 0): array{
         $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
         $query->select(["a.*",
-                        "p.name_".$lang." as privilege_name"])
+                        "p.name_".$lang." as privilege_name",
+                        "s.name_".$lang." as status_name",
+                        "s.color as status_color"])
             ->innerJoin(["p" => PrivelegeReadRepository::$tableName], ["p.id = a.privilege_id"])
+            ->innerJoin(["s" => ApplicantStatusFinderRepository::$tableName], ["s.id = a.status_id"])
             ->where(["a.status_id" => 1]);
             if($privilege_id > 0) {
                 $query->where(["a.privilege_id" => $privilege_id]);                

@@ -86,6 +86,7 @@ final class UnemployedRead {
             "phone_number" => Field::getInstance()->init(new PhoneNumber())->is_visible(false)->is_required(true)->can_create(true)->can_update(true)->execute(),
             "address" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->is_required(true)->execute(),
             "second_phone_number" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->execute(),
+            "status_id" => Field::getInstance()->init(new Reference())->reference_name("applicant-status") ->reference_id("id")->execute(),
             "privilege_id" => Field::getInstance()->init(new Reference())->reference_name("privilege")->reference_id("id")->can_create(true)->can_update(true)->is_required(true)->execute(),
             "positions" => Field::getInstance()->init(new Tag())->tag_name("position")->tag_id("id")->tag_show("name")->is_visible(true)->can_create(true)->can_update(true)->is_required(true)->execute(),
             "comment" => Field::getInstance()->init(new Textarea())->is_visible(false)->can_create(true)->can_update(true)->execute(),
@@ -105,6 +106,9 @@ final class UnemployedRead {
             $data[$i]["privilege_id"] = array("id" => $v["privilege_id"], "value" => $v["privilege_name"]);
             unset($data[$i]["privilege_name"]);
             $data[$i]["positions"] = $this->positionReadRepository->getAllByIdsAndLang($this->unparsePositions($v["positions"]), $lang);
+            $data[$i]["status_id"] = array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]);
+            unset($data[$i]["status_name"]);
+            unset($data[$i]["status_color"]);
         }
         return $data;
     }
