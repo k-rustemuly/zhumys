@@ -56,8 +56,8 @@ final class Read extends Admin{
      */
     public function list(string $lang, array $params = array()) :array{
         $orderAsc = array();
-        if(isset($params['orderAcs'])) {
-            $o = explode(',', $params['orderAcs']);
+        if(isset($params['orderAsc'])) {
+            $o = explode(',', $params['orderAsc']);
             foreach($o as $field) {
                 if(strlen($field)>0) {
                     $orderAsc[] = $field;
