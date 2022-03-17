@@ -11,7 +11,7 @@ use App\Middleware\CompanyAdminMiddleware;
 /**
  * Action.
  */
-final class ReadAction{
+final class ReadAction {
     /**
      * @var Service
      */
@@ -28,7 +28,7 @@ final class ReadAction{
      * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Service $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -45,6 +45,7 @@ final class ReadAction{
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $params = $request->getQueryParams();
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
-        return $this->responder->success($response, null, $this->service->list($args['lang'], $params));
+        $data = $this->service->list($args['lang'], $params);
+        return $this->responder->success($response, null, $data);
     }
 }

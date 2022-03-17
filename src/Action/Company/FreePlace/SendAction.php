@@ -5,16 +5,16 @@ namespace App\Action\Company\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\FreePlace\Service\Send;
+use App\Domain\FreePlace\Service\Send as Service;
 use App\Middleware\CompanyAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class SendAction{
+final class SendAction {
     /**
-     * @var Send
+     * @var Service
      */
     private $service;
 
@@ -31,11 +31,11 @@ final class SendAction{
     /**
      * The constructor.
      *
-     * @param Send $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      * @param Language $language The language
      */
-    public function __construct(Send $service, Responder $responder, Language $language){
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

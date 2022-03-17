@@ -5,14 +5,14 @@ namespace App\Action\Center\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\About;
+use App\Domain\Center\FreePlace\Service\About as Service;
 
 /**
  * Action.
  */
-final class FreePlaceAboutAction{
+final class FreePlaceAboutAction {
     /**
-     * @var About
+     * @var Service
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class FreePlaceAboutAction{
     /**
      * The constructor.
      *
-     * @param About $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(About $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -42,6 +42,7 @@ final class FreePlaceAboutAction{
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        return $this->responder->success($response, null, $this->service->get((int)$args['id'], $args['lang']));
+        $data = $this->service->get((int)$args['id'], $args['lang']);
+        return $this->responder->success($response, null, $data);
     }
 }

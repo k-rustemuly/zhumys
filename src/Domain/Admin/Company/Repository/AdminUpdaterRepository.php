@@ -8,11 +8,11 @@ use PDOException;
 /**
  * Repository.
  */
-final class AdminUpdaterRepository{
+final class AdminUpdaterRepository {
     /**
      * @var string
      */
-    public static $tableName = 'company_admins';
+    public static $tableName = "company_admins";
 
     /**
      * @var QueryFactory The query factory
@@ -24,7 +24,7 @@ final class AdminUpdaterRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -37,10 +37,9 @@ final class AdminUpdaterRepository{
      * @return void
      */
     public function updateById(int $id, array $new_data): int{
-        try
-        {
-            return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['id' => $id])->execute()->rowCount();
-        }catch(PDOException $e){
+        try {
+            return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(["id" => $id])->execute()->rowCount();
+        } catch(PDOException $e) {
             return 0;
         }
     }
@@ -54,8 +53,7 @@ final class AdminUpdaterRepository{
      *
      * @return void
      */
-    public function updateByBinAndIin(string $bin, string $iin, array $new_data): int
-    {
-        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['iin' => $iin, 'org_bin' => $bin])->execute()->rowCount();
+    public function updateByBinAndIin(string $bin, string $iin, array $new_data): int{
+        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(["iin" => $iin, "org_bin" => $bin])->execute()->rowCount();
     }
 }

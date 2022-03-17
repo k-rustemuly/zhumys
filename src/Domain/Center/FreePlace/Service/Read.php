@@ -48,10 +48,10 @@ final class Read {
         $status_id = 0;
         $position_id = 0;
         if(isset($params["status_id"])) {
-            $status_id = (int)$params['status_id'];
+            $status_id = (int)$params["status_id"];
         }
         if(isset($params["position_id"])) {
-            $position_id = (int)$params['position_id'];
+            $position_id = (int)$params["position_id"];
         }
         $data = $this->readRepository->search($lang, $status_id, $position_id);
 
@@ -90,15 +90,15 @@ final class Read {
      * 
      * @return array<mixed> parsed data
      */
-    private function parseData(array $data):array {
+    private function parseData(array $data) :array{
         foreach($data as $i => $v) {
             foreach($v as $key => $val) {
                 switch($key) {
-                    case 'position_id':
+                    case "position_id":
                         $data[$i][$key] = array("id" => $val, "value" => $data[$i]["position_name"]);
                         unset($data[$i]["position_name"]);
                     break;
-                    case 'status_id':
+                    case "status_id":
                         $data[$i][$key] = array("id" => $val, "value" => $data[$i]["status_name"], "color" => $data[$i]["status_color"]);
                         unset($data[$i]["status_name"]);
                         unset($data[$i]["status_color"]);

@@ -5,16 +5,16 @@ namespace App\Action\Center\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\Reject;
+use App\Domain\Center\FreePlace\Service\Reject as Service;
 use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class FreePlaceRejectAction{
+final class FreePlaceRejectAction {
     /**
-     * @var Reject
+     * @var Service
      */
     private $service;
 
@@ -31,11 +31,11 @@ final class FreePlaceRejectAction{
     /**
      * The constructor.
      *
-     * @param Reject $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      * @param Language $language The language
      */
-    public function __construct(Reject $service, Responder $responder, Language $language) {
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

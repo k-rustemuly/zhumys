@@ -10,18 +10,16 @@ use Slim\App;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-if (file_exists(ROOT . '.env')){
+if (file_exists(ROOT . '.env')) {
     $dotenv = Dotenv\Dotenv::createImmutable(ROOT);
     $dotenv->load(true);
 }
-else{
+else {
     exit( ROOT.'.env not found' );
 }
 
-set_error_handler(function ($severity, $message, $file, $line) 
-{
-    if (error_reporting() & $severity) 
-    {
+set_error_handler(function ($severity, $message, $file, $line) {
+    if (error_reporting() & $severity) {
         throw new \ErrorException($message, 0, $severity, $file, $line);
     }
 });

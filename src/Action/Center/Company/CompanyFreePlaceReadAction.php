@@ -5,14 +5,14 @@ namespace App\Action\Center\Company;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\Company\FreePlace\Service\Read;
+use App\Domain\Center\Company\FreePlace\Service\Read as Service;
 
 /**
  * Action.
  */
-final class CompanyFreePlaceReadAction{
+final class CompanyFreePlaceReadAction {
     /**
-     * @var Read
+     * @var Service
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class CompanyFreePlaceReadAction{
     /**
      * The constructor.
      *
-     * @param Read $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -42,6 +42,7 @@ final class CompanyFreePlaceReadAction{
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        return $this->responder->success($response, null, $this->service->list($args['bin'], $args['lang']));
+        $data = $this->service->list($args['bin'], $args['lang']);
+        return $this->responder->success($response, null, $data);
     }
 }

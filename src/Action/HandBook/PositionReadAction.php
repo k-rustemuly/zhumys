@@ -5,15 +5,14 @@ namespace App\Action\HandBook;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Position\Service\Read;
+use App\Domain\Position\Service\Read as Service;
 
 /**
  * Action.
  */
-final class PositionReadAction
-{
+final class PositionReadAction {
     /**
-     * @var Read
+     * @var Service
      */
     private $service;
 
@@ -25,11 +24,10 @@ final class PositionReadAction
     /**
      * The constructor.
      *
-     * @param Read $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder)
-    {
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -43,8 +41,7 @@ final class PositionReadAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $data = $this->service->get($args["lang"]);
         return $this->responder->success($response, null, $data);
     }

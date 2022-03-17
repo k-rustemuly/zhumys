@@ -5,16 +5,16 @@ namespace App\Action\Company\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\FreePlace\Service\Delete;
+use App\Domain\FreePlace\Service\Delete as Service;
 use App\Middleware\CompanyAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class DeleteAction{
+final class DeleteAction {
     /**
-     * @var Delete
+     * @var Service
      */
     private $service;
 
@@ -31,10 +31,10 @@ final class DeleteAction{
     /**
      * The constructor.
      *
-     * @param Delete $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Delete $service, Responder $responder, Language $language){
+    public function __construct(Service $service, Responder $responder, Language $language){
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

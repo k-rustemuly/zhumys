@@ -8,7 +8,7 @@ use App\Helper\Render;
 use App\Helper\Fields\Number;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\DateTime;
-use App\Helper\Fields\Text;
+
 /**
  * Service.
  */
@@ -79,7 +79,7 @@ final class Read {
      * 
      * @return array<mixed> parsed data
      */
-    private function parseData(array $data):array {
+    private function parseData(array $data) :array{
         foreach($data as $i => $v) {
             foreach($v as $key => $val) {
                 switch($key) {

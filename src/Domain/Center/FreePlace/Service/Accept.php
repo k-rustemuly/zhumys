@@ -13,7 +13,7 @@ use Spatie\ArrayToXml\ArrayToXml;
 /**
  * Service.
  */
-final class Accept extends Admin{
+final class Accept extends Admin {
     /**
      * @var int
      */

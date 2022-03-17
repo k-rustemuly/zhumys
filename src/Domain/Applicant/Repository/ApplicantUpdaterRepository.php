@@ -9,11 +9,11 @@ use DomainException;
 /**
  * Repository.
  */
-final class ApplicantUpdaterRepository{
+final class ApplicantUpdaterRepository {
     /**
      * @var string
      */
-    public static $tableName = 'applicant';
+    public static $tableName = "applicant";
 
     /**
      * @var QueryFactory
@@ -25,7 +25,7 @@ final class ApplicantUpdaterRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -38,10 +38,9 @@ final class ApplicantUpdaterRepository{
      * @return int
      */
     public function updateByIin(string $iin, array $data): int{
-        try
-        {
+        try {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("iin" => $iin))->execute()->rowCount();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }

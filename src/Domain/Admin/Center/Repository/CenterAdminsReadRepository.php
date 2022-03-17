@@ -8,7 +8,7 @@ use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Repository.
  */
-final class CenterAdminsReadRepository{
+final class CenterAdminsReadRepository {
     /**
      * @var string
      */
@@ -24,7 +24,7 @@ final class CenterAdminsReadRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 

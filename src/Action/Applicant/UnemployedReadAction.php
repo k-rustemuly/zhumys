@@ -42,6 +42,7 @@ final class UnemployedReadAction {
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        return $this->responder->success($response, null, $this->service->list((string)$args['lang'], $request->getQueryParams()));
+        $data = $this->service->list((string)$args['lang'], $request->getQueryParams());
+        return $this->responder->success($response, null, $data);
     }
 }

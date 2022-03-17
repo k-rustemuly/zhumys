@@ -64,7 +64,9 @@ final class About {
      */
     public function get(string $lang, int $freePlaceId, int $rangingId) :array{
         $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndLang($rangingId, $freePlaceId, $lang);
-        if(empty($this->info)) throw new DomainException("Free place not found");
+        if(empty($this->info)) {
+            throw new DomainException("Free place not found");
+        }
         $render = $this->render
                 ->lang($lang)
                 ->block("candidate_info", $this->getCandidateBlockValues())

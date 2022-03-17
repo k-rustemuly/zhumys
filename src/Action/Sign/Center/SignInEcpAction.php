@@ -10,7 +10,7 @@ use App\Domain\Sign\Service\Center\SignIn;
 /**
  * Action.
  */
-final class SignInEcpAction{
+final class SignInEcpAction {
     /**
      * @var SignIn
      */
@@ -27,7 +27,7 @@ final class SignInEcpAction{
      * @param SignIn $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(SignIn $service,Responder $responder){
+    public function __construct(SignIn $service,Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }

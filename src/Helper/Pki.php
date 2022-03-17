@@ -9,7 +9,7 @@ use Malikzh\PhpNCANode\NCANodeException;
 use Malikzh\PhpNCANode\NCANodeClient;
 use DomainException;
 
-class Pki{
+class Pki {
 
     /**
      *
@@ -35,8 +35,7 @@ class Pki{
      */
     public $cert = [];
 
-    public function __construct(string $domain, bool $isVerifyOcsp = false, bool $isVerifyCrl = false)
-    {
+    public function __construct(string $domain, bool $isVerifyOcsp = false, bool $isVerifyCrl = false) {
         $this->nca = new NCANodeClient($domain);
         $this->bVerifyOcsp = $isVerifyOcsp;
         $this->bVerifyCrl = $isVerifyCrl;
@@ -54,17 +53,27 @@ class Pki{
      * @return mixed $result
      *
      */
-    public function getCertificateInfo(string $p12Base64, string $sPassword, bool $is_auth = true, bool $is_individual = true):array
-    {
-        try{
-            
+    public function getCertificateInfo(string $p12Base64, string $sPassword, bool $is_auth = true, bool $is_individual = true) :array{
+        try {
             $info = $this->nca->pkcs12Info($p12Base64, $sPassword, $this->bVerifyOcsp, $this->bVerifyCrl);
-            if($info->isExpired()) throw new DomainException("The certificate has expired");
-            if($_ENV["API_IS_DEBUG"] == "false" && !$info->isLegal()) throw new DomainException("The certificate is not legal");
-            if($is_auth && $info->keyUsage != "AUTH") throw new DomainException("The key is not intended for authentication");
-            if(!$is_auth && $info->keyUsage != "SIGN") throw new DomainException("The key is not intended for sign");
-            if(!isset($info->subject)) throw new DomainException("No certificate holder information found");
-            if(!isset($info->keyUser)) throw new DomainException("The parameter by which you can determine the holder of the certificate (key) is a legal entity. face or not, it is not");
+            if($info->isExpired()) {
+                throw new DomainException("The certificate has expired");
+            }
+            if($_ENV["API_IS_DEBUG"] == "false" && !$info->isLegal()) {
+                throw new DomainException("The certificate is not legal");
+            }
+            if($is_auth && $info->keyUsage != "AUTH") {
+                throw new DomainException("The key is not intended for authentication");
+            }
+            if(!$is_auth && $info->keyUsage != "SIGN") {
+                throw new DomainException("The key is not intended for sign");
+            }
+            if(!isset($info->subject)) {
+                throw new DomainException("No certificate holder information found");
+            }
+            if(!isset($info->keyUser)) {
+                throw new DomainException("The parameter by which you can determine the holder of the certificate (key) is a legal entity. face or not, it is not");
+            } 
             
             $subject_info = $info->subject;
             $this->addToCert($subject_info, "lastName", "lastname")
@@ -79,7 +88,7 @@ class Pki{
                 ->addToCert($subject_info, "bin")
                 ->addToCert($subject_info, "organization");
             $commonName = array_key_exists('commonName', $subject_info) ? $subject_info["commonName"] : null;
-            list($surname,$name) = explode(' ',$commonName,2);
+            list($surname, $name) = explode(' ', $commonName, 2);
 
             $this->cert["surname"] = mb_convert_case($this->cert["surname"], MB_CASE_TITLE, 'UTF-8');
             $this->cert["name"] = mb_convert_case($name, MB_CASE_TITLE, 'UTF-8');
@@ -96,13 +105,13 @@ class Pki{
             if($is_individual && !$this->cert["is_individual"]) {
                 throw new DomainException("Only individual usage digital signature accessed");
             }
-        }catch(ApiErrorException $e){
+        }catch(ApiErrorException $e) {
             throw new DomainException("Wrong password or corrupted file");
-        }catch(CurlException $e){
+        }catch(CurlException $e) {
             throw new DomainException("Server pki error");
-        }catch(InvalidResponseException $e){
+        }catch(InvalidResponseException $e) {
             throw new DomainException("Server pki error");
-        }catch(NCANodeException $e){
+        }catch(NCANodeException $e) {
             throw new DomainException("Server pki error");
         } 
         return $this->cert;
@@ -118,7 +127,7 @@ class Pki{
      * @return self
      *
      */
-    private function addToCert(array $arr, string $key, string $newKey = null, $default = null){
+    private function addToCert(array $arr, string $key, string $newKey = null, $default = null) {
         $newKey = $newKey?:$key;
         $this->cert[$newKey] = array_key_exists($key, $arr) ? $arr[$key] : $default;
         return $this;
@@ -134,17 +143,16 @@ class Pki{
      * @return mixed Результат подписания
      * @throws DomainException Произошла ошибка со стороны API. Неверный сертификат, неверный пароль и т.д.
      */
-    public function sign($sXml, $p12Base64, $sPassword)
-    {
-        try{
+    public function sign($sXml, $p12Base64, $sPassword) {
+        try {
             return $this->nca->xmlSign($sXml, $p12Base64, $sPassword);
-        }catch(ApiErrorException $e){
+        }catch(ApiErrorException $e) {
             throw new DomainException("Wrong password or corrupted file");
-        }catch(CurlException $e){
+        }catch(CurlException $e) {
             throw new DomainException("Server pki error");
-        }catch(InvalidResponseException $e){
+        }catch(InvalidResponseException $e) {
             throw new DomainException("Server pki error");
-        }catch(NCANodeException $e){
+        }catch(NCANodeException $e) {
             throw new DomainException("Server pki error");
         }
     }

@@ -156,7 +156,7 @@ final class Publish extends Admin {
             );
             $xml = ArrayToXml::convert($sign_arr);
             $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-            if(!empty($signed_result)){
+            if(!empty($signed_result)) {
                 $log = array(
                     "free_place_id" => $id,
                     "admin_type_id" => $this->adminTypeId,
@@ -180,7 +180,7 @@ final class Publish extends Admin {
                     $updateApplicantIds[] = $ranging["applicant_id"];
                 }
                 $this->applicantUpdateRepository->updateByIdsRanging($updateApplicantIds);
-                $this->updateRepository->updateById($id, array('status_id' => $this->statusId));
+                $this->updateRepository->updateById($id, array("status_id" => $this->statusId));
             } else {
                 throw new DomainException("Error to sign action");
             }
@@ -196,7 +196,7 @@ final class Publish extends Admin {
      * 
      * @return array<mixed>
      */
-    private function getCandidatesForSign(array $candidates) :array {
+    private function getCandidatesForSign(array $candidates) :array{
         $data = array();
         foreach ($candidates as $candidate) {
             $data[] = array(
@@ -219,7 +219,7 @@ final class Publish extends Admin {
      * 
      * @return array<mixed>
      */
-    private function getRangingDatas(int $free_place_id, array $applicants) :array {
+    private function getRangingDatas(int $free_place_id, array $applicants) :array{
         foreach ($applicants as $i => $applicant) {
             $applicants[$i]["free_place_id"] = $free_place_id;
             $applicants[$i]["applicant_id"] = $applicant["id"];

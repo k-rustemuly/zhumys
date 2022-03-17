@@ -5,16 +5,16 @@ namespace App\Action\Center\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\Accept;
+use App\Domain\Center\FreePlace\Service\Accept as Service;
 use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class FreePlaceAcceptAction{
+final class FreePlaceAcceptAction {
     /**
-     * @var Accept
+     * @var Service
      */
     private $service;
 
@@ -31,11 +31,11 @@ final class FreePlaceAcceptAction{
     /**
      * The constructor.
      *
-     * @param Accept $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      * @param Language $language The language
      */
-    public function __construct(Accept $service, Responder $responder, Language $language) {
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

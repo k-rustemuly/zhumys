@@ -11,7 +11,7 @@ use App\Middleware\CompanyAdminMiddleware;
 /**
  * Action.
  */
-final class ReadAction{
+final class ReadAction {
     /**
      * @var Service
      */
@@ -28,7 +28,7 @@ final class ReadAction{
      * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Service $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }

@@ -12,8 +12,7 @@ use App\Helper\Language;
 /**
  * Action.
  */
-final class FailAction
-{
+final class FailAction {
     /**
      * @var Service
      */
@@ -35,8 +34,7 @@ final class FailAction
      * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Service $service, Responder $responder)
-    {
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = new Language();
@@ -51,8 +49,7 @@ final class FailAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
         $post = (array)$request->getParsedBody();
         $this->service->fail((int)$args["id"], (int)$args['ranging_id'], $post);

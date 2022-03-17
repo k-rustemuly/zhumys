@@ -5,16 +5,16 @@ namespace App\Action\Center\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\Publish;
+use App\Domain\Center\FreePlace\Service\Publish as Service;
 use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class FreePlacePublishAction{
+final class FreePlacePublishAction {
     /**
-     * @var Publish
+     * @var Service
      */
     private $service;
 
@@ -35,7 +35,7 @@ final class FreePlacePublishAction{
      * @param Responder $responder The responder
      * @param Language $language The language
      */
-    public function __construct(Publish $service, Responder $responder, Language $language) {
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

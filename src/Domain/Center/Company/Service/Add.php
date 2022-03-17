@@ -15,7 +15,7 @@ use Spatie\ArrayToXml\ArrayToXml;
 /**
  * Service.
  */
-final class Add extends Admin{
+final class Add extends Admin {
 
     /**
      * @var CompanyReadRepository
@@ -62,7 +62,7 @@ final class Add extends Admin{
                                 CompanyLogCreatorRepository $logCreateRepository,
                                 CompanyDeleterRepository $deleteRepository,
                                 StatGov $stat,
-                                Pki $pki){
+                                Pki $pki) {
         $this->readRepository = $readRepository;
         $this->createRepository = $createRepository;
         $this->logCreateRepository = $logCreateRepository;
@@ -78,7 +78,7 @@ final class Add extends Admin{
      *
      * @throws DomainException
      */
-    public function add(array $post){
+    public function add(array $post) {
         $sign_p12 = $post["base64"]?:"";
         $password = $post["password"]?:"";
         $certInfo = $this->pki->getCertificateInfo($sign_p12, $password, false);
@@ -88,19 +88,31 @@ final class Add extends Admin{
             throw new DomainException("The owner not does not match the certificate auth");
         }
         
-        if(!isset($post["bin"]) || strlen($post["bin"]) != 12) throw new DomainException("Bin is not presented");
-        if(!isset($post["name_kk"])) throw new DomainException("Name of company on kazakh not presented");
-        if(!isset($post["name_ru"])) throw new DomainException("Name of company on russia not presented");
+        if(!isset($post["bin"]) || strlen($post["bin"]) != 12) {
+            throw new DomainException("Bin is not presented");
+        } 
+        if(!isset($post["name_kk"])) {
+            throw new DomainException("Name of company on kazakh not presented");
+        } 
+        if(!isset($post["name_ru"])) {
+            throw new DomainException("Name of company on russia not presented");
+        } 
         $bin = $post["bin"];
         $companyInfo = $this->readRepository->getByBin($bin);
-        if(!empty($companyInfo)) throw new DomainException("Company is already presented"); 
+        if(!empty($companyInfo)) {
+            throw new DomainException("Company is already presented");
+        }  
         
         $companyInfo = $this->stat->getInfo($bin);
-        if(empty($companyInfo)) throw new DomainException("Error to parse from stat gov api"); 
+        if(empty($companyInfo)) {
+            throw new DomainException("Error to parse from stat gov api");
+        }  
         $companyInfo["name_kk"] = $post["name_kk"];
         $companyInfo["name_ru"] = $post["name_ru"];
         $companyId = $this->createRepository->insert($companyInfo);
-        if($companyId == 0) throw new DomainException("Company not added"); 
+        if($companyId == 0) {
+            throw new DomainException("Company not added"); 
+        } 
         $companyInfo = $this->readRepository->getById($companyId);
         $sign_arr = array(
             "Id" => [
@@ -160,7 +172,7 @@ final class Add extends Admin{
         );
         $xml = ArrayToXml::convert($sign_arr);
         $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-        if(!empty($signed_result)){
+        if(!empty($signed_result)) {
             $log = array(
                 "company_id" => $companyId,
                 "admin_id" => $this->getAdminId(),

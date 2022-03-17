@@ -8,8 +8,7 @@ use DomainException;
 /**
  * Service.
  */
-final class Admin
-{
+final class Admin {
     /**
      * @var AdminsFinderRepository
      */
@@ -25,8 +24,7 @@ final class Admin
      *
      * @param AdminsFinderRepository $repository The repository
      */
-    public function __construct(AdminsFinderRepository $repository)
-    {
+    public function __construct(AdminsFinderRepository $repository) {
         $this->repository = $repository;
     }
 
@@ -39,8 +37,7 @@ final class Admin
      * 
      * @return array<mixed> The result
      */
-    public function get(string $lang): array
-    {   
+    public function get(string $lang): array{   
         return $this->repository->getAllByLang($lang);
     }
 }

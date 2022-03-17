@@ -5,16 +5,16 @@ namespace App\Action\Company\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\FreePlace\Service\Edit;
+use App\Domain\FreePlace\Service\Edit as Service;
 use App\Middleware\CompanyAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class EditAction{
+final class EditAction {
     /**
-     * @var Edit
+     * @var Service
      */
     private $service;
 
@@ -31,10 +31,10 @@ final class EditAction{
     /**
      * The constructor.
      *
-     * @param Edit $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Edit $service, Responder $responder, Language $language){
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

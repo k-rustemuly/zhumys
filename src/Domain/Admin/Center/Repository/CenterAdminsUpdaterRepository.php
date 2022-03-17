@@ -7,11 +7,11 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class CenterAdminsUpdaterRepository{
+final class CenterAdminsUpdaterRepository {
     /**
      * @var string
      */
-    public static $tableName = 'center_admins';
+    public static $tableName = "center_admins";
 
     /**
      * @var QueryFactory The query factory
@@ -23,7 +23,7 @@ final class CenterAdminsUpdaterRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -35,8 +35,7 @@ final class CenterAdminsUpdaterRepository{
      *
      * @return void
      */
-    public function updateByIin(string $iin, array $new_data): int
-    {
-        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(['iin' => $iin])->execute()->rowCount();
+    public function updateByIin(string $iin, array $new_data): int{
+        return (int) $this->queryFactory->newUpdate(self::$tableName, $new_data)->where(["iin" => $iin])->execute()->rowCount();
     }
 }

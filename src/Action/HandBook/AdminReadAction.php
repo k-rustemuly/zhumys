@@ -5,15 +5,14 @@ namespace App\Action\HandBook;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Admin\Service\Admin;
+use App\Domain\Admin\Service\Admin as Service;
 
 /**
  * Action.
  */
-final class AdminReadAction
-{
+final class AdminReadAction {
     /**
-     * @var Admin
+     * @var Service
      */
     private $service;
 
@@ -25,11 +24,10 @@ final class AdminReadAction
     /**
      * The constructor.
      *
-     * @param Admin $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Admin $service, Responder $responder)
-    {
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -43,8 +41,7 @@ final class AdminReadAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $data = $this->service->get($args["lang"]);
         return $this->responder->success($response, null, $data);
     }

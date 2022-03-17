@@ -5,15 +5,15 @@ namespace App\Action\Center\FreePlace;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\FreePlace\Service\Generate;
+use App\Domain\Center\FreePlace\Service\Generate as Service;
 use App\Middleware\CenterAdminMiddleware;
 
 /**
  * Action.
  */
-final class FreePlaceGenerateAction{
+final class FreePlaceGenerateAction {
     /**
-     * @var Generate
+     * @var Service
      */
     private $service;
 
@@ -25,10 +25,10 @@ final class FreePlaceGenerateAction{
     /**
      * The constructor.
      *
-     * @param Generate $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Generate $service, Responder $responder) {
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }

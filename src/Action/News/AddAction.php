@@ -12,7 +12,7 @@ use App\Middleware\CenterAdminMiddleware;
 /**
  * Action.
  */
-final class AddAction{
+final class AddAction {
     /**
      * @var Service
      */
@@ -33,8 +33,9 @@ final class AddAction{
      *
      * @param Service $service The service
      * @param Responder $responder The responder
+     * @param Language $language The language
      */
-    public function __construct(Service $service, Responder $responder, Language $language){
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

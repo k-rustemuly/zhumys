@@ -8,8 +8,7 @@ use DomainException;
 /**
  * Service.
  */
-final class Read
-{
+final class Read {
     /**
      * @var ApplicantStatusFinderRepository
      */
@@ -20,8 +19,7 @@ final class Read
      *
      * @param ApplicantStatusFinderRepository $repository The repository
      */
-    public function __construct(ApplicantStatusFinderRepository $repository)
-    {
+    public function __construct(ApplicantStatusFinderRepository $repository) {
         $this->repository = $repository;
     }
 
@@ -34,8 +32,7 @@ final class Read
      * 
      * @return array<mixed> The result
      */
-    public function get(string $lang): array
-    {   
+    public function get(string $lang): array{   
         return $this->repository->getAllByLang($lang);
     }
 }

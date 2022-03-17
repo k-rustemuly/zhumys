@@ -5,16 +5,16 @@ namespace App\Action\Center\Company\Admin;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Admin\Company\Service\Update;
+use App\Domain\Admin\Company\Service\Update as Service;
 use App\Helper\Language;
 use App\Middleware\CenterAdminMiddleware;
 
 /**
  * Action.
  */
-final class UpdateAction{
+final class UpdateAction {
     /**
-     * @var Update
+     * @var Service
      */
     private $service;
 
@@ -31,10 +31,11 @@ final class UpdateAction{
     /**
      * The constructor.
      *
-     * @param Update $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
+     * @param Language $language The language
      */
-    public function __construct(Update $service, Responder $responder, Language $language){
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

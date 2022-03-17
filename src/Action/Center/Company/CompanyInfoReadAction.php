@@ -5,14 +5,14 @@ namespace App\Action\Center\Company;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\Company\Service\InfoRead;
+use App\Domain\Center\Company\Service\InfoRead as Service;
 
 /**
  * Action.
  */
-final class CompanyInfoReadAction{
+final class CompanyInfoReadAction {
     /**
-     * @var InfoRead
+     * @var Service
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class CompanyInfoReadAction{
     /**
      * The constructor.
      *
-     * @param InfoRead $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(InfoRead $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -42,6 +42,7 @@ final class CompanyInfoReadAction{
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        return $this->responder->success($response, null, $this->service->info($args['bin'], (string)$args['lang']));
+        $data = $this->service->info($args['bin'], (string)$args['lang']);
+        return $this->responder->success($response, null, $data);
     }
 }

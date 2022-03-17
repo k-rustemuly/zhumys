@@ -5,7 +5,7 @@ namespace App\Action\News;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\News\Service\Read;
+use App\Domain\News\Service\Read as Service;
 use App\Middleware\CenterAdminMiddleware;
 
 /**
@@ -13,7 +13,7 @@ use App\Middleware\CenterAdminMiddleware;
  */
 final class ReadAction{
     /**
-     * @var Read
+     * @var Service
      */
     private $service;
 
@@ -25,10 +25,10 @@ final class ReadAction{
     /**
      * The constructor.
      *
-     * @param Read $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Read $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }

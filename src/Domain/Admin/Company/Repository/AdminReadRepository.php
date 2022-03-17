@@ -8,11 +8,11 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class AdminReadRepository{
+final class AdminReadRepository {
     /**
      * @var string
      */
-    public static $tableName = 'company_admins';
+    public static $tableName = "company_admins";
 
     /**
      * @var QueryFactory
@@ -24,7 +24,7 @@ final class AdminReadRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -38,7 +38,7 @@ final class AdminReadRepository{
     public function getByBin(string $bin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["org_bin" => $bin]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -51,7 +51,7 @@ final class AdminReadRepository{
     public function findByIin(string $iin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["iin" => $iin]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -64,7 +64,7 @@ final class AdminReadRepository{
     public function findById(int $id): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["id" => $id]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -80,6 +80,6 @@ final class AdminReadRepository{
                         "c.name_".$lang." as company_name"])
         ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = a.org_bin"]);
 
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 }

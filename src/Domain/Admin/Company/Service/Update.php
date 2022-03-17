@@ -14,7 +14,7 @@ use App\Domain\Center\Admin;
 /**
  * Service.
  */
-final class Update extends Admin{
+final class Update extends Admin {
     /**
      * @var AdminReadRepository
      */
@@ -65,7 +65,7 @@ final class Update extends Admin{
      * @param int $id The company admin id
      * @param array<mixed> $post The fields
      */
-    public function update(int $id, array $data){
+    public function update(int $id, array $data) {
         $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);
         $sign_p12 = $data["base64"]?:"";
         $password = $data["password"]?:"";

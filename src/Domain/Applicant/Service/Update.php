@@ -68,7 +68,7 @@ final class Update extends Admin {
      *
      * @throws DomainException
      */
-    public function update(string $iin, array $data){
+    public function update(string $iin, array $data) {
         $sign_p12 = $data["base64"]?:"";
         $password = $data["password"]?:"";
         $data = $this->validator->setConfig(Read::getHeader())->validateOnUpdate($data);

@@ -11,8 +11,7 @@ use App\Middleware\CompanyAdminMiddleware;
 /**
  * Action.
  */
-final class AboutAction
-{
+final class AboutAction {
     /**
      * @var Service
      */
@@ -29,8 +28,7 @@ final class AboutAction
      * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(Service $service, Responder $responder)
-    {
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
@@ -44,8 +42,7 @@ final class AboutAction
      *
      * @return ResponseInterface The response
      */
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface
-    {
+    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
         $data = $this->service->get($args["lang"], (int)$args['ranging_id']);
         return $this->responder->success($response, null, $data);

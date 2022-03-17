@@ -13,7 +13,7 @@ use App\Helper\Language;
 /**
  * Service.
  */
-final class Read{
+final class Read {
 
     /**
      * @var CompanyReadRepository
@@ -35,7 +35,7 @@ final class Read{
      * @param CompanyReadRepository $readRepository
      *
      */
-    public function __construct(CompanyReadRepository $readRepository){
+    public function __construct(CompanyReadRepository $readRepository) {
         $this->readRepository = $readRepository;
         $this->render = new Render();
         $this->language = new Language();

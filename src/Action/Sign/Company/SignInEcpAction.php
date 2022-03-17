@@ -5,14 +5,14 @@ namespace App\Action\Sign\Company;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Sign\Company\Service\SignIn;
+use App\Domain\Sign\Company\Service\SignIn as Service;
 
 /**
  * Action.
  */
-final class SignInEcpAction{
+final class SignInEcpAction {
     /**
-     * @var SignIn
+     * @var Service
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class SignInEcpAction{
     /**
      * The constructor.
      *
-     * @param SignIn $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(SignIn $service,Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }

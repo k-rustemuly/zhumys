@@ -5,16 +5,16 @@ namespace App\Action\Center\Company;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Center\Company\Service\Add;
+use App\Domain\Center\Company\Service\Add as Service;
 use App\Middleware\CenterAdminMiddleware;
 use App\Helper\Language;
 
 /**
  * Action.
  */
-final class CompanyAddAction{
+final class CompanyAddAction {
     /**
-     * @var Add
+     * @var Service
      */
     private $service;
 
@@ -31,10 +31,11 @@ final class CompanyAddAction{
     /**
      * The constructor.
      *
-     * @param Add $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
+     * @param Language $language The language
      */
-    public function __construct(Add $service, Responder $responder, Language $language){
+    public function __construct(Service $service, Responder $responder, Language $language) {
         $this->service = $service;
         $this->responder = $responder;
         $this->language = $language;

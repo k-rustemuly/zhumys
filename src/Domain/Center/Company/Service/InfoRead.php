@@ -41,7 +41,7 @@ final class InfoRead {
      * @param CompanyReadRepository $readRepository
      *
      */
-    public function __construct(CompanyReadRepository $readRepository){
+    public function __construct(CompanyReadRepository $readRepository) {
         $this->readRepository = $readRepository;
         $this->render = new Render();
         $this->language = new Language();
@@ -61,7 +61,9 @@ final class InfoRead {
     public function info(string $bin, string $lang) :array{
         $this->language->locale($lang);
         $companyInfo = $this->readRepository->getByBin($bin);
-        if(empty($companyInfo)) throw new DomainException("Company not found");
+        if(empty($companyInfo)) {
+            throw new DomainException("Company not found");
+        }
         $this->companyInfo = $companyInfo;
         return $this->render
                 ->lang($lang)

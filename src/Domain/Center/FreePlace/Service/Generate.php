@@ -11,7 +11,7 @@ use Predis\ClientInterface;
 /**
  * Service.
  */
-final class Generate extends Admin{
+final class Generate extends Admin {
 
     /**
      * @var FreePlaceReadRepository
@@ -95,7 +95,7 @@ final class Generate extends Admin{
      * 
      * @return array<mixed>
      */
-    private function mapToSavedData(int $id, array $candidates) :array {
+    private function mapToSavedData(int $id, array $candidates) :array{
         $candidates_ids = array();
         foreach ($candidates as $candidate) {
             $candidates_ids[] = $candidate['id'];
@@ -113,10 +113,8 @@ final class Generate extends Admin{
      */
     private function generateHash(int $length = 36, int $attempt = 1) :string{
         $randomStr = $this->base64url_encode(substr(hash("sha512", mt_rand()), 0, $length));
-        if($this->redis->exists($randomStr))
-        {
-            if($attempt > 10)
-            {
+        if($this->redis->exists($randomStr)) {
+            if($attempt > 10) {
                 $attempt = 1;
                 $length++;
             }

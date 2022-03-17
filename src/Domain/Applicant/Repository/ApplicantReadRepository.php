@@ -12,11 +12,11 @@ use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Repository.
  */
-final class ApplicantReadRepository{
+final class ApplicantReadRepository {
     /**
      * @var string
      */
-    public static $tableName = 'applicant';
+    public static $tableName = "applicant";
 
     /**
      * @var QueryFactory
@@ -28,7 +28,7 @@ final class ApplicantReadRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -40,7 +40,7 @@ final class ApplicantReadRepository{
     public function getAll(): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -94,8 +94,8 @@ final class ApplicantReadRepository{
      */
     public function findById(int $id): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
-        $query->select(["*"])->where(array('id' => $id));
-        return $query->execute()->fetch('assoc') ?: [];
+        $query->select(["*"])->where(array("id" => $id));
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -107,8 +107,8 @@ final class ApplicantReadRepository{
      */
     public function findByIin(string $iin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
-        $query->select(["*"])->where(array('iin' => $iin));
-        return $query->execute()->fetch('assoc') ?: [];
+        $query->select(["*"])->where(array("iin" => $iin));
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -130,7 +130,7 @@ final class ApplicantReadRepository{
         ->where(["a.privilege_id" => $privilege_id, "a.positions LIKE" => "%@".$position_id."@%", "a.status_id" => $status_id])
         ->orderAsc("a.raiting_number")
         ->limit($count);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -145,7 +145,7 @@ final class ApplicantReadRepository{
         $query->select(["id", "raiting_number", "iin", "full_name", "birthdate", "privilege_id", "positions", "email", "phone_number", "address", "second_phone_number", "comment"])
         ->whereInList("id", $ids)
         ->andWhere(["status_id" => 1]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**

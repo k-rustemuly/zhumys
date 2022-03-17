@@ -5,14 +5,14 @@ namespace App\Action\Center\Company\Admin;
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\Admin\Company\Service\AllRead;
+use App\Domain\Admin\Company\Service\AllRead as Service;
 
 /**
  * Action.
  */
-final class AllReadAction{
+final class AllReadAction {
     /**
-     * @var Read
+     * @var Service
      */
     private $service;
 
@@ -24,10 +24,10 @@ final class AllReadAction{
     /**
      * The constructor.
      *
-     * @param AllRead $service The service
+     * @param Service $service The service
      * @param Responder $responder The responder
      */
-    public function __construct(AllRead $service, Responder $responder){
+    public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
     }
