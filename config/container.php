@@ -36,20 +36,20 @@ return [
         return $twig;
     },
 
-    Mailer::class => function (ContainerInterface $container) {
-        $view = $container->get(Twig::class);
-        $mailer = new Mailer($view, [
-            'host'      => $_ENV['SMTP_HOST'],  // SMTP Host
-            'port'      => $_ENV['SMTP_PORT'],  // SMTP Port
-            'username'  => $_ENV['SMTP_USERNAME'],  // SMTP Username
-            'password'  => $_ENV['SMTP_PASSWORD'],  // SMTP Password
-            'protocol'  => $_ENV['SMTP_PROTOCOL']   // SSL or TLS
-        ]);
+    // Mailer::class => function (ContainerInterface $container) {
+    //     $view = $container->get(Twig::class);
+    //     $mailer = new Mailer($view, [
+    //         'host'      => $_ENV['SMTP_HOST'],  // SMTP Host
+    //         'port'      => $_ENV['SMTP_PORT'],  // SMTP Port
+    //         'username'  => $_ENV['SMTP_USERNAME'],  // SMTP Username
+    //         'password'  => $_ENV['SMTP_PASSWORD'],  // SMTP Password
+    //         'protocol'  => $_ENV['SMTP_PROTOCOL']   // SSL or TLS
+    //     ]);
 
-        // Set the details of the default sender
-        $mailer->setDefaultFrom($_ENV['SMTP_USERNAME'], 'Электронная система EDUS');
-        return $mailer;
-    },
+    //     // Set the details of the default sender
+    //     $mailer->setDefaultFrom($_ENV['SMTP_USERNAME'], 'Электронная система EDUS');
+    //     return $mailer;
+    // },
 
     Pki::class => function (ContainerInterface $container) {
         $settings = $container->get('settings');

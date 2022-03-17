@@ -14,7 +14,7 @@ use Exception;
 class File{
 
     /**
-     * @var  $dir Директория для сохранение или чтение файла
+     * @var string $dir Директория для сохранение или чтение файла
      */
     private $dir;
 

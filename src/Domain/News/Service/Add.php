@@ -6,6 +6,7 @@ use App\Domain\Company\Admin;
 use App\Domain\News\Repository\NewsCreaterRepository as CreateRepository;
 use DomainException;
 use App\Helper\Validator;
+use App\Helper\File;
 
 /**
  * Service.
@@ -25,11 +26,13 @@ final class Add extends Admin{
     /**
      * The constructor.
      * @param CreateRepository $createRepository
+     * @param File $file
      *
      */
-    public function __construct(CreateRepository $createRepository) {
+    public function __construct(CreateRepository $createRepository, File $file) {
         $this->createRepository = $createRepository;
         $this->validator = new Validator();
+        $this->file = $file;
     }
 
     /**
@@ -41,7 +44,11 @@ final class Add extends Admin{
      */
     public function add(array $post) {
         $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
-        $data["bin"] = $this->getBin();
+        $to_insert = array();
+        $to_insert["bin"] = $this->getBin();
+        if(isset($data["bin"])) {
+            return $this->file->save($data["image"]);
+        }
         // $id = $this->createRepository->insert($data);
         // if($id == 0) {
         //     throw new DomainException("Error to add free place");

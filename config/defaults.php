@@ -19,8 +19,8 @@ $settings['public'] = $settings['root'] . '/public';
 $settings['template'] = $settings['root'] . '/templates';
 $settings['geoip'] = $settings['root'] . '/geoip';
 
-$settings['uploads_public_dir'] = 'uploads/impf/';
-$settings['uploads_dir'] = UPLOADS_DIR . '/impf/';
+$settings['uploads_public_dir'] = 'uploads/news/';
+$settings['uploads_dir'] = UPLOADS_DIR . '/news/';
 
 // Error handler
 $settings['error'] = [

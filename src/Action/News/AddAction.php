@@ -53,8 +53,8 @@ final class AddAction{
         $this->language->locale($args['lang']);
         $post = (array)$request->getParsedBody();
         $this->service->init($request->getAttribute(CenterAdminMiddleware::class));
-        $this->service->add($post);
+        $d = $this->service->add($post);
 
-        return $this->responder->success($response, $this->language->get("success")["News success added"]);
+        return $this->responder->success($response, $this->language->get("success")["News success added"], $d);
     }
 }
