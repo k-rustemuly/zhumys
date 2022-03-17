@@ -96,7 +96,7 @@ class Pki{
                 throw new DomainException("Only individual usage digital signature accessed");
             }
         }catch(ApiErrorException $e){
-            throw new DomainException("Wrong password or corrupted file");
+            throw new DomainException("Wrong password or corrupted file". $e->getMessage());
         }catch(CurlException $e){
             throw new DomainException("Server pki error");
         }catch(InvalidResponseException $e){
