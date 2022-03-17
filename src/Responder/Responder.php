@@ -141,14 +141,12 @@ final class Responder
      *
      * @return ResponseInterface The response
      */
-    public function excel(ResponseInterface $response, $spreadsheet = null): ResponseInterface {
+    public function excel(ResponseInterface $response, $spreadsheet = null, $fileName): ResponseInterface {
 
         $tempFile = tempnam(File::sysGetTempDir(), 'phpxltmp');
         $writer = new Xlsx($spreadsheet);
         $writer->save($tempFile);
         $stream = fopen($tempFile, 'r+');
-
-        $fileName = uniqid();
 
         $response = $response
             ->withHeader('Content-Type', 'application/vnd.ms-excel')

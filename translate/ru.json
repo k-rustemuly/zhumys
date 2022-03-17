@@ -197,5 +197,8 @@
         "Ranging success accepted": "Кандидат успешно принять!",
         "Position created successfully": "Запись успешно создано!",
         "Privelege created successfully" : "Запись успешно создано!"
+    },
+    "export": {
+        "Free-place": "Свободные места"
     }
 }
