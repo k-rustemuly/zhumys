@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 namespace App\Helper;
-use DomainException;
 
 class BaseExport{
 
@@ -41,16 +40,6 @@ class BaseExport{
             ],
         ]
     ];
-
-    public static $_instance = null;
-
-    public static function getInstance ()
-    {
-        if (self::$_instance === null) {
-            self::$_instance = new self;
-        }
-        return self::$_instance;
-    }
 
     /**
      * Parse data from db for excel export

@@ -9,18 +9,17 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 class Export extends BaseExport{
 
     /**
-     * Get temporary excel file for download
+     * Get Spreadsheet object for further export
      * 
-     * @param string $lang The interface language code
      * @param array<mixed> $params The get params
      *
-     * @return array<mixed> $post fileds The post fields
+     * @return obj Spreadsheet
      * 
      */
     public function getSpreadsheet(array $data): Spreadsheet{
 
-        $data['data'] = parent::getInstance()->parseDataForExport($data['data']);
-        $header = parent::getInstance()->getField($data, 'name');
+        $data['data'] = $this->parseDataForExport($data['data']);
+        $header = $this->getField($data, 'name');
 
         $i=1;
         foreach($data['data'] as $k=>$v){
@@ -35,10 +34,10 @@ class Export extends BaseExport{
         $sheet->setCellValue('A1', 'No');
         $sheet->fromArray([array_values($header['header'])], Null, 'B1');
         $sheet->getStyle('A1:' . (string)end($sheet->getCoordinates()))
-              ->applyFromArray(parent::getInstance()->headerStyleArray);
+              ->applyFromArray($this->headerStyleArray);
 
         $sheet->fromArray($data['data'], Null, 'A2');
-        $sheet->getStyle('A2:'.(string)end($sheet->getCoordinates()))->applyFromArray(parent::getInstance()->dataStyleArray);
+        $sheet->getStyle('A2:'.(string)end($sheet->getCoordinates()))->applyFromArray($this->dataStyleArray);
 
         return $spreadsheet;
     }
