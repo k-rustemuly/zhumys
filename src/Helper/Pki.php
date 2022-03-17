@@ -57,7 +57,7 @@ class Pki{
     public function getCertificateInfo(string $p12Base64, string $sPassword, bool $is_auth = true, bool $is_individual = true):array
     {
         try{
-            return $this->nca->nodeInfo();
+            
             $info = $this->nca->pkcs12Info($p12Base64, $sPassword, $this->bVerifyOcsp, $this->bVerifyCrl);
             if($info->isExpired()) throw new DomainException("The certificate has expired");
             if($_ENV["API_IS_DEBUG"] == "false" && !$info->isLegal()) throw new DomainException("The certificate is not legal");
@@ -97,6 +97,7 @@ class Pki{
                 throw new DomainException("Only individual usage digital signature accessed");
             }
         }catch(ApiErrorException $e){
+            print_r($e);
             throw new DomainException("Wrong password or corrupted file");
         }catch(CurlException $e){
             throw new DomainException("Server pki error");
