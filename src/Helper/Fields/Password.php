@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Helper\Fields;
 
-class Password{
+class Password {
 
     /**
      * @var array<mixed>

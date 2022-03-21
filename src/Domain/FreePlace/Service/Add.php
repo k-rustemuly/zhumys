@@ -10,7 +10,7 @@ use App\Helper\Validator;
 /**
  * Service.
  */
-final class Add extends Admin{
+final class Add extends Admin {
 
     /**
      * @var FreePlaceCreaterRepository

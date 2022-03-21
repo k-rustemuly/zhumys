@@ -15,7 +15,7 @@ use App\Domain\Center\Admin;
 /**
  * Service.
  */
-final class Read extends Admin{
+final class Read extends Admin {
 
     /**
      * @var ReadRepository
@@ -81,7 +81,7 @@ final class Read extends Admin{
      * 
      * @return array<mixed> parsed data
      */
-    private function parseData(array $data):array {
+    private function parseData(array $data) :array{
         foreach($data as $i => $v) {
             foreach($v as $key => $val) {
                 switch($key) {

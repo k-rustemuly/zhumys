@@ -8,11 +8,11 @@ use PDOException;
 /**
  * Repository.
  */
-final class RangingDeleterRepository{
+final class RangingDeleterRepository {
     /**
      * @var string
      */
-    public static $tableName = 'ranging';
+    public static $tableName = "ranging";
 
     /**
      * @var QueryFactory
@@ -24,7 +24,7 @@ final class RangingDeleterRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -37,11 +37,10 @@ final class RangingDeleterRepository{
      */
     public function deleteByFreePlaceId(int $free_place_id): int
     {
-        try
-        {
+        try {
             $statement = $this->queryFactory->newDelete(self::$tableName)->where(array("free_place_id" => $free_place_id))->execute();
             return $statement->count();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }

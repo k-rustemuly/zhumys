@@ -12,8 +12,7 @@ use App\Helper\Fields\Number;
 /**
  * Service.
  */
-final class Read
-{
+final class Read {
     /**
      * @var PrivelegeReadRepository
      */
@@ -29,8 +28,7 @@ final class Read
      *
      * @param PrivelegeReadRepository $repository The repository
      */
-    public function __construct(PrivelegeReadRepository $repository)
-    {
+    public function __construct(PrivelegeReadRepository $repository) {
         $this->repository = $repository;
         $this->render = new Render();
     }
@@ -44,8 +42,7 @@ final class Read
      * 
      * @return array<mixed> The result
      */
-    public function get(string $lang): array
-    {   
+    public function get(string $lang) :array{
         return $this->repository->getAllByLang($lang);
     }
     /**
@@ -53,7 +50,7 @@ final class Read
      * 
      * @return array<mixed> The result
      */
-    public function list(string $lang): array{
+    public function list(string $lang) :array{
         $list = $this->repository->getAll();
         return $this->render
                 ->lang($lang)

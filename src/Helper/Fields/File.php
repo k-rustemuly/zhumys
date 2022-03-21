@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\Helper\Fields;
 
-class File{
+class File {
 
     /**
      * @var array<mixed>

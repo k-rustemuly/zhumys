@@ -4,7 +4,7 @@ namespace App\Exception;
 use DomainException;
 use Throwable;
 
-class FieldException extends DomainException{
+class FieldException extends DomainException {
     /**
      * @var array<mixed>
      */

@@ -10,7 +10,7 @@ use App\Domain\Company\Admin;
 /**
  * Service.
  */
-final class Edit extends Admin{
+final class Edit extends Admin {
 
     /**
      * @var FreePlaceUpdaterRepository
@@ -27,7 +27,7 @@ final class Edit extends Admin{
      * @param FreePlaceUpdaterRepository $updateRepository
      *
      */
-    public function __construct(FreePlaceUpdaterRepository $updateRepository){
+    public function __construct(FreePlaceUpdaterRepository $updateRepository) {
         $this->updateRepository = $updateRepository;
         $this->validator = new Validator();
     }

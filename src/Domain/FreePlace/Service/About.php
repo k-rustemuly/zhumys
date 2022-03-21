@@ -18,7 +18,7 @@ use App\Domain\Ranging\Repository\RangingReaderRepository;
 /**
  * Service.
  */
-final class About extends Admin{
+final class About extends Admin {
 
     /**
      * @var FreePlaceReadRepository
@@ -72,7 +72,9 @@ final class About extends Admin{
      */
     public function get(int $id, string $lang) :array{
         $this->freePlaceInfo = $this->readRepository->findByBinAndIdAndLang($this->getBin(), $id, $lang);
-        if(empty($this->freePlaceInfo)) throw new DomainException("Free place not found");
+        if(empty($this->freePlaceInfo)) {
+            throw new DomainException("Free place not found");
+        } 
         $render = $this->render
                 ->lang($lang)
                 ->block("free_place_info", $this->getFreePlaceBlockValues())

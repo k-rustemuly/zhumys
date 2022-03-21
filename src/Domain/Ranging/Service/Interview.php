@@ -14,7 +14,7 @@ use App\Domain\Applicant\Repository\ApplicantUpdaterRepository;
 /**
  * Service.
  */
-final class Interview extends Admin{
+final class Interview extends Admin {
     /**
      * @var int
      */
@@ -139,7 +139,7 @@ final class Interview extends Admin{
         );
         $xml = ArrayToXml::convert($sign_arr);
         $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-        if(!empty($signed_result)){
+        if(!empty($signed_result)) {
             $log = array(
                 "ranging_id" => $rangingId,
                 "admin_id" => $this->getAdminId(),

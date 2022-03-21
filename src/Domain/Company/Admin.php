@@ -5,7 +5,7 @@ namespace App\Domain\Company;
 /**
  * Service.
  */
-class Admin{
+class Admin {
 
     /**
      * @var int
@@ -26,10 +26,10 @@ class Admin{
      * The init
      *
      */
-    public function init(array $data){
-        $this->id = $data['id'];
-        $this->bin = $data['org_bin'];
-        $this->iin = $data['iin'];
+    public function init(array $data) {
+        $this->id = $data["id"];
+        $this->bin = $data["org_bin"];
+        $this->iin = $data["iin"];
     }
 
     public function getAdminId() :int{

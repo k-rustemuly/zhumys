@@ -8,11 +8,11 @@ use PDOException;
 /**
  * Repository.
  */
-final class RangingLogCreatorRepository{
+final class RangingLogCreatorRepository {
     /**
      * @var string
      */
-    public static $tableName = 'ranging_logs';
+    public static $tableName = "ranging_logs";
 
     /**
      * @var QueryFactory
@@ -24,7 +24,7 @@ final class RangingLogCreatorRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -36,10 +36,9 @@ final class RangingLogCreatorRepository{
      * @return int The inserted ID
      */
     public function insert(array $row): int{
-        try
-        {
+        try {
             return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }

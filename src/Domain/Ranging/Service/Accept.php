@@ -18,7 +18,7 @@ use App\Domain\CompanyEmployee\Repository\CompanyEmployeeCreatorRepository;
 /**
  * Service.
  */
-final class Accept extends Admin{
+final class Accept extends Admin {
     /**
      * @var int
      */
@@ -126,7 +126,7 @@ final class Accept extends Admin{
         if($certInfo["iin"] != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");
         }
-        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBinAndLang($rangingId, $freePlaceId, $this->getBin());
+        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBin($rangingId, $freePlaceId, $this->getBin());
         if(empty($this->info)) {
             throw new DomainException("Ranging not found");
         }
@@ -167,7 +167,7 @@ final class Accept extends Admin{
         );
         $xml = ArrayToXml::convert($sign_arr);
         $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-        if(!empty($signed_result)){
+        if(!empty($signed_result)) {
             $log = array(
                 "ranging_id" => $rangingId,
                 "admin_id" => $this->getAdminId(),
@@ -236,7 +236,7 @@ final class Accept extends Admin{
             );
             $xml = ArrayToXml::convert($sign_arr);
             $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-            if(!empty($signed_result)){
+            if(!empty($signed_result)) {
                 $log = array(
                     "free_place_id" => $freePlaceId,
                     "admin_type_id" => 2,

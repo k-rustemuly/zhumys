@@ -7,12 +7,11 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class PrivelegeReadRepository
-{
+final class PrivelegeReadRepository {
     /**
      * @var string
      */
-    public static $tableName = 'rb_privileges';
+    public static $tableName = "rb_privileges";
 
     /**
      * @var QueryFactory
@@ -35,10 +34,10 @@ final class PrivelegeReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByLang(string $lang): array{
+    public function getAllByLang(string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["id", "name_".$lang." as name"]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -48,10 +47,10 @@ final class PrivelegeReadRepository
      *
      * @return array<mixed> The list view data
      */
-    public function findByIdAndLang(int $id, string $lang): array{
+    public function findByIdAndLang(int $id, string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select([ "name_".$lang." as name"])->where(["id" => $id]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -62,6 +61,6 @@ final class PrivelegeReadRepository
     public function getAll() :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->orderAsc("id");
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 }

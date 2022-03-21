@@ -10,11 +10,11 @@ use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Repository.
  */
-final class FreePlaceReadRepository{
+final class FreePlaceReadRepository {
     /**
      * @var string
      */
-    public static $tableName = 'free_places';
+    public static $tableName = "free_places";
 
     /**
      * @var QueryFactory
@@ -26,7 +26,7 @@ final class FreePlaceReadRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -40,7 +40,7 @@ final class FreePlaceReadRepository{
     public function getAllByBin(string $bin): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["bin" => $bin]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -52,16 +52,16 @@ final class FreePlaceReadRepository{
      * @return array<mixed> The list view data
      */
     public function getAllByBinAndLang(string $bin, string $lang): array{
-        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fp" => self::$tableName]);
         $query->select(["fp.*",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",])
-            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->innerJoin(["p" => PositionFinderRepository::$tableName], ["p.id = fp.position_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fp.status_id"])
             ->where(["fp.bin" => $bin, "fp.status_id !=" => 1])
-            ->order(['fp.created_at' => 'DESC']);
-        return $query->execute()->fetchAll('assoc') ?: [];
+            ->order(["fp.created_at" => "DESC"]);
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -75,13 +75,13 @@ final class FreePlaceReadRepository{
      * @return array<mixed> The list view data
      */
     public function companySearch(string $bin, string $lang, int $status_id = 0, int $position_id = 0): array{
-        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fp" => self::$tableName]);
         $query->select(["fp.*",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",])
-            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->innerJoin(["p" => PositionFinderRepository::$tableName], ["p.id = fp.position_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fp.status_id"])
             ->where(["fp.bin" => $bin]);
         if($status_id > 0) {
             $query->andWhere(["fp.status_id" => $status_id]);
@@ -89,8 +89,8 @@ final class FreePlaceReadRepository{
         if($position_id > 0) {
             $query->where(["fp.position_id" => $position_id]);
         }
-        $query->order(['fp.created_at' => 'DESC']);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        $query->order(["fp.created_at" => "DESC"]);
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -103,7 +103,7 @@ final class FreePlaceReadRepository{
     public function findById(int $id): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["id" => $id]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -117,7 +117,7 @@ final class FreePlaceReadRepository{
     public function findByBinAndId(string $bin, int $id): array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->where(["id" => $id, "bin" => $bin]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -130,15 +130,15 @@ final class FreePlaceReadRepository{
      * @return array<mixed> The list view data
      */
     public function findByBinAndIdAndLang(string $bin, int $id, string $lang): array{
-        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fp" => self::$tableName]);
         $query->select(["fp.*",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",])
-            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
+            ->innerJoin(["p" => PositionFinderRepository::$tableName], ["p.id = fp.position_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fp.status_id"])
             ->where(["fp.bin" => $bin, "fp.id" => $id]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -150,18 +150,18 @@ final class FreePlaceReadRepository{
      * @return array<mixed> The list view data
      */
     public function getAllByLang(string $lang): array{
-        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fp" => self::$tableName]);
         $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.created_at",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",])
-            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
-            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
+            ->innerJoin(["p" => PositionFinderRepository::$tableName], ["p.id = fp.position_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fp.status_id"])
+            ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = fp.bin"])
             ->where(["fp.status_id !=" => 1])
-            ->order(['fp.created_at' => 'DESC']);
-        return $query->execute()->fetchAll('assoc') ?: [];
+            ->order(["fp.created_at" => "DESC"]);
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -173,18 +173,18 @@ final class FreePlaceReadRepository{
      * @return array<mixed> The list view data
      */
     public function findByIdAndLang(int $id, string $lang): array{
-        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fp" => self::$tableName]);
         $query->select(["fp.id, fp.bin, fp.position_id, fp.count, fp.status_id, fp.comment, fp.created_at, fp.reason",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",])
-            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
-            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
+            ->innerJoin(["p" => PositionFinderRepository::$tableName], ["p.id = fp.position_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fp.status_id"])
+            ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = fp.bin"])
             ->where(["fp.status_id !=" => 1, "fp.id" => $id])
-            ->order(['fp.created_at' => 'DESC']);
-        return $query->execute()->fetch('assoc') ?: [];
+            ->order(["fp.created_at" => "DESC"]);
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -197,23 +197,22 @@ final class FreePlaceReadRepository{
      * @return array<mixed> The list view data
      */
     public function search(string $lang, int $status_id = 0, int $position_id = 0): array{
-        $query = $this->queryFactory->newSelect(['fp' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fp" => self::$tableName]);
         $query->select(["fp.id, fp.bin, fp.position_id, fp.count as free_place_count, fp.employed_count, fp.status_id, fp.created_at",
                         "c.name_".$lang." as company_name",
                         "p.name_".$lang." as position_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",])
-            ->innerJoin(['p' => PositionFinderRepository::$tableName], ['p.id = fp.position_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fp.status_id'])
-            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fp.bin'])
+            ->innerJoin(["p" => PositionFinderRepository::$tableName], ["p.id = fp.position_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fp.status_id"])
+            ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = fp.bin"])
             ->where(["fp.status_id !=" => 1]);
         
-        if($status_id > 0 ) $query->where(['fp.status_id' => $status_id]);
+        if($status_id > 0 ) $query->where(["fp.status_id" => $status_id]);
 
-        if($position_id > 0 ) $query->where(['fp.position_id' => $position_id]);
-        
-        $query->order(['fp.created_at' => 'DESC']);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        if($position_id > 0 ) $query->where(["fp.position_id" => $position_id]);
+        $query->order(["fp.created_at" => "DESC"]);
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
 }

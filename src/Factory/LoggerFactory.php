@@ -11,8 +11,7 @@ use Psr\Log\LoggerInterface;
 /**
  * Factory.
  */
-final class LoggerFactory
-{
+final class LoggerFactory {
     /**
      * @var string
      */
@@ -38,14 +37,13 @@ final class LoggerFactory
      *
      * @param array<mixed> $settings The settings
      */
-    public function __construct(array $settings)
-    {
-        $this->path = (string)$settings['path'];
-        $this->level = (int)$settings['level'];
+    public function __construct(array $settings) {
+        $this->path = (string)$settings["path"];
+        $this->level = (int)$settings["level"];
 
         // This can be used for testing to make the Factory testable
-        if (isset($settings['test'])) {
-            $this->testLogger = $settings['test'];
+        if (isset($settings["test"])) {
+            $this->testLogger = $settings["test"];
         }
     }
 
@@ -56,8 +54,7 @@ final class LoggerFactory
      *
      * @return LoggerInterface The logger
      */
-    public function createLogger(string $name = null): LoggerInterface
-    {
+    public function createLogger(string $name = null): LoggerInterface{
         if ($this->testLogger) {
             return $this->testLogger;
         }
@@ -81,12 +78,11 @@ final class LoggerFactory
      *
      * @return self The logger factory
      */
-    public function addFileHandler(string $filename, int $level = null): self
-    {
-        $filename = sprintf('%s/%s', $this->path, $filename);
+    public function addFileHandler(string $filename, int $level = null): self{
+        $filename = sprintf("%s/%s", $this->path, $filename);
         $rotatingFileHandler = new RotatingFileHandler($filename, 0, $level ?? $this->level, true, 0777);
 
-        // The last "true" here tells monolog to remove empty []'s
+        // The last "true" here tells monolog to remove empty []"s
         $rotatingFileHandler->setFormatter(new LineFormatter(null, null, false, true));
 
         $this->handler[] = $rotatingFileHandler;
@@ -101,9 +97,8 @@ final class LoggerFactory
      *
      * @return self The logger factory
      */
-    public function addConsoleHandler(int $level = null): self
-    {
-        $streamHandler = new StreamHandler('php://stdout', $level ?? $this->level);
+    public function addConsoleHandler(int $level = null): self{
+        $streamHandler = new StreamHandler("php://stdout", $level ?? $this->level);
         $streamHandler->setFormatter(new LineFormatter(null, null, false, true));
 
         $this->handler[] = $streamHandler;

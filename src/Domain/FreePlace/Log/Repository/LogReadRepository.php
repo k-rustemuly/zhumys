@@ -9,11 +9,11 @@ use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Repository.
  */
-final class LogReadRepository{
+final class LogReadRepository {
     /**
      * @var string
      */
-    public static $tableName = 'free_place_logs';
+    public static $tableName = "free_place_logs";
 
     /**
      * @var QueryFactory
@@ -25,7 +25,7 @@ final class LogReadRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -38,19 +38,19 @@ final class LogReadRepository{
      * @return array<mixed> The list view data
      */
     public function getAllByIdAndLang(int $id, string $lang): array{
-        $query = $this->queryFactory->newSelect(['fpl' => self::$tableName]);
+        $query = $this->queryFactory->newSelect(["fpl" => self::$tableName]);
         $query->select(["fpl.*",
                         "a.name_".$lang." as admin_type_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color",
                         "c.name_".$lang." as company_name"])
-            ->innerJoin(['a' => AdminsFinderRepository::$tableName], ['a.id = fpl.admin_type_id'])
-            ->innerJoin(['s' => PlaceStatusFinderRepository::$tableName], ['s.id = fpl.status_id'])
-            ->innerJoin(['c' => CompanyReadRepository::$tableName], ['c.bin = fpl.company_bin'])
+            ->innerJoin(["a" => AdminsFinderRepository::$tableName], ["a.id = fpl.admin_type_id"])
+            ->innerJoin(["s" => PlaceStatusFinderRepository::$tableName], ["s.id = fpl.status_id"])
+            ->innerJoin(["c" => CompanyReadRepository::$tableName], ["c.bin = fpl.company_bin"])
             ->where(["fpl.free_place_id" => $id])
             
-            ->order(['fpl.created_at' => 'ASC']);
-        return $query->execute()->fetchAll('assoc') ?: [];
+            ->order(["fpl.created_at" => "ASC"]);
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
 }

@@ -9,7 +9,7 @@ use App\Domain\Company\Admin;
 /**
  * Service.
  */
-final class Delete extends Admin{
+final class Delete extends Admin {
 
     /**
      * @var FreePlaceDeleterRepository
@@ -21,7 +21,7 @@ final class Delete extends Admin{
      * @param FreePlaceDeleterRepository $deleteRepository
      *
      */
-    public function __construct(FreePlaceDeleterRepository $deleteRepository){
+    public function __construct(FreePlaceDeleterRepository $deleteRepository) {
         $this->deleteRepository = $deleteRepository;
     }
 

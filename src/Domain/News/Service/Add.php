@@ -11,7 +11,7 @@ use App\Helper\File;
 /**
  * Service.
  */
-final class Add extends Admin{
+final class Add extends Admin {
 
     /**
      * @var CreateRepository

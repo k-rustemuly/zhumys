@@ -16,7 +16,7 @@ use App\Domain\FreePlace\Log\Repository\LogCreatorRepository;
 /**
  * Service.
  */
-final class Reject extends Admin{
+final class Reject extends Admin {
     /**
      * @var int
      */
@@ -108,7 +108,7 @@ final class Reject extends Admin{
         if($certInfo["iin"] != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");
         }
-        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBinAndLang($rangingId, $freePlaceId, $this->getBin());
+        $this->info = $this->rangingReadRepository->findByIdAndFreePlaceIdAndBin($rangingId, $freePlaceId, $this->getBin());
         if(empty($this->info)) {
             throw new DomainException("Ranging not found");
         }
@@ -211,7 +211,7 @@ final class Reject extends Admin{
             );
             $xml = ArrayToXml::convert($sign_arr);
             $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-            if(!empty($signed_result)){
+            if(!empty($signed_result)) {
                 $log = array(
                     "free_place_id" => $freePlaceId,
                     "admin_type_id" => 2,

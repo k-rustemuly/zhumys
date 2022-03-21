@@ -104,7 +104,7 @@ final class Create extends Admin {
             );
             $xml = ArrayToXml::convert($sign_arr);
             $signed_result = $this->pki->sign($xml, $sign_p12, $password);
-            if(!empty($signed_result)){
+            if(!empty($signed_result)) {
                 $log = array(
                     "admin_id" => $this->getAdminId(),
                     "admin_full_name" => $certInfo["full_name"],

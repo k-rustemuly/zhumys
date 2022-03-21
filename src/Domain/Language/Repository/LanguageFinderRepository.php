@@ -7,12 +7,11 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class LanguageFinderRepository
-{
+final class LanguageFinderRepository {
     /**
      * @var string
      */
-    public static $tableName = 'rb_language';
+    public static $tableName = "rb_language";
 
     /**
      * @var QueryFactory
@@ -24,8 +23,7 @@ final class LanguageFinderRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
     /**
@@ -35,10 +33,9 @@ final class LanguageFinderRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByLang(string $lang): array
-    {
+    public function getAllByLang(string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["id", "name_".$lang." as name"]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 }

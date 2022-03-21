@@ -7,12 +7,11 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class PositionFinderRepository
-{
+final class PositionFinderRepository {
     /**
      * @var string
      */
-    public static $tableName = 'rb_positions';
+    public static $tableName = "rb_positions";
 
     /**
      * @var QueryFactory
@@ -24,8 +23,7 @@ final class PositionFinderRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -36,11 +34,10 @@ final class PositionFinderRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByLang(string $lang): array
-    {
+    public function getAllByLang(string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["id", "name_".$lang." as name"]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -50,11 +47,10 @@ final class PositionFinderRepository
      *
      * @return array<mixed> The list view data
      */
-    public function findByIdAndLang(int $id, string $lang): array
-    {
+    public function findByIdAndLang(int $id, string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select([ "name_".$lang." as name"])->where(["id" => $id]);
-        return $query->execute()->fetch('assoc') ?: [];
+        return $query->execute()->fetch("assoc") ?: [];
     }
 
     /**
@@ -65,11 +61,10 @@ final class PositionFinderRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByIdsAndLang(array $ids, string $lang): array
-    {
+    public function getAllByIdsAndLang(array $ids, string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["id", "name_".$lang." as name"])->whereInList("id", $ids);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 
     /**
@@ -77,10 +72,9 @@ final class PositionFinderRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAll(): array
-    {
+    public function getAll() :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["*"])->orderAsc("id");
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 }

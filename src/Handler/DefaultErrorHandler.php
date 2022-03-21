@@ -21,8 +21,7 @@ use App\Exception\FieldException;
 /**
  * Default Error Renderer.
  */
-final class DefaultErrorHandler
-{
+final class DefaultErrorHandler {
     /**
      * @var Responder
      */
@@ -48,7 +47,7 @@ final class DefaultErrorHandler
     public function __construct(Responder $responder, ResponseFactoryInterface $responseFactory, LoggerFactory $loggerFactory) {
         $this->responder = $responder;
         $this->responseFactory = $responseFactory;
-        $this->logger = $loggerFactory->addFileHandler('error.log')->createLogger();
+        $this->logger = $loggerFactory->addFileHandler("error.log")->createLogger();
         $this->language = new Language();
     }
 
@@ -70,7 +69,7 @@ final class DefaultErrorHandler
         if ($logErrors) {
             $this->logger->error(
                 sprintf(
-                    'Error: [%s] %s, Method: %s, Path: %s',
+                    "Error: [%s] %s, Method: %s, Path: %s",
                     $exception->getCode(),
                     implode(" ",$this->getExceptionText($exception)),
                     $request->getMethod(),
@@ -103,8 +102,7 @@ final class DefaultErrorHandler
      *
      * @return int The http code
      */
-    private function getHttpStatusCode(Throwable $exception): int
-    {
+    private function getHttpStatusCode(Throwable $exception): int{
         // Detect status code
         $statusCode = StatusCodeInterface::STATUS_INTERNAL_SERVER_ERROR;
 
@@ -118,7 +116,7 @@ final class DefaultErrorHandler
         }
 
         $file = basename($exception->getFile());
-        if ($file === 'CallableResolver.php') {
+        if ($file === "CallableResolver.php") {
             $statusCode = StatusCodeInterface::STATUS_NOT_FOUND;
         }
 
@@ -134,10 +132,9 @@ final class DefaultErrorHandler
      *
      * @return array The message
      */
-    private function getErrorMessage(Throwable $exception, int $statusCode, bool $displayErrorDetails): array
-    {
+    private function getErrorMessage(Throwable $exception, int $statusCode, bool $displayErrorDetails): array{
         $reasonPhrase = $this->responseFactory->createResponse()->withStatus($statusCode)->getReasonPhrase();
-        $errorMessage[] = sprintf('%s %s', $statusCode, $reasonPhrase);
+        $errorMessage[] = sprintf("%s %s", $statusCode, $reasonPhrase);
         $detail = array();
         if ($displayErrorDetails === true) {
             $detail = $this->getExceptionText($exception);
@@ -153,14 +150,13 @@ final class DefaultErrorHandler
      *
      * @return array The full error message
      */
-    private function getExceptionText(Throwable $exception, int $maxLength = 0): array
-    {
+    private function getExceptionText(Throwable $exception, int $maxLength = 0): array{
         $code = $exception->getCode();
         $file = $exception->getFile();
         $line = $exception->getLine();
         $message = $exception->getMessage();
         $trace = $exception->getTrace();
-        $error[] = sprintf('[%s] %s in %s on line %s.', $code, $message, $file, $line);
+        $error[] = sprintf("[%s] %s in %s on line %s.", $code, $message, $file, $line);
         return array_merge($error, $trace);
     }
 }

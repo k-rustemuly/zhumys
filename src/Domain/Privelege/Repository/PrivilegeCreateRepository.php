@@ -8,11 +8,11 @@ use PDOException;
 /**
  * Repository.
  */
-final class PrivilegeCreateRepository{
+final class PrivilegeCreateRepository {
     /**
      * @var string
      */
-    public static $tableName = 'rb_privileges';
+    public static $tableName = "rb_privileges";
 
     /**
      * @var QueryFactory
@@ -24,7 +24,7 @@ final class PrivilegeCreateRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -36,10 +36,9 @@ final class PrivilegeCreateRepository{
      * @return int The inserted ID
      */
     public function insert(array $row): int{
-        try
-        {
+        try {
             return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }

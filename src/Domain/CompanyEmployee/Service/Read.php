@@ -5,13 +5,10 @@ namespace App\Domain\CompanyEmployee\Service;
 use App\Domain\CompanyEmployee\Repository\CompanyEmployeeReadRepository as ReadRepository;
 use App\Helper\Field;
 use App\Helper\Render;
-use App\Helper\Fields\Number;
 use App\Helper\Fields\Text;
 use App\Helper\Fields\Date;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Reference;
-use App\Helper\Fields\Textarea;
-use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
 use App\Helper\Fields\DateTime;
 use App\Domain\Position\Repository\PositionFinderRepository;
@@ -20,7 +17,7 @@ use App\Domain\Company\Admin;
 /**
  * Service.
  */
-final class Read extends Admin{
+final class Read extends Admin {
 
     /**
      * @var ReadRepository

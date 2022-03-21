@@ -12,7 +12,7 @@ final class RangingCreatorRepository {
     /**
      * @var string
      */
-    public static $tableName = 'ranging';
+    public static $tableName = "ranging";
 
     /**
      * @var QueryFactory The query factory
@@ -36,10 +36,9 @@ final class RangingCreatorRepository {
      * @return int The new ID
      */
     public function insert(array $row): int{
-        try
-        {
+        try {
             return (int) $this->queryFactory->newInsert(self::$tableName, $row)->execute()->lastInsertId();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }

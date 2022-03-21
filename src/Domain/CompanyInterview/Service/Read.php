@@ -9,7 +9,6 @@ use App\Helper\Fields\Text;
 use App\Helper\Fields\Date;
 use App\Helper\Fields\PhoneNumber;
 use App\Helper\Fields\Reference;
-use App\Helper\Fields\Tag;
 use App\Helper\Fields\Time;
 use App\Domain\Position\Repository\PositionFinderRepository;
 use App\Domain\Company\Admin;
@@ -17,7 +16,7 @@ use App\Domain\Company\Admin;
 /**
  * Service.
  */
-final class Read extends Admin{
+final class Read extends Admin {
 
     /**
      * @var ReadRepository

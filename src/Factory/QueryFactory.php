@@ -10,8 +10,7 @@ use UnexpectedValueException;
 /**
  * Factory.
  */
-final class QueryFactory
-{
+final class QueryFactory {
     /**
      * @var Connection
      */
@@ -22,8 +21,7 @@ final class QueryFactory
      *
      * @param Connection $connection The database connection
      */
-    public function __construct(Connection $connection)
-    {
+    public function __construct(Connection $connection) {
         $this->connection = $connection;
     }
 
@@ -32,13 +30,12 @@ final class QueryFactory
      *
      * @return Query The query
      */
-    public function newQuery(): Query
-    {
+    public function newQuery(): Query{
         return $this->connection->newQuery();
     }
 
     /**
-     * Create a new 'select' query for the given table.
+     * Create a new "select" query for the given table.
      *
      * @param mixed $table The table name
      *
@@ -46,54 +43,50 @@ final class QueryFactory
      *
      * @return Query A new select query
      */
-    public function newSelect($table): Query
-    {
+    public function newSelect($table): Query{
         $query = $this->newQuery()->from($table);
 
         if (!$query instanceof Query) {
-            throw new UnexpectedValueException('Failed to create query');
+            throw new UnexpectedValueException("Failed to create query");
         }
 
         return $query;
     }
 
     /**
-     * Create an 'update' statement for the given table.
+     * Create an "update" statement for the given table.
      *
      * @param string $table The table to update rows from
      * @param array<mixed> $data The values to be updated
      *
      * @return Query The new update query
      */
-    public function newUpdate(string $table, array $data): Query
-    {
+    public function newUpdate(string $table, array $data): Query{
         return $this->newQuery()->update($table)->set($data);
     }
 
     /**
-     * Create an 'update' statement for the given table.
+     * Create an "update" statement for the given table.
      *
      * @param string $table The table to update rows from
      * @param array<mixed> $data The values to be updated
      *
      * @return Query The new insert query
      */
-    public function newInsert(string $table, array $data): Query
-    {
+    public function newInsert(string $table, array $data): Query{
         return $this->newQuery()->insert(array_keys($data))
             ->into($table)
             ->values($data);
     }
 
     /**
-     * Create a 'delete' query for the given table.
+     * Create a "delete" query for the given table.
      *
      * @param string $table The table to delete from
      *
      * @return Query A new delete query
      */
-    public function newDelete(string $table): Query
-    {
+    public function newDelete(string $table): Query{
         return $this->newQuery()->delete($table);
     }
 }

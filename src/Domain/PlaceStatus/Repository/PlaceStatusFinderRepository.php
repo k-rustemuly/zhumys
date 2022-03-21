@@ -7,12 +7,11 @@ use App\Factory\QueryFactory;
 /**
  * Repository.
  */
-final class PlaceStatusFinderRepository
-{
+final class PlaceStatusFinderRepository {
     /**
      * @var string
      */
-    public static $tableName = 'rb_place_statuses';
+    public static $tableName = "rb_place_statuses";
 
     /**
      * @var QueryFactory
@@ -24,8 +23,7 @@ final class PlaceStatusFinderRepository
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory)
-    {
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
     /**
@@ -35,10 +33,9 @@ final class PlaceStatusFinderRepository
      *
      * @return array<mixed> The list view data
      */
-    public function getAllByLang(string $lang): array
-    {
+    public function getAllByLang(string $lang) :array{
         $query = $this->queryFactory->newSelect(self::$tableName);
         $query->select(["id", "name_".$lang." as name", "color"]);
-        return $query->execute()->fetchAll('assoc') ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 }

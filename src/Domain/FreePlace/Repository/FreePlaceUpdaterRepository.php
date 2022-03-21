@@ -8,11 +8,11 @@ use PDOException;
 /**
  * Repository.
  */
-final class FreePlaceUpdaterRepository{
+final class FreePlaceUpdaterRepository {
     /**
      * @var string
      */
-    public static $tableName = 'free_places';
+    public static $tableName = "free_places";
 
     /**
      * @var QueryFactory
@@ -24,7 +24,7 @@ final class FreePlaceUpdaterRepository{
      *
      * @param QueryFactory $queryFactory The query factory
      */
-    public function __construct(QueryFactory $queryFactory){
+    public function __construct(QueryFactory $queryFactory) {
         $this->queryFactory = $queryFactory;
     }
 
@@ -38,10 +38,9 @@ final class FreePlaceUpdaterRepository{
      * @return void
      */
     public function updateByBinAndId(string $bin, int $id, array $data): int{
-        try
-        {
+        try {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("id" => $id, "bin" => $bin))->execute()->rowCount();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }
@@ -55,10 +54,9 @@ final class FreePlaceUpdaterRepository{
      * @return void
      */
     public function updateById(int $id, array $data): int{
-        try
-        {
+        try {
             return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("id" => $id))->execute()->rowCount();
-        }catch(PDOException $e){
+        } catch(PDOException $e) {
             return 0;
         }
     }

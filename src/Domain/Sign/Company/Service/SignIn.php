@@ -13,7 +13,7 @@ use App\Domain\Company\Repository\CompanyReadRepository;
 /**
  * Service.
  */
-final class SignIn{
+final class SignIn {
 
     /**
      * @var AdminReadRepository
@@ -96,12 +96,14 @@ final class SignIn{
         if(!$adminInfo["last_visit"]) {
             $update = array();
             $update["full_name"] = mb_convert_case($certInfo["surname"], MB_CASE_TITLE, "UTF-8")." ".mb_convert_case($certInfo["name"], MB_CASE_TITLE, "UTF-8")." ".mb_convert_case($certInfo["lastname"], MB_CASE_TITLE, "UTF-8");
-            if(strlen($certInfo["email"])>2)
+            if(strlen($certInfo["email"])>2) {
                 $update["email"] = strtolower($certInfo["email"]);
+            }
             $birthdate = $certInfo["birthdate"];
             list($y,$m,$d) = explode("-", $birthdate);
-            if(checkdate((int)$m, (int)$d, (int)$y))
+            if(checkdate((int)$m, (int)$d, (int)$y)) {
                 $update["birthdate"] = $certInfo["birthdate"];
+            }
 
             $update["last_visit"] = date("Y-m-d H:i:s");
             $this->updateRepository->updateByBinAndIin($bin, $iin, $update);
@@ -185,10 +187,8 @@ final class SignIn{
      */
     private function generateRefreshToken(int $length = 36, int $attempt = 1) :string{
         $randomStr = $this->base64url_encode(substr(hash("sha512", mt_rand()), 0, $length));
-        if($this->redis->exists($randomStr))
-        {
-            if($attempt > 10)
-            {
+        if($this->redis->exists($randomStr)) {
+            if($attempt > 10) {
                 $attempt = 1;
                 $length++;
             }

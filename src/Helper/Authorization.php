@@ -6,11 +6,11 @@ use Psr\Http\Message\ServerRequestInterface;
 use \Firebase\JWT\JWT;
 use Firebase\JWT\ExpiredException;
 use Firebase\JWT\SignatureInvalidException;
-use Firebase\JWT\InvalidArgumentException;
-use DomainException;
+use InvalidArgumentException;
+use UnexpectedValueException;
 use Slim\Exception\HttpUnauthorizedException;
 
-class Authorization{
+class Authorization {
     
     /**
      *
@@ -25,26 +25,26 @@ class Authorization{
      * @throws HttpUnauthorizedException
      *
      */
-    public function init(ServerRequestInterface $request)
-    {
-		$contentTypeHeaders = $request->getHeader('X-Authorization');
-        if(isset($contentTypeHeaders[0])){
+    public function init(ServerRequestInterface $request) {
+		$contentTypeHeaders = $request->getHeader("X-Authorization");
+        if(isset($contentTypeHeaders[0])) {
             $jwt = $contentTypeHeaders[0];
-            try{
-                JWT::$leeway = intval($_ENV['JWT_LIVE_SEC']); 
-                $decoded = JWT::decode($jwt, $_ENV['JWT_KEY'], array('HS256'));
+            try {
+                JWT::$leeway = intval($_ENV["JWT_LIVE_SEC"]); 
+                $decoded = JWT::decode($jwt, $_ENV["JWT_KEY"], array("HS256"));
                 $this->payload = (array) $decoded;
                 return $this->payload;
-            }catch(ExpiredException $e){
+            } catch(ExpiredException $e) {
                 throw new HttpUnauthorizedException($request, "Unauthorized");
-            }catch(SignatureInvalidException $e){
+            } catch(SignatureInvalidException $e) {
                 throw new HttpUnauthorizedException($request, "Unauthorized");
-            }catch(UnexpectedValueException $e){
+            } catch(UnexpectedValueException $e) {
                 throw new HttpUnauthorizedException($request, "Unauthorized");
-            }catch(InvalidArgumentException $e){
+            } catch(InvalidArgumentException $e) {
                 throw new HttpUnauthorizedException($request, "Unauthorized");
             }
-        }else
-        throw new HttpUnauthorizedException($request, "Authorization key is not defined");
+        } else {
+            throw new HttpUnauthorizedException($request, "Authorization key is not defined");
+        }
     }
 }

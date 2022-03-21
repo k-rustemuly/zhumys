@@ -4,16 +4,15 @@ namespace App\Domain\CompanyEmployee\Repository;
 
 use App\Factory\QueryFactory;
 use App\Domain\Privelege\Repository\PrivelegeReadRepository;
-use App\Domain\ApplicantStatus\Repository\ApplicantStatusFinderRepository;
 
 /**
  * Repository.
  */
-final class CompanyEmployeeReadRepository{
+final class CompanyEmployeeReadRepository {
     /**
      * @var string
      */
-    public static $tableName = 'company_employees';
+    public static $tableName = "company_employees";
 
     /**
      * @var QueryFactory

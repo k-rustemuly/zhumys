@@ -12,7 +12,7 @@ use Firebase\JWT\JWT;
 /**
  * Service.
  */
-final class SignIn{
+final class SignIn {
 
     /**
      * @var CenterAdminsReadRepository
@@ -45,7 +45,7 @@ final class SignIn{
     public function __construct(
         CenterAdminsReadRepository $readRepository,
         CenterAdminsUpdaterRepository $updateRepository,
-        ClientInterface $redis, Pki $pki){
+        ClientInterface $redis, Pki $pki) {
         $this->redis = $redis;
         $this->pki = $pki;
         $this->readRepository = $readRepository;
@@ -68,18 +68,25 @@ final class SignIn{
         $iin = (string)$certInfo["iin"];
 
         $adminInfo = $this->readRepository->findByIinAndLang($iin, $lang);
-        if(empty($adminInfo)) throw new DomainException("Center admin not found on database");
-        if(!$adminInfo["is_active"]) throw new DomainException("Center admin is inactive");
+        if(empty($adminInfo)) {
+            throw new DomainException("Center admin not found on database");
+        }
+        if(!$adminInfo["is_active"]) {
+            throw new DomainException("Center admin is inactive");
+        } 
 
-        if(!$adminInfo["updated_at"]){
+        if(!$adminInfo["updated_at"]) {
             $update = array();
             $update["full_name"] = $certInfo["full_name"];
-            if(strlen($certInfo["email"])>2)
+            if(strlen($certInfo["email"])>2) {
                 $update["email"] = strtolower($certInfo["email"]);
+            }
             $birthdate = $certInfo["birthdate"];
             list($y,$m,$d) = explode("-", $birthdate);
-            if(checkdate((int)$m, (int)$d, (int)$y))
+            if(checkdate((int)$m, (int)$d, (int)$y)) {
                 $update["birthdate"] = $certInfo["birthdate"];
+            }
+                
             $this->updateRepository->updateByIin($iin, $update);
         }
 
@@ -139,8 +146,8 @@ final class SignIn{
      *
      * @return string The jti
      */
-    private function generateJti($length = 32){
-        if(!isset($length) || intval($length) <= 8 ){
+    private function generateJti($length = 32) {
+        if(!isset($length) || intval($length) <= 8 ) {
             $length = 32;
         }
         if (function_exists("random_bytes")) {
@@ -161,10 +168,8 @@ final class SignIn{
      */
     private function generateRefreshToken(int $length = 36, int $attempt = 1) :string{
         $randomStr = $this->base64url_encode(substr(hash("sha512", mt_rand()), 0, $length));
-        if($this->redis->exists($randomStr))
-        {
-            if($attempt > 10)
-            {
+        if($this->redis->exists($randomStr)) {
+            if($attempt > 10) {
                 $attempt = 1;
                 $length++;
             }
