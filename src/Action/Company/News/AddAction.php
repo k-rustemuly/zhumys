@@ -52,8 +52,8 @@ final class AddAction {
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
         $data = (array)$request->getParsedBody();
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
-        $this->service->add($data);
-        $d = $this->language->locale($args["lang"]);
+        $d = $this->service->add($data);
+        $this->language->locale($args["lang"]);
         return $this->responder->success($response, $this->language->get("success")["News success added"], $d);
     }
 }
