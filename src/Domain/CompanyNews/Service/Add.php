@@ -2,10 +2,12 @@
 
 namespace App\Domain\CompanyNews\Service;
 
-use App\Domain\CompanyNews\Repository\NewsFinderRepository as ReadRepository;
 use App\Domain\Company\Admin;
 use App\Helper\Language;
 use App\Helper\File;
+use DomainException;
+use App\Helper\Validator;
+use App\Domain\News\Repository\NewsCreaterRepository as CreateRepository;
 
 /**
  * Service.
@@ -13,25 +15,32 @@ use App\Helper\File;
 final class Add extends Admin {
 
     /**
-     * @var ReadRepository
+     * @var CreateRepository
      */
-    private $readRepository;
+    private $createRepository;
 
     /**
      * @var File
      */
     private $file;
 
+    /**
+     * @var Validator
+     */
+    private $validator;
+
 
     /**
      * The constructor.
-     * @param ReadRepository $readRepository
+     * @param CreateRepository $createRepository
+     * @param File $file
      *
      */
-    public function __construct(ReadRepository $readRepository, File $file) {
-        $this->readRepository = $readRepository;
+    public function __construct(CreateRepository $createRepository, File $file) {
+        $this->createRepository = $createRepository;
         $this->language = new Language();
         $this->file = $file;
+        $this->validator = new Validator();
     }
 
     /**
@@ -42,14 +51,20 @@ final class Add extends Admin {
      * 
      */
     public function add(array $post = array()){
-        //$data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
-        $data = $post;
-        //return $data;
+        $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
         $to_insert = array();
         $to_insert["bin"] = $this->getBin();
         if(isset($data["image"])) {
-            return $this->file->save($data["image"]);
+            $image = $this->file->save($data["image"]);
+            if(!$image) throw new DomainException("File not saved");
+            $to_insert["image"] = "/".$image["dir"];
         }
+        $to_insert["is_public"] = (bool) $data["is_public"];
+        $to_insert["lang"] = $data["lang"];
+        $to_insert["title"] = trim($data["title"]);
+        $to_insert["anons"] = trim($data["anons"]);
+        $to_insert["body"] = trim($data["body"]);
+        $this->createRepository->insert($to_insert);
     }
 
 }

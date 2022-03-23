@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\Helper;
 use Exception;
-use DomainException;
 
 /**
  * Class File
@@ -45,15 +44,13 @@ class File{
         $file = uniqid() .'.'. $extension;
         $array["name"] = $file;
         $file_dir = $dir . $file;
-        $array["file_dir"] = $file_dir;
         $array["dir"] = $public_dir. $file;
         try {
             if(!file_exists($public_dir)){
                 mkdir($public_dir, 0777,true);
             }
-            return !file_put_contents($file_dir, $decoded_file) ? $array : $array;
+            return !file_put_contents($file_dir, $decoded_file) ? false : $array;
         } catch (Exception $e) {
-            throw new DomainException($e->getMessage());
             return false;
         }
     }

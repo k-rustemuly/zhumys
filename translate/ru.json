@@ -192,7 +192,9 @@
         "Error to add interview": "Ошибка при назначении собеседование!",
         "Error to add free place log": "Ошибка при создание лога действия!",
         "Ranging status must be on interview": "Статус кандидата должен быть \"Проходить собеседование\"!",
-        "Reference not added": "Ошибка при добавлении!"    },
+        "Reference not added": "Ошибка при добавлении!",
+        "File not saved" : "Файл не сохранен!"
+    },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
         "Company info updated": "Данные успешно обновлены!",
