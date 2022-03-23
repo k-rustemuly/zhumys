@@ -215,6 +215,8 @@ return function (App $app) {
 
                         $app->get('', \App\Action\Company\News\ReadAction::class);
 
+                        $app->post('', \App\Action\Company\News\AddAction::class);
+
                     });
 
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);

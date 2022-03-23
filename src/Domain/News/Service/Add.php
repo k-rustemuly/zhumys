@@ -47,7 +47,7 @@ final class Add extends Admin {
         //return $data;
         $to_insert = array();
         $to_insert["bin"] = $this->getBin();
-        if(isset($data["bin"])) {
+        if(isset($data["image"])) {
             return $this->file->save($data["image"]);
         }
         // $id = $this->createRepository->insert($data);
