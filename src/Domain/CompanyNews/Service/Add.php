@@ -35,7 +35,8 @@ final class Add extends Admin {
      * 
      */
     public function add(array $post = array()){
-        $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
+        //$data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
+        $data = $post;
         //return $data;
         $to_insert = array();
         $to_insert["bin"] = $this->getBin();
