@@ -211,6 +211,12 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/news', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Company\News\ReadAction::class);
+
+                    });
+
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 
             });
