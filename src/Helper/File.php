@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Helper;
 use Exception;
+use DomainException;
 
 /**
  * Class File
@@ -51,6 +52,7 @@ class File{
             }
             return !file_put_contents($file_dir, $decoded_file) ? false : $array;
         } catch (Exception $e) {
+            throw new DomainException($e->getMessage());
             return false;
         }
     }
