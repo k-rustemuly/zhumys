@@ -216,6 +216,8 @@
         "Ranging success accepted": "Кандидат успешно принять!",
         "Position created successfully": "Запись успешно создано!",
         "Privelege created successfully" : "Запись успешно создано!",
-        "News success added": "Новость успешно создано"
+        "News success added": "Новость успешно создано",
+        "News updated successfully" : "Запись успешно обновлена!",
+        "Company info updated successfully" : "Запись успешно обновлена!"
     }
 }

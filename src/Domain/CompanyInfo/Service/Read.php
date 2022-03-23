@@ -34,20 +34,19 @@ final class Read extends Admin {
     }
 
     /**
-     * Get list
+     * Get info
      * 
      * @param string $lang The interface language code
      *
      * @return array<mixed> $post fileds The post fields
      * 
      */
-    public function list(string $lang) :array{
-        
-        $list = $this->readRepository->getByBin($this->getBin());
+    public function info(string $lang) :array{
+        $info = $this->readRepository->getByBin($this->getBin());
 
         return $this->render
                 ->lang($lang)
-                ->block("company_profile_info", $this->getHeader($list))
+                ->block("company_profile_info", $this->getHeader($info))
                 ->build();
     }
 

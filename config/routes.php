@@ -217,11 +217,15 @@ return function (App $app) {
 
                         $app->post('', \App\Action\Company\News\AddAction::class);
 
+                        $app->patch('/{news_id:[0-9]+}', \App\Action\Company\News\UpdateAction::class);
+
                     });
 
                     $app->group('/info', function (RouteCollectorProxy $app) {
 
                         $app->get('', \App\Action\Company\Info\ReadAction::class);
+
+                        $app->patch('/', \App\Action\Company\Info\UpdateAction::class);
 
                     });
 

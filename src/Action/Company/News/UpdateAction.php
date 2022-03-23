@@ -1,17 +1,18 @@
 <?php
 
-namespace App\Action\Company\Info;
+namespace App\Action\Company\News;
 
 use App\Responder\Responder;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use App\Domain\CompanyInfo\Service\Read as Service;
+use App\Domain\CompanyNews\Service\Update as Service;
 use App\Middleware\CompanyAdminMiddleware;
+use App\Helper\Language;
 
 /**
  * Action.
  */
-final class ReadAction {
+final class UpdateAction {
 
     /**
      * @var Service
@@ -24,6 +25,11 @@ final class ReadAction {
     private $responder;
 
     /**
+     * @var Language
+     */
+    private $language;
+
+    /**
      * The constructor.
      *
      * @param Service $service The service
@@ -32,6 +38,7 @@ final class ReadAction {
     public function __construct(Service $service, Responder $responder) {
         $this->service = $service;
         $this->responder = $responder;
+        $this->language = new Language();
     }
 
     /**
@@ -44,8 +51,9 @@ final class ReadAction {
      * @return ResponseInterface The response
      */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, $args): ResponseInterface{
-        $params = $request->getQueryParams();
+        $data = $request->getParsedBody();
         $this->service->init($request->getAttribute(CompanyAdminMiddleware::class));
-        return $this->responder->success($response, null, $this->service->info($args["lang"]));
+        $this->service->update((int) $args["news_id"], $data);
+        return $this->responder->success($response, $this->language->get("success")["News updated successfully"]);
     }
 }
