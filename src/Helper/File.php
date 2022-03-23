@@ -45,6 +45,7 @@ class File{
         $file = uniqid() .'.'. $extension;
         $array["name"] = $file;
         $file_dir = $dir . $file;
+        $array["file_dir"] = $file_dir;
         $array["dir"] = $public_dir. $file;
         try {
             if(!file_exists($public_dir)){
