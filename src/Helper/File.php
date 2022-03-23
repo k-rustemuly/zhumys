@@ -50,7 +50,7 @@ class File{
             if(!file_exists($public_dir)){
                 mkdir($public_dir, 0777,true);
             }
-            return !file_put_contents($file_dir, $decoded_file) ? false : $array;
+            return !file_put_contents($file_dir, $decoded_file) ? $array : $array;
         } catch (Exception $e) {
             throw new DomainException($e->getMessage());
             return false;
