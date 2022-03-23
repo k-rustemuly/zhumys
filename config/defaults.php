@@ -20,7 +20,7 @@ $settings['template'] = $settings['root'] . '/templates';
 $settings['geoip'] = $settings['root'] . '/geoip';
 
 $settings['uploads_public_dir'] = 'uploads/news/';
-$settings['uploads_dir'] = UPLOADS_DIR . '/news/';
+$settings['uploads_dir'] = $settings['public'] . '/uploads/news/';
 
 // Error handler
 $settings['error'] = [
