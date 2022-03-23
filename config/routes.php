@@ -219,6 +219,12 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/info', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Company\Info\ReadAction::class);
+
+                    });
+
                 })->add(\App\Middleware\CompanyAdminMiddleware::class);
 
             });
