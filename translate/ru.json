@@ -126,7 +126,8 @@
         "candidate_info": "О кандидате",
         "candidate_log_info": "Действии",
         "applicant_info": "О соискателя",
-        "applicant_log_info": "История"
+        "applicant_log_info": "История",
+        "company_profile_info": "Профайл компании"
     },
     "email": {
         "email_confirmation_subject": "Подтвердите электронный адрес",

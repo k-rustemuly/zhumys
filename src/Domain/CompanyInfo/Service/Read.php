@@ -47,8 +47,7 @@ final class Read extends Admin {
 
         return $this->render
                 ->lang($lang)
-                ->header(self::getHeader())
-                ->data($list)
+                ->block("company_profile_info", $this->getHeader($list))
                 ->build();
     }
 
@@ -58,16 +57,16 @@ final class Read extends Admin {
      * @param array<mixed> $header
      * 
      */
-    public static function getHeader() :array{
+    public static function getHeader(array $data) :array{
         return array(
-            "name_kk" => Field::getInstance()->init(new Text())->execute(),
-            "name_ru" => Field::getInstance()->init(new Text())->execute(),
-            "full_name_kk" => Field::getInstance()->init(new Text())->can_update(true)->execute(),
-            "full_name_ru" => Field::getInstance()->init(new Text())->can_update(true)->execute(),
-            "full_address_kk" => Field::getInstance()->init(new Text())->can_update(true)->execute(),
-            "full_address_ru" => Field::getInstance()->init(new Text())->can_update(true)->execute(),
-            "phone_number" => Field::getInstance()->init(new Text())->can_update(true)->execute(),
-            "director_fullname" => Field::getInstance()->init(new Text())->can_update(true)->execute(),
+            "name_kk" => Field::getInstance()->init(new Text())->value($data["name_kk"])->execute(),
+            "name_ru" => Field::getInstance()->init(new Text())->value($data["name_ru"])->execute(),
+            "full_name_kk" => Field::getInstance()->init(new Text())->can_update(true)->value($data["full_name_kk"])->execute(),
+            "full_name_ru" => Field::getInstance()->init(new Text())->can_update(true)->value($data["full_name_ru"])->execute(),
+            "full_address_kk" => Field::getInstance()->init(new Text())->can_update(true)->value($data["full_address_kk"])->execute(),
+            "full_address_ru" => Field::getInstance()->init(new Text())->can_update(true)->value($data["full_address_ru"])->execute(),
+            "phone_number" => Field::getInstance()->init(new Text())->can_update(true)->value($data["phone_number"])->execute(),
+            "director_fullname" => Field::getInstance()->init(new Text())->can_update(true)->value($data["director_fullname"])->execute(),
         );
     }
 }
