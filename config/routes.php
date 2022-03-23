@@ -199,6 +199,12 @@ return function (App $app) {
 
                     });
 
+                    $app->group('/waiting', function (RouteCollectorProxy $app) {
+
+                        $app->get('', \App\Action\Company\Waiting\ReadAction::class);
+
+                    });
+
                     $app->group('/employee', function (RouteCollectorProxy $app) {
 
                         $app->get('', \App\Action\Company\Employee\ReadAction::class);
