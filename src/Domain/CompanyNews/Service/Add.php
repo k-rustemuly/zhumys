@@ -18,13 +18,20 @@ final class Add extends Admin {
     private $readRepository;
 
     /**
+     * @var File
+     */
+    private $file;
+
+
+    /**
      * The constructor.
      * @param ReadRepository $readRepository
      *
      */
-    public function __construct(ReadRepository $readRepository) {
+    public function __construct(ReadRepository $readRepository, File $file) {
         $this->readRepository = $readRepository;
         $this->language = new Language();
+        $this->file = $file;
     }
 
     /**
