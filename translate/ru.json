@@ -51,7 +51,7 @@
         "admin_type_id": "Тип админстратора",
         "admin_full_name": "ФИО",
         "company_name": "Наименование компании",
-        "privilege_id": "Льгота",
+        "privilege_id": "Категория",
         "positions": "Позиция",
         "interview_comment": "Комментарии для собеседовании",
         "interview_time": "Время собеседовании",
