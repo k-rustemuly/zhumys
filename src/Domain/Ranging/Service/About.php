@@ -96,7 +96,9 @@ final class About extends Admin {
             "interview_date" => Field::getInstance()->init(new Date())->value($this->info["interview_date"])->execute(),
             "interview_time" => Field::getInstance()->init(new Time())->value($this->info["interview_time"])->execute(),
             "interview_comment" => Field::getInstance()->init(new Text())->value($this->info["interview_comment"])->execute(),
-            "reason" => Field::getInstance()->init(new Text())->value($this->info["reason"])->execute()
+            "reason" => Field::getInstance()->init(new Text())->value($this->info["reason"])->execute(),
+            "order_no" => Field::getInstance()->init(new Text())->value($this->info["order_no"])->execute(),
+            "order_date" => Field::getInstance()->init(new Date())->value($this->info["order_date"])->execute()
         );
     }
 
