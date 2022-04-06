@@ -189,7 +189,7 @@ final class Accept extends Admin {
             if($this->logCreateRepository->insert($log) == 0) {
                 throw new DomainException("Error to add interview");
             }
-            $rangingUpdated = $this->updateRepository->updateById($rangingId, array("status_id" => $this->status_id, "reason" => $reason)) > 0;
+            $rangingUpdated = $this->updateRepository->updateById($rangingId, array("status_id" => $this->status_id, "reason" => $reason, "order_no" => $order_no, "order_date" => $order_date)) > 0;
             if($rangingUpdated) {
                 if($this->applicantUpdateRepository->updateByIdAccept((int)$this->info["applicant_id"]) > 0) {
                     $this->freePlaceUpdateRepository->updateByBinAndId($this->getBin(), $freePlaceId, array("employed_count" => "+1"));

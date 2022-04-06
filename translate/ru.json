@@ -61,7 +61,9 @@
         "free_place_count": "Количество мест",
         "title": "Заголовок",
         "body" : "Текст",
-        "anons" : "Анонс"
+        "anons" : "Анонс",
+        "order_no" : "Номер приказа",
+        "order_date" : "Дата приказа"
     },
     "hint": {
         "profile_image": "Выберите изображения. Размер не более 1200х1200px. Разрешено добавлять .jpg, .jpeg, .png. Максимальный размер загружаемого файла - 10Мб",
@@ -115,7 +117,9 @@
         "free_place_count": "",
         "title": "",
         "body" : "",
-        "anons" : ""
+        "anons" : "",
+        "order_no" : "",
+        "order_date" : ""
     },
     "block": {
         "company_info": "О компании",

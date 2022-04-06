@@ -98,6 +98,8 @@ final class About {
             "reason" => Field::getInstance()->init(new Text())->value($this->info["reason"])->execute(),
             "id" => Field::getInstance()->init(new Number())->value($this->info["id"])->execute(),
             "raiting_number" => Field::getInstance()->init(new Number())->value($this->info["raiting_number"])->execute(),
+            "order_no" => Field::getInstance()->init(new Text())->value($this->info["order_no"])->execute(),
+            "order_date" => Field::getInstance()->init(new Date())->value($this->info["order_date"])->execute(),
         );
     }
 
