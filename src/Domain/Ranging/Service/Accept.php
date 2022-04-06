@@ -122,6 +122,8 @@ final class Accept extends Admin {
         $sign_p12 = $post["base64"]?:"";
         $password = $post["password"]?:"";
         $reason = $post["reason"]?:"";
+        $order_no = $post["order_no"]?:null;
+        $order_date = $post["order_date"]?:null;
         $certInfo = $this->pki->getCertificateInfo($sign_p12, $password, false);
         if($certInfo["iin"] != $this->getIin()) {
             throw new DomainException("The owner not does not match the certificate auth");
@@ -155,6 +157,12 @@ final class Accept extends Admin {
             "Reason" => [
                 "text" => $reason
             ],
+            "Order number" => [
+                "text" => $order_no
+            ],
+            "Order date" => [
+                "date" => $order_date
+            ],
             "Created date" => [
                 "datetime" => $this->info["created_at"]
             ],
@@ -185,7 +193,7 @@ final class Accept extends Admin {
             if($rangingUpdated) {
                 if($this->applicantUpdateRepository->updateByIdAccept((int)$this->info["applicant_id"]) > 0) {
                     $this->freePlaceUpdateRepository->updateByBinAndId($this->getBin(), $freePlaceId, array("employed_count" => "+1"));
-                    $this->companyEmployeeCreatorRepository->insert($this->mapToEmployeeData());
+                    $this->companyEmployeeCreatorRepository->insert($this->mapToEmployeeData($order_no, $order_date));
                 }
                 $this->checkRanging($freePlaceId, $sign_p12, $password, $certInfo["full_name"]);
             }
@@ -262,7 +270,7 @@ final class Accept extends Admin {
      * 
      * @param array<mixed>
      */
-    private function mapToEmployeeData() :array{
+    private function mapToEmployeeData(?string $order_no = null, ?string $order_date = null) :array{
         return array(
             "bin" => $this->getBin(),
             "ranging_id" => $this->info["id"],
@@ -277,7 +285,9 @@ final class Accept extends Admin {
             "phone_number" => $this->info["phone_number"],
             "address" => $this->info["address"],
             "second_phone_number" => $this->info["second_phone_number"],
-            "comment" => $this->info["comment"]
+            "comment" => $this->info["comment"],
+            "order_no" => $order_no,
+            "order_date" => $order_date
         );
     }
 }

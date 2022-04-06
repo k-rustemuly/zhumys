@@ -206,4 +206,14 @@ final class ApplicantReadRepository {
             }
         return $query->execute()->fetchAll("assoc") ?: [];
     }
+
+    /**
+     * Get last maximum of raiting number
+     * 
+     * @return int
+     */
+    public function getLastRaitingNumber() :int{
+        $result = $this->queryFactory->newSelect(self::$tableName)->select(["raiting_number"])->orderDesc("raiting_number")->limit(1)->execute()->fetch("assoc");
+        return $result ? $result["raiting_number"]: 0;
+    }
 }

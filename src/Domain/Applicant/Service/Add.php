@@ -78,6 +78,7 @@ final class Add extends Admin {
             throw new DomainException("The owner not does not match the certificate auth");
         }
         $data["positions"] = self::parsePosition($data["positions"]);
+        $data["raiting_number"] = $this->readRepository->getLastRaitingNumber()+1;
         $applicantId = $this->createRepository->insert($data);
         if($applicantId > 0) {
             $applicantInfo = $this->readRepository->findById($applicantId);
@@ -147,11 +148,11 @@ final class Add extends Admin {
                     "sign" => $signed_result["xml"]
                 );
                 if($this->logCreateRepository->insert($log) == 0) {
-                    //TODO: delete the inserted record applicant info!
+                    //TODO: [QAM-1] delete the inserted record applicant info!
                     throw new DomainException("Applicant not added");
                 }
             } else {
-                //TODO: delete the inserted record applicant info!
+                //TODO: [QAM-2] delete the inserted record applicant info!
                 throw new DomainException("Error to sign action");
             }
         } else {

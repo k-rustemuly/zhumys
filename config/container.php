@@ -24,6 +24,7 @@ use App\Helper\Authorization;
 use Slim\Views\Twig;
 use App\Helper\Pki;
 use App\Helper\StatGov;
+use App\Helper\Smsc;
 
 return [
     'settings' => function () {
@@ -45,11 +46,15 @@ return [
     //         'password'  => $_ENV['SMTP_PASSWORD'],  // SMTP Password
     //         'protocol'  => $_ENV['SMTP_PROTOCOL']   // SSL or TLS
     //     ]);
-
     //     // Set the details of the default sender
     //     $mailer->setDefaultFrom($_ENV['SMTP_USERNAME'], 'Электронная система EDUS');
     //     return $mailer;
     // },
+
+    Smsc::class => function (ContainerInterface $container) {
+        $s = $container->get('settings')["smsc"];
+        return new Smsc($s["login"], $s["password"], $s["is_post"], $s["is_https"], $s["charset"], $s["from"]);
+    },
 
     Pki::class => function (ContainerInterface $container) {
         $settings = $container->get('settings');

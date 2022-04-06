@@ -91,4 +91,13 @@ $settings['stat_gov'] = [
         "ru"
     ]
 ];
+
+$settings['smsc'] = [
+    "login" => "login",
+    "password" => "password",
+    "is_post" => false,
+    "is_https" => true,
+    "charset" => "utf-8",
+    "from" => "api@smsc.kz"
+];
 return $settings;
