@@ -51,7 +51,6 @@ final class Add extends Admin {
             if(!$image) throw new DomainException("File not saved");
             $to_insert["image"] = "/".$image["dir"];
         }
-        $to_insert["is_public"] = (bool) $data["is_public"];
         $to_insert["lang"] = $data["lang"];
         $to_insert["title"] = trim($data["title"]);
         $to_insert["anons"] = trim($data["anons"]);
