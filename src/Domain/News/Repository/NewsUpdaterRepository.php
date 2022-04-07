@@ -41,7 +41,7 @@ final class NewsUpdaterRepository{
     public function updateByBinAndId(string $bin, int $id, array $data): int{
         try
         {
-            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("bin" => $bin))->execute()->rowCount();
+            return (int) $this->queryFactory->newUpdate(self::$tableName, $data)->where(array("bin" => $bin, "id" => $id))->execute()->rowCount();
         }catch(PDOException $e){
             throw new DomainException("Error on update row");
         }
