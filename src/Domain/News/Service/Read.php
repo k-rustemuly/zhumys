@@ -10,6 +10,8 @@ use App\Helper\Fields\Text;
 use App\Helper\Fields\Reference;
 use App\Helper\Fields\Number;
 use App\Helper\Fields\DateTime;
+use App\Helper\Fields\Boolean;
+use App\Helper\Fields\Textarea;
 use App\Domain\Center\Admin;
 
 /**
@@ -48,15 +50,38 @@ final class Read extends Admin {
      */
     public function list(string $lang, array $params) :array{
 
-        $data = $this->readRepository->getAllByBinAndLang($this->getOrgBin(), $lang);
+        $limit = 0;
+        $orderAsc = array();
+        if(isset($params["orderAsc"])) {
+            $o = explode(',', $params["orderAsc"]);
+            foreach($o as $field) {
+                if(strlen($field)>0) {
+                    $orderAsc[] = $field;
+                }
+            }
+        }
+        $orderDesc = array();
+        if(isset($params["orderDesc"])) {
+            $o = explode(',', $params["orderDesc"]);
+            foreach($o as $field) {
+                if(strlen($field)>0) {
+                    $orderDesc[] = $field;
+                }
+            }
+        }
+        if(isset($params["limit"]) && $params["limit"] > 0) {
+            $limit = $params["limit"];
+        }
+        $list = $this->readRepository->search($lang, $this->getOrgBin(), $limit, $orderAsc, $orderDesc);
 
         return $this->render
                 ->lang($lang)
                 ->header(self::getHeader())
-                ->data($this->parseData($data))
+                ->data($this->parseData($list, $lang))
                 ->build();
     }
 
+    
     /**
      * Get header
      *
@@ -65,32 +90,32 @@ final class Read extends Admin {
      */
     public static function getHeader() :array{
         return array(
-            "id" => Field::getInstance()->init(new Number())->execute(),
-            "lang" => Field::getInstance()->init(new Reference())->reference_name("language")->reference_id("id")->can_create(true)->can_update(true)->is_visible(false)->execute(),
-            "image" => Field::getInstance()->init(new Image())->can_create(true)->can_update(true)->execute(),
-            "title" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->execute(),
+            "id" => Field::getInstance()->init(new Number())->is_visible(false)->execute(),
+            "title" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->execute(),
+            "lang" => Field::getInstance()->init(new Reference())->can_create(true)->can_update(true)->is_required(true)->reference_name("language")->reference_id("id")->execute(),
+            "is_public" => Field::getInstance()->init(new Boolean())->execute(),
             "created_at" => Field::getInstance()->init(new DateTime())->execute(),
+            "image" => Field::getInstance()->init(new Image())->can_create(true)->can_update(true)->execute(),
+            "anons" => Field::getInstance()->init(new Text())->can_create(true)->can_update(true)->is_required(true)->execute(),
+            "body" => Field::getInstance()->init(new Textarea())->can_create(true)->can_update(true)->is_required(true)->execute(),
         );
     }
 
     /**
-     * Parse data from db
-     *
-     * @param string $lang
-     * @param array<mixed> $data
+     * Parse data
      * 
-     * @return array<mixed> parsed data
+     * @param array $data
+     * @param string $lang
+     * 
+     * @return array<mixed>
      */
-    private function parseData(array $data) :array{
-        foreach($data as $i => $v) {
-            foreach($v as $key => $val) {
-                switch($key) {
-                    case "lang":
-                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["language_name"]);
-                        unset($data[$i]["language_name"]);
-                    break;
-                }
-            }
+    private function parseData(array $data, string $lang) :array{
+        $this->language->locale($lang);
+        foreach ($data as $i => $v) {
+            $data[$i]["image"] = $_ENV["API_URL"] . $v["image"];
+            $data[$i]["is_public"] = array("id" => $v["is_public"], "value" => $this->language->get("boolean")["is_public"][$v["is_public"]]);
+            $data[$i]["lang"] = array("id" => $v["lang"], "value" => $data[$i]["language_name"]);
+            unset($data[$i]["language_name"]);
         }
         return $data;
     }

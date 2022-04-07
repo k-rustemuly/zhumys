@@ -2,7 +2,7 @@
 
 namespace App\Domain\News\Service;
 
-use App\Domain\Company\Admin;
+use App\Domain\Center\Admin;
 use App\Domain\News\Repository\NewsCreaterRepository as CreateRepository;
 use DomainException;
 use App\Helper\Validator;
@@ -44,15 +44,18 @@ final class Add extends Admin {
      */
     public function add(array $post) {
         $data = $this->validator->setConfig(Read::getHeader())->validateOnCreate($post);
-        //return $data;
         $to_insert = array();
-        $to_insert["bin"] = $this->getBin();
+        $to_insert["bin"] = $this->getOrgBin();
         if(isset($data["image"])) {
-            return $this->file->save($data["image"]);
+            $image = $this->file->save($data["image"]);
+            if(!$image) throw new DomainException("File not saved");
+            $to_insert["image"] = "/".$image["dir"];
         }
-        // $id = $this->createRepository->insert($data);
-        // if($id == 0) {
-        //     throw new DomainException("Error to add free place");
-        // }
+        $to_insert["is_public"] = (bool) $data["is_public"];
+        $to_insert["lang"] = $data["lang"];
+        $to_insert["title"] = trim($data["title"]);
+        $to_insert["anons"] = trim($data["anons"]);
+        $to_insert["body"] = trim($data["body"]);
+        $this->createRepository->insert($to_insert);
     }
 }

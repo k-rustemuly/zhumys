@@ -139,6 +139,8 @@ return function (App $app) {
 
                         $app->post('', \App\Action\News\AddAction::class);
 
+                        $app->patch('/{news_id:[0-9]+}', \App\Action\News\UpdateAction::class);
+
                     });
 
                 })->add(\App\Middleware\CenterAdminMiddleware::class);

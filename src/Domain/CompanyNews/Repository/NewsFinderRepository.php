@@ -45,7 +45,7 @@ final class NewsFinderRepository {
         $query->select(["n.*", 
                         "l.name_".$lang." as language_name"])
             ->innerJoin(["l" => LanguageFinderRepository::$tableName], ["l.id = n.lang"])
-            ->where(["n.bin" => $bin]);
+            ->where(["n.bin" => $bin, "n.is_public" => 1]);
             foreach ($orderAsc as $field) {
                 $query->orderAsc("n.".$field);
             }
