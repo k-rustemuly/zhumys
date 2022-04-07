@@ -86,8 +86,8 @@ final class Read extends Admin {
             foreach($v as $key => $val) {
                 switch($key) {
                     case "lang":
-                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["lang_name"]);
-                        unset($data[$i]["lang_name"]);
+                        $data[$i][$key] = array("id" => $val, "value" => $data[$i]["language_name"]);
+                        unset($data[$i]["language_name"]);
                     break;
                 }
             }
