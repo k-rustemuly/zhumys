@@ -118,6 +118,8 @@ final class Read extends Admin {
         foreach ($data as $i => $v) {
             $data[$i]["image"] = $_ENV["API_URL"] . $v["image"];
             $data[$i]["is_public"] = array("id" => $v["is_public"], "value" => $this->language->get("boolean")["is_public"][$v["is_public"]]);
+            $data[$i]["lang"] = array("id" => $v["lang"], "value" => $data[$i]["language_name"]);
+            unset($data[$i]["language_name"]);
         }
         return $data;
     }
