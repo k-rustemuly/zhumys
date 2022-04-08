@@ -13,6 +13,7 @@ use App\Helper\Fields\DateTime;
 use App\Helper\Fields\Boolean;
 use App\Helper\Fields\Textarea;
 use App\Domain\Center\Admin;
+use App\Helper\Language;
 
 /**
  * Service.
@@ -29,6 +30,8 @@ final class Read extends Admin {
      */
     private $render;
 
+    private $language;
+
     /**
      * The constructor.
      * @param ReadRepository $readRepository
@@ -37,6 +40,7 @@ final class Read extends Admin {
     public function __construct(ReadRepository $readRepository) {
         $this->readRepository = $readRepository;
         $this->render = new Render();
+        $this->language = new Language();
     }
 
     /**
