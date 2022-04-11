@@ -24,6 +24,11 @@ final class Add extends Admin {
     private $validator;
 
     /**
+     * @var File
+     */
+    private $file;
+
+    /**
      * The constructor.
      * @param CreateRepository $createRepository
      * @param File $file

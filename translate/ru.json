@@ -200,7 +200,10 @@
         "Error to add free place log": "Ошибка при создание лога действия!",
         "Ranging status must be on interview": "Статус кандидата должен быть \"Проходить собеседование\"!",
         "Reference not added": "Ошибка при добавлении!",
-        "File not saved" : "Файл не сохранен!"
+        "File not saved" : "Файл не сохранен!",
+        "Applicant not archived": "Статус соискателя должен быть \"Безработный\"!",
+        "Applicant archive log not added" : "Лог об удаление соискателя не был записан!",
+        "Applicant archive not added" : "Архив соискателя не был записан!"
     },
     "success":{
         "Company success added": "Компания успешно добавлено в систему!",
