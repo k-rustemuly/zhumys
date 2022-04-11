@@ -83,6 +83,8 @@ return function (App $app) {
 
                             $app->get('', \App\Action\Applicant\ApplicantAboutAction::class);
 
+                            $app->post('/archive', \App\Action\Applicant\ApplicantArchiveAction::class);
+
                         });
 
                     });
@@ -248,6 +250,8 @@ return function (App $app) {
                 $app->get('/applicant-status', \App\Action\HandBook\ApplicantStatusReadAction::class);
 
                 $app->get('/language', \App\Action\HandBook\LanguageReadAction::class);
+
+                $app->get('/applicant-reason-type', \App\Action\HandBook\ApplicantReasonTypeReadAction::class);
 
             });
 

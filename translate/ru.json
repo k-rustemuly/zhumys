@@ -224,6 +224,7 @@
         "Privelege created successfully" : "Запись успешно создано!",
         "News success added": "Новость успешно создано",
         "News updated successfully" : "Запись успешно обновлена!",
-        "Company info updated successfully" : "Запись успешно обновлена!"
+        "Company info updated successfully" : "Запись успешно обновлена!",
+        "Applicant success archived" : "Соискатель успешно удален из очереди! "
     }
 }
