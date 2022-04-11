@@ -19,8 +19,8 @@ $settings['public'] = $settings['root'] . '/public';
 $settings['template'] = $settings['root'] . '/templates';
 $settings['geoip'] = $settings['root'] . '/geoip';
 
-$settings['uploads_public_dir'] = 'uploads/news/';
-$settings['uploads_dir'] = $settings['public'] . '/uploads/news/';
+$settings['uploads_public_dir'] = 'uploads/files/';
+$settings['uploads_dir'] = $settings['public'] . '/uploads/files/';
 
 // Error handler
 $settings['error'] = [
@@ -78,7 +78,7 @@ $settings['db'] = [
 $settings['redis'] = [
     'server' => 'tcp://127.0.0.1:6379',
     'options' => [
-        'prefix' => 'user_edus:'
+        'prefix' => 'zhumys_qamtu:'
     ],
 ];
 
