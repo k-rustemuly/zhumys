@@ -87,6 +87,7 @@ return function (App $app) {
 
                         });
 
+                        $app->get('/archive', \App\Action\Applicant\ArchiveReadAction::class);
                     });
 
                     $app->group('/free-place', function (RouteCollectorProxy $app) {
