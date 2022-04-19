@@ -16,6 +16,7 @@ use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
 use App\Domain\Position\Repository\PositionFinderRepository;
 use App\Domain\Applicant\Log\Repository\ApplicantLogFinderRepository;
+use App\Helper\Language;
 use DomainException;
 
 /**
@@ -49,6 +50,11 @@ final class ArchiveAbout {
     private $logReadRepository;
 
     /**
+     * @var Language
+     */
+    private $language;
+
+    /**
      * The constructor.
      * @param ApplicantArchiveReadRepository $readRepository
      * @param PositionFinderRepository $positionReadRepository
@@ -62,6 +68,7 @@ final class ArchiveAbout {
         $this->positionReadRepository = $positionReadRepository;
         $this->logReadRepository = $logReadRepository;
         $this->render = new Render();
+        $this->language = new Language();
     }
 
     /**
@@ -74,6 +81,7 @@ final class ArchiveAbout {
      * 
      */
     public function about(int $id, string $lang) :array{
+        $this->language->locale($lang);
         $this->info = $this->readRepository->findByIdAndLang($id, $lang);
         if(empty($this->info)) {
             throw new DomainException("Applicant not found");
@@ -139,7 +147,7 @@ final class ArchiveAbout {
         foreach ($data as $i => $v){
             $array[$i] = array(
                 "admin_full_name" => Field::getInstance()->init(new Text())->value($v["center_admin_full_name"])->execute(),
-                "action" => Field::getInstance()->init(new Text())->value($v["action"])->execute(),
+                "action" => Field::getInstance()->init(new Text())->value($this->language->get("action")[$v["action"]])->execute(),
                 "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
             );
         }
