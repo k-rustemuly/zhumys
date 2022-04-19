@@ -15,7 +15,7 @@ use App\Helper\Fields\Textarea;
 use App\Helper\Fields\Email;
 use App\Helper\Fields\Tag;
 use App\Domain\Position\Repository\PositionFinderRepository;
-use App\Domain\Ranging\Log\Repository\RangingLogReadRepository;
+use App\Domain\Applicant\Log\Repository\ApplicantLogFinderRepository;
 use DomainException;
 
 /**
@@ -44,7 +44,7 @@ final class ArchiveAbout {
     private $info;
 
     /**
-     * @var RangingLogReadRepository
+     * @var ApplicantLogFinderRepository
      */
     private $logReadRepository;
 
@@ -52,12 +52,12 @@ final class ArchiveAbout {
      * The constructor.
      * @param ApplicantArchiveReadRepository $readRepository
      * @param PositionFinderRepository $positionReadRepository
-     * @param RangingLogReadRepository $logReadRepository
+     * @param ApplicantLogFinderRepository $logReadRepository
      *
      */
     public function __construct(ApplicantArchiveReadRepository $readRepository,
                                 PositionFinderRepository $positionReadRepository,
-                                RangingLogReadRepository $logReadRepository) {
+                                ApplicantLogFinderRepository $logReadRepository) {
         $this->readRepository = $readRepository;
         $this->positionReadRepository = $positionReadRepository;
         $this->logReadRepository = $logReadRepository;
@@ -81,7 +81,7 @@ final class ArchiveAbout {
         return $this->render
                 ->lang($lang)
                 ->block("applicant_info", $this->getApplicantBlockValues($lang))
-                ->block("applicant_log_info", $this->getCandidateLogBlockValues($this->logReadRepository->getAllByApplicantIdAndLang($this->info["applicant_id"], $lang)))
+                ->block("applicant_log_info", $this->getCandidateLogBlockValues($this->logReadRepository->getByApplicantId($this->info["applicant_id"])))
                 ->build();
     }
 
@@ -138,10 +138,8 @@ final class ArchiveAbout {
         $array = array();
         foreach ($data as $i => $v){
             $array[$i] = array(
-                "status_id" => Field::getInstance()->init(new Reference())->reference_name("ranging-status")->reference_id("id")->value(array("id" => $v["status_id"], "value" => $v["status_name"], "color" => $v["status_color"]))->execute(),
-                "admin_full_name" => Field::getInstance()->init(new Text())->value($v["admin_full_name"])->execute(),
-                "company_name" => Field::getInstance()->init(new Text())->value($v["company_name"])->execute(),
-                "reason" => Field::getInstance()->init(new Text())->value($v["reason"])->execute(),
+                "admin_full_name" => Field::getInstance()->init(new Text())->value($v["center_admin_full_name"])->execute(),
+                "action" => Field::getInstance()->init(new Text())->value($v["action"])->execute(),
                 "created_at" => Field::getInstance()->init(new DateTime())->value($v["created_at"])->execute(),
             );
         }
