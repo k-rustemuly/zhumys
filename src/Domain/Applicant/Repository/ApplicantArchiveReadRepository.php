@@ -44,7 +44,6 @@ final class ApplicantArchiveReadRepository {
     public function getAllBySearch(string $lang, int $privilege_id = 0): array{
         $query = $this->queryFactory->newSelect(["a" => self::$tableName]);
         $query->select(["a.*",
-                        "c.name_".$lang." as company_name",
                         "p.name_".$lang." as privilege_name",
                         "s.name_".$lang." as status_name",
                         "s.color as status_color"])
