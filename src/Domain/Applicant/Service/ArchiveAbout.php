@@ -81,7 +81,7 @@ final class ArchiveAbout {
         return $this->render
                 ->lang($lang)
                 ->block("applicant_info", $this->getApplicantBlockValues($lang))
-                //->block("applicant_log_info", $this->getCandidateLogBlockValues($this->logReadRepository->getAllByApplicantIdAndLang($id, $lang)))
+                ->block("applicant_log_info", $this->getCandidateLogBlockValues($this->logReadRepository->getAllByApplicantIdAndLang($this->info["applicant_id"], $lang)))
                 ->build();
     }
 
