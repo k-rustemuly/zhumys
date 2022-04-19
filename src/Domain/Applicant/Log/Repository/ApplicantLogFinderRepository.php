@@ -8,7 +8,7 @@ use PDOException;
 /**
  * Repository.
  */
-final class ApplicantLogFinderRepository {
+final class ApplicantLogFinderRepository{
     /**
      * @var string
      */
@@ -40,6 +40,6 @@ final class ApplicantLogFinderRepository {
         $query = $this->queryFactory->newSelect(["l" => self::$tableName]);
         $query->select(["l.*"])
             ->where(["l.applicant_id" => $id])->orderAsc("l.created_at");
-        return $query->execute()->fetch("assoc") ?: [];
+        return $query->execute()->fetchAll("assoc") ?: [];
     }
 }
